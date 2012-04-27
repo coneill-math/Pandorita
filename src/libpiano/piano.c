@@ -262,6 +262,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 					break;
 
 				case 1: {
+					char *urlencAuthToken;
+
 					req->secure = true;
 
 					json_object_object_add(j, "loginType", json_object_new_string("user"));
@@ -270,8 +272,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 					json_object_object_add(j, "partnerAuthToken", json_object_new_string(ph->partnerAuthToken));
 					json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
+					urlencAuthToken = WaitressUrlEncode (ph->partnerAuthToken);
+					assert (urlencAuthToken != NULL);
 					snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-							"method=auth.userLogin&auth_token=%s&partner_id=%i", ph->partnerAuthToken, ph->partnerId);
+							"method=auth.userLogin&auth_token=%s&partner_id=%i", urlencAuthToken, ph->partnerId);
+					free (urlencAuthToken);
 
 					break;
 				}
@@ -279,20 +284,27 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
-		case PIANO_REQUEST_GET_STATIONS:
+		case PIANO_REQUEST_GET_STATIONS: {
+			char *urlencAuthToken;
+
 			/* get stations, user must be authenticated */
 			assert (ph->user.listenerId != NULL);
 
 			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
 			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"method=user.getStationList&auth_token=%s&partner_id=%i&user_id=%s", ph->user.authToken, ph->partnerId, ph->user.listenerId);
+					"method=user.getStationList&auth_token=%s&partner_id=%i&user_id=%s", urlencAuthToken, ph->partnerId, ph->user.listenerId);
+			free (urlencAuthToken);
 			break;
+		}
 
 		case PIANO_REQUEST_GET_PLAYLIST: {
 			/* get playlist for specified station */
 			PianoRequestDataGetPlaylist_t *reqData = req->data;
+			char *urlencAuthToken;
 
 			assert (reqData != NULL);
 			assert (reqData->station != NULL);
@@ -305,8 +317,10 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
 			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"method=station.getPlaylist&auth_token=%s&partner_id=%i&user_id=%s", ph->user.authToken, ph->partnerId, ph->user.listenerId);
+					"method=station.getPlaylist&auth_token=%s&partner_id=%i&user_id=%s", urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -852,7 +866,7 @@ static char *PianoJsonStrdup (json_object *j, const char *key) {
  *			string)
  */
 PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
-	PianoReturn_t ret = PIANO_RET_ERR;
+	PianoReturn_t ret = PIANO_RET_OK;
 	json_object *j, *result;
 
 	assert (ph != NULL);
@@ -878,6 +892,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					char *decryptedTimestamp = NULL;
 					size_t decryptedSize;
 
+					ret = PIANO_RET_ERR;
 					if ((decryptedTimestamp = PianoDecryptString (cryptedTimestamp,
 							&decryptedSize)) != NULL && decryptedSize > 4) {
 						/* skip four bytes garbage(?) at beginning */
@@ -901,7 +916,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					}
 					ph->user.listenerId = PianoJsonStrdup (result, "userId");
 					ph->user.authToken = PianoJsonStrdup (result, "userAuthToken");
-					ret = PIANO_RET_OK;
 					break;
 			}
 			break;
@@ -955,9 +969,8 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			assert (req->responseData != NULL);
 			assert (reqData != NULL);
 
-			reqData->retPlaylist = NULL;
-			
-			json_object *items = json_object_object_get (result, "stations");
+			json_object *items = json_object_object_get (result, "items");
+			assert (items != NULL);
 
 			for (size_t i=0; i < json_object_array_length (items); i++) {
 				json_object *s = json_object_array_get_idx (items, i);
@@ -967,11 +980,16 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					return PIANO_RET_OUT_OF_MEMORY;
 				}
 
+				if (json_object_object_get (s, "artistName") == NULL) {
+					free (song);
+					continue;
+				}
 				song->audioUrl = strdup (json_object_get_string (json_object_object_get (json_object_object_get(json_object_object_get (s, "audioUrlMap"), "highQuality"), "audioUrl")));
 				song->artist = PianoJsonStrdup (s, "artistName");
 				song->album = PianoJsonStrdup (s, "albumName");
 				song->title = PianoJsonStrdup (s, "songName");
 				song->fileGain = json_object_get_double (json_object_object_get (s, "trackGain"));
+				song->audioFormat = PIANO_AF_AACPLUS;
 				switch (json_object_get_int (json_object_object_get (s, "songRating"))) {
 					case 1:
 						song->rating = PIANO_RATE_LOVE;
@@ -989,6 +1007,8 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					curSong->next = song;
 				}
 			}
+
+			reqData->retPlaylist = playlist;
 			break;
 		}
 
