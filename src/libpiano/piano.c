@@ -32,6 +32,7 @@ THE SOFTWARE.
 #include <time.h>
 #include <assert.h>
 #include <stdint.h>
+#include <json.h>
 
 /* needed for urlencode */
 #include <waitress.h>
@@ -42,10 +43,7 @@ THE SOFTWARE.
 #include "crypt.h"
 #include "config.h"
 
-#define PIANO_PROTOCOL_VERSION "33"
-#define PIANO_RPC_HOST "www.pandora.com"
-#define PIANO_RPC_PORT "80"
-#define PIANO_RPC_PATH "/radio/xmlrpc/v" PIANO_PROTOCOL_VERSION "?"
+#define PIANO_RPC_PATH "/services/json/?"
 #define PIANO_SEND_BUFFER_SIZE 10000
 
 /*	initialize piano handle
@@ -229,8 +227,11 @@ static const char *PianoAudioFormatToString (PianoAudioFormat_t format) {
 PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		PianoRequestType_t type) {
 	char xmlSendBuf[PIANO_SEND_BUFFER_SIZE];
+	char *jsonSendBuf;
+	json_object *j = json_object_new_object();
 	/* corrected timestamp */
 	time_t timestamp = time (NULL) - ph->timeOffset;
+	bool encrypted = true;
 
 	assert (ph != NULL);
 	assert (req != NULL);
@@ -248,46 +249,30 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			switch (logindata->step) {
 				case 0:
-					snprintf (xmlSendBuf, sizeof (xmlSendBuf), 
-							"<?xml version=\"1.0\"?><methodCall>"
-							"<methodName>misc.sync</methodName>"
-							"<params></params></methodCall>");
+					encrypted = false;
+					req->secure = true;
+
+					json_object_object_add(j, "username", json_object_new_string("palm"));
+					json_object_object_add(j, "password", json_object_new_string("IUC7IBG09A3JTSYM4N11UJWL07VLH8JP0"));
+					json_object_object_add(j, "deviceModel", json_object_new_string("pre"));
+					json_object_object_add(j, "version", json_object_new_string("5"));
+					json_object_object_add(j, "includeUrls", json_object_new_boolean(true));
 					snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-							"rid=%s&method=sync", ph->routeId);
+							"method=auth.partnerLogin");
 					break;
 
 				case 1: {
-					char *xmlencodedPassword = NULL;
-
 					req->secure = true;
 
-					/* username == email address does not contain &,<,>," */
-					if ((xmlencodedPassword =
-							PianoXmlEncodeString (logindata->password)) ==
-							NULL) {
-						return PIANO_RET_OUT_OF_MEMORY;
-					}
+					json_object_object_add(j, "loginType", json_object_new_string("user"));
+					json_object_object_add(j, "username", json_object_new_string(logindata->user));
+					json_object_object_add(j, "password", json_object_new_string(logindata->password));
+					json_object_object_add(j, "partnerAuthToken", json_object_new_string(ph->partnerAuthToken));
+					json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
-					snprintf (xmlSendBuf, sizeof (xmlSendBuf), 
-							"<?xml version=\"1.0\"?><methodCall>"
-							"<methodName>listener.authenticateListener</methodName>"
-							"<params><param><value><int>%lu</int></value></param>"
-							/* user */
-							"<param><value><string>%s</string></value></param>"
-							/* password */
-							"<param><value><string>%s</string></value></param>"
-							/* vendor */
-							"<param><value><string>html5tuner</string></value></param>"
-							"<param><value><string/></value></param>"
-							"<param><value><string/></value></param>"
-							"<param><value><string>HTML5</string></value></param>"
-							"<param><value><boolean>1</boolean></value></param>"
-							"</params></methodCall>", (unsigned long) timestamp,
-							logindata->user, xmlencodedPassword);
 					snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-							"rid=%s&method=authenticateListener", ph->routeId);
+							"method=auth.userLogin&auth_token=%s&partner_id=%i", ph->partnerAuthToken, ph->partnerId);
 
-					free (xmlencodedPassword);
 					break;
 				}
 			}
@@ -298,15 +283,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			/* get stations, user must be authenticated */
 			assert (ph->user.listenerId != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.getStations</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken);
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=getStations", ph->routeId,
-					ph->user.listenerId);
+					"method=user.getStationList&auth_token=%s&partner_id=%i&user_id=%s", ph->user.authToken, ph->partnerId, ph->user.listenerId);
 			break;
 
 		case PIANO_REQUEST_GET_PLAYLIST: {
@@ -866,11 +847,22 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		}
 	}
 
-	if ((req->postData = PianoEncryptString (xmlSendBuf)) == NULL) {
-		return PIANO_RET_OUT_OF_MEMORY;
+	jsonSendBuf = json_object_to_json_string (j);
+	if (encrypted) {
+		fprintf (stderr, "sending json: %s\n", jsonSendBuf);
+		if ((req->postData = PianoEncryptString (jsonSendBuf)) == NULL) {
+			return PIANO_RET_OUT_OF_MEMORY;
+		}
+	} else {
+		fprintf (stderr, "sending unencrypted json: %s\n", jsonSendBuf);
+		req->postData = jsonSendBuf;
 	}
 
 	return PIANO_RET_OK;
+}
+
+static char *PianoJsonStrdup (json_object *j, const char *key) {
+	return strdup (json_object_get_string (json_object_object_get (j, key)));
 }
 
 /*	parse xml response and update data structures/return new data structure
@@ -880,9 +872,13 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
  */
 PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 	PianoReturn_t ret = PIANO_RET_ERR;
+	json_object *j, *result;
 
 	assert (ph != NULL);
 	assert (req != NULL);
+
+	j = json_tokener_parse (req->responseData);
+	result = json_object_object_get (j, "result");
 
 	switch (req->type) {
 		case PIANO_REQUEST_LOGIN: {
@@ -894,29 +890,24 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 			switch (reqData->step) {
 				case 0: {
-					char *cryptedTimestamp = NULL;
+					/* decrypt timestamp */
+					const char *cryptedTimestamp = json_object_get_string (json_object_object_get (result, "syncTime"));
+					unsigned long timestamp = 0;
+					const time_t realTimestamp = time (NULL);
+					char *decryptedTimestamp = NULL;
+					size_t decryptedSize;
 
-					assert (req->responseData != NULL);
-
-					/* abusing parseNarrative; has same xml structure */
-					ret = PianoXmlParseNarrative (req->responseData, &cryptedTimestamp);
-					if (ret == PIANO_RET_OK && cryptedTimestamp != NULL) {
-						unsigned long timestamp = 0;
-						const time_t realTimestamp = time (NULL);
-						char *decryptedTimestamp = NULL;
-						size_t decryptedSize;
-
-						ret = PIANO_RET_ERR;
-						if ((decryptedTimestamp = PianoDecryptString (cryptedTimestamp,
-								&decryptedSize)) != NULL && decryptedSize > 4) {
-							/* skip four bytes garbage(?) at beginning */
-							timestamp = strtoul (decryptedTimestamp+4, NULL, 0);
-							ph->timeOffset = realTimestamp - timestamp;
-							ret = PIANO_RET_CONTINUE_REQUEST;
-						}
-						free (decryptedTimestamp);
+					if ((decryptedTimestamp = PianoDecryptString (cryptedTimestamp,
+							&decryptedSize)) != NULL && decryptedSize > 4) {
+						/* skip four bytes garbage(?) at beginning */
+						timestamp = strtoul (decryptedTimestamp+4, NULL, 0);
+						ph->timeOffset = realTimestamp - timestamp;
+						ret = PIANO_RET_CONTINUE_REQUEST;
 					}
-					free (cryptedTimestamp);
+					free (decryptedTimestamp);
+					/* get auth token */
+					ph->partnerAuthToken = PianoJsonStrdup (result, "partnerAuthToken");
+					ph->partnerId = json_object_get_int (json_object_object_get (result, "partnerId"));
 					++reqData->step;
 					break;
 				}
@@ -927,18 +918,53 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					if (ph->user.listenerId != NULL) {
 						PianoDestroyUserInfo (&ph->user);
 					}
-					ret = PianoXmlParseUserinfo (ph, req->responseData);
+					ph->user.listenerId = PianoJsonStrdup (result, "userId");
+					ph->user.authToken = PianoJsonStrdup (result, "userAuthToken");
+					ret = PIANO_RET_OK;
 					break;
 			}
 			break;
 		}
 
-		case PIANO_REQUEST_GET_STATIONS:
+		case PIANO_REQUEST_GET_STATIONS: {
 			/* get stations */
 			assert (req->responseData != NULL);
+
+			json_object *stations = json_object_object_get (result, "stations");
+
+			for (size_t i=0; i < json_object_array_length (stations); i++) {
+				PianoStation_t *tmpStation;
+				json_object *s = json_object_array_get_idx (stations, i);
+
+				if ((tmpStation = calloc (1, sizeof (*tmpStation))) == NULL) {
+					return PIANO_RET_OUT_OF_MEMORY;
+				}
+
+				tmpStation->name = PianoJsonStrdup (s, "stationName");
+				tmpStation->id = PianoJsonStrdup (s, "stationId");
+				tmpStation->isCreator = true;
+				tmpStation->isQuickMix = json_object_get_boolean (json_object_object_get (s, "isQuickMix"));
+
+				/* get stations selected for quickmix */
+				if (tmpStation->isQuickMix) {
+					/*PianoXmlStructParser (ezxml_child (dataNode, "struct"),
+							PianoXmlParseQuickMixStationsCb, &quickMixIds);*/
+				}
+				/* start new linked list or append */
+				if (ph->stations == NULL) {
+					ph->stations = tmpStation;
+				} else {
+					PianoStation_t *curStation = ph->stations;
+					while (curStation->next != NULL) {
+						curStation = curStation->next;
+					}
+					curStation->next = tmpStation;
+				}
+			}
 			
 			ret = PianoXmlParseStations (ph, req->responseData);
 			break;
+		}
 
 		case PIANO_REQUEST_GET_PLAYLIST: {
 			/* get playlist, usually four songs */

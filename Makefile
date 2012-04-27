@@ -88,19 +88,27 @@ endif
 LIBGNUTLS_CFLAGS=
 LIBGNUTLS_LDFLAGS=-lgnutls
 
+LIBGCRYPT_CFLAGS=
+LIBGCRYPT_LDFLAGS=-lgcrypt
+
+LIBJSONC_CFLAGS=$(shell pkg-config --cflags json)
+LIBJSONC_LDFLAGS=$(shell pkg-config --libs json)
+
 # build pianobar
 ifeq (${DYNLINK},1)
 pianobar: ${PIANOBAR_OBJ} ${PIANOBAR_HDR} libpiano.so.0
 	@echo "  LINK  $@"
 	@${CC} -o $@ ${PIANOBAR_OBJ} ${LDFLAGS} -lao -lpthread -lm -L. -lpiano \
-			${LIBFAAD_LDFLAGS} ${LIBMAD_LDFLAGS} ${LIBGNUTLS_LDFLAGS}
+			${LIBFAAD_LDFLAGS} ${LIBMAD_LDFLAGS} ${LIBGNUTLS_LDFLAGS} \
+			${LIBGCRYPT_LDFLAGS} ${LIBJSONC_LDFLAGS}
 else
 pianobar: ${PIANOBAR_OBJ} ${PIANOBAR_HDR} ${LIBPIANO_OBJ} ${LIBWAITRESS_OBJ} \
 		${LIBWAITRESS_HDR} ${LIBEZXML_OBJ} ${LIBEZXML_HDR}
 	@echo "  LINK  $@"
 	@${CC} ${CFLAGS} ${LDFLAGS} ${PIANOBAR_OBJ} ${LIBPIANO_OBJ} \
 			${LIBWAITRESS_OBJ} ${LIBEZXML_OBJ} -lao -lpthread -lm \
-			${LIBFAAD_LDFLAGS} ${LIBMAD_LDFLAGS} ${LIBGNUTLS_LDFLAGS} -o $@
+			${LIBFAAD_LDFLAGS} ${LIBMAD_LDFLAGS} ${LIBGNUTLS_LDFLAGS} \
+			${LIBGCRYPT_LDFLAGS} ${LIBJSONC_LDFLAGS} -o $@
 endif
 
 # build shared and static libpiano
@@ -108,7 +116,8 @@ libpiano.so.0: ${LIBPIANO_RELOBJ} ${LIBPIANO_HDR} ${LIBWAITRESS_RELOBJ} \
 		${LIBWAITRESS_HDR} ${LIBEZXML_RELOBJ} ${LIBEZXML_HDR} \
 		${LIBPIANO_OBJ} ${LIBWAITRESS_OBJ} ${LIBEZXML_OBJ}
 	@echo "  LINK  $@"
-	@${CC} -shared -Wl,-soname,libpiano.so.0 ${CFLAGS} ${LDFLAGS} ${LIBGNUTLS_LDFLAGS} \
+	@${CC} -shared -Wl,-soname,libpiano.so.0 ${CFLAGS} ${LDFLAGS} \
+			${LIBGNUTLS_LDFLAGS} ${LIBGCRYPT_LDFLAGS} \
 			-o libpiano.so.0.0.0 ${LIBPIANO_RELOBJ} \
 			${LIBWAITRESS_RELOBJ} ${LIBEZXML_RELOBJ}
 	@ln -s libpiano.so.0.0.0 libpiano.so.0
@@ -120,7 +129,7 @@ libpiano.so.0: ${LIBPIANO_RELOBJ} ${LIBPIANO_HDR} ${LIBWAITRESS_RELOBJ} \
 	@echo "    CC  $<"
 	@${CC} ${CFLAGS} -I ${LIBPIANO_INCLUDE} -I ${LIBWAITRESS_INCLUDE} \
 			-I ${LIBEZXML_INCLUDE} ${LIBFAAD_CFLAGS} \
-			${LIBMAD_CFLAGS} ${LIBGNUTLS_CFLAGS} -c -o $@ $<
+			${LIBMAD_CFLAGS} ${LIBGNUTLS_CFLAGS} ${LIBJSONC_CFLAGS} -c -o $@ $<
 
 # create position independent code (for shared libraries)
 %.lo: %.c

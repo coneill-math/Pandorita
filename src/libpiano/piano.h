@@ -31,8 +31,7 @@ THE SOFTWARE.
  * all strings _must_ be utf-8 encoded. i won't care, but pandora does. so
  * be nice and check the encoding of your strings. thanks :) */
 
-#define PIANO_RPC_HOST "www.pandora.com"
-#define PIANO_RPC_PORT "80"
+#define PIANO_RPC_HOST "tuner.pandora.com"
 
 typedef struct PianoUserInfo {
 	char *webAuthToken;
@@ -112,6 +111,8 @@ typedef struct PianoHandle {
 	PianoStation_t *stations;
 	PianoGenreCategory_t *genreStations;
 	int timeOffset;
+	char *partnerAuthToken;
+	unsigned int partnerId;
 } PianoHandle_t;
 
 typedef struct PianoSearchResult {
