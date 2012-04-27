@@ -299,33 +299,14 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->station->id != NULL);
 			assert (reqData->format != PIANO_AF_UNKNOWN);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>playlist.getFragment</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					/* total listening time */
-					"<param><value><string>0</string></value></param>"
-					/* time since last session */
-					"<param><value><string></string></value></param>"
-					/* tracking code */
-					"<param><value><string></string></value></param>"
-					/* audio format */
-					"<param><value><string>%s</string></value></param>"
-					/* delta listening time */
-					"<param><value><string>0</string></value></param>"
-					/* listening timestamp */
-					"<param><value><string>0</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->station->id,
-					PianoAudioFormatToString (reqData->format));
+			req->secure = true;
+
+			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=getFragment&arg1=%s&arg2=0"
-					"&arg3=&arg4=&arg5=%s&arg6=0&arg7=0", ph->routeId,
-					ph->user.listenerId, reqData->station->id,
-					PianoAudioFormatToString (reqData->format));
+					"method=station.getPlaylist&auth_token=%s&partner_id=%i&user_id=%s", ph->user.authToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -941,7 +922,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 				}
 
 				tmpStation->name = PianoJsonStrdup (s, "stationName");
-				tmpStation->id = PianoJsonStrdup (s, "stationId");
+				tmpStation->id = PianoJsonStrdup (s, "stationToken");
 				tmpStation->isCreator = true;
 				tmpStation->isQuickMix = json_object_get_boolean (json_object_object_get (s, "isQuickMix"));
 
@@ -969,13 +950,45 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_GET_PLAYLIST: {
 			/* get playlist, usually four songs */
 			PianoRequestDataGetPlaylist_t *reqData = req->data;
+			PianoSong_t *playlist = NULL;
 
 			assert (req->responseData != NULL);
 			assert (reqData != NULL);
 
 			reqData->retPlaylist = NULL;
-			ret = PianoXmlParsePlaylist (ph, req->responseData,
-					&reqData->retPlaylist);
+			
+			json_object *items = json_object_object_get (result, "stations");
+
+			for (size_t i=0; i < json_object_array_length (items); i++) {
+				json_object *s = json_object_array_get_idx (items, i);
+				PianoSong_t *song;
+
+				if ((song = calloc (1, sizeof (*song))) == NULL) {
+					return PIANO_RET_OUT_OF_MEMORY;
+				}
+
+				song->audioUrl = strdup (json_object_get_string (json_object_object_get (json_object_object_get(json_object_object_get (s, "audioUrlMap"), "highQuality"), "audioUrl")));
+				song->artist = PianoJsonStrdup (s, "artistName");
+				song->album = PianoJsonStrdup (s, "albumName");
+				song->title = PianoJsonStrdup (s, "songName");
+				song->fileGain = json_object_get_double (json_object_object_get (s, "trackGain"));
+				switch (json_object_get_int (json_object_object_get (s, "songRating"))) {
+					case 1:
+						song->rating = PIANO_RATE_LOVE;
+						break;
+				}
+
+				/* begin linked list or append */
+				if (playlist == NULL) {
+					playlist = song;
+				} else {
+					PianoSong_t *curSong = playlist;
+					while (curSong->next != NULL) {
+						curSong = curSong->next;
+					}
+					curSong->next = song;
+				}
+			}
 			break;
 		}
 
