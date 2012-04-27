@@ -55,7 +55,7 @@ char *PianoDecryptString (const char * const input, size_t * const retSize) {
 
 	gcry_cipher_hd_t h;
 	gcry_cipher_open (&h, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey (h, (unsigned char *) "E#U$MY$O2B=", 11);
+	gcry_cipher_setkey (h, (unsigned char *) "R=U!LH$O2B#", 11);
 	gret = gcry_cipher_decrypt (h, output, outputLen, NULL, 0);
 	if (gret) {
 		fprintf (stderr, "Failure: %s/%s\n", gcry_strsource (gret), gcry_strerror (gret));
@@ -84,7 +84,7 @@ char *PianoEncryptString (const char *s) {
 
 	gcry_cipher_hd_t h;
 	gcry_cipher_open (&h, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey (h, (unsigned char *) "%526CBL$ZU3", 11);
+	gcry_cipher_setkey (h, (unsigned char *) "6#26FRL$ZWD", 11);
 	gret = gcry_cipher_encrypt (h, paddedInput, paddedInputLen, NULL, 0);
 	if (gret) {
 		fprintf (stderr, "Failure: %s/%s\n", gcry_strsource (gret), gcry_strerror (gret));

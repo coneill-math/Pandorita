@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2011
+Copyright (c) 2008-2012
 	Lars-Dominik Braun <lars@6xq.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -252,9 +252,9 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 					encrypted = false;
 					req->secure = true;
 
-					json_object_object_add(j, "username", json_object_new_string("palm"));
-					json_object_object_add(j, "password", json_object_new_string("IUC7IBG09A3JTSYM4N11UJWL07VLH8JP0"));
-					json_object_object_add(j, "deviceModel", json_object_new_string("pre"));
+					json_object_object_add(j, "username", json_object_new_string("android"));
+					json_object_object_add(j, "password", json_object_new_string("AC7IBG09A3DTSYM4R41UJWL07VLN8JI7"));
+					json_object_object_add(j, "deviceModel", json_object_new_string("android-generic"));
 					json_object_object_add(j, "version", json_object_new_string("5"));
 					json_object_object_add(j, "includeUrls", json_object_new_boolean(true));
 					snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
