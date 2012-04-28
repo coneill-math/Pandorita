@@ -370,31 +370,20 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_SEARCH: {
 			/* search for artist/song title */
 			PianoRequestDataSearch_t *reqData = req->data;
-			char *xmlencodedSearchStr, *urlencodedSearchStr;
+			char *urlencAuthToken;
 
 			assert (reqData != NULL);
 			assert (reqData->searchStr != NULL);
 
-			if ((xmlencodedSearchStr = PianoXmlEncodeString (reqData->searchStr)) == NULL) {
-				return PIANO_RET_OUT_OF_MEMORY;
-			}
-			urlencodedSearchStr = WaitressUrlEncode (reqData->searchStr);
+			json_object_object_add(j, "searchText", json_object_new_string(reqData->searchStr));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>music.search</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* search string */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, xmlencodedSearchStr);
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=search&arg1=%s", ph->routeId,
-					ph->user.listenerId, urlencodedSearchStr);
-
-			free (urlencodedSearchStr);
-			free (xmlencodedSearchStr);
+					"method=music.search&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -1023,11 +1012,68 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_SEARCH: {
 			/* search artist/song */
 			PianoRequestDataSearch_t *reqData = req->data;
+			PianoSearchResult_t *searchResult;
 
 			assert (req->responseData != NULL);
 			assert (reqData != NULL);
 
-			ret = PianoXmlParseSearch (req->responseData, &reqData->searchResult);
+			searchResult = &reqData->searchResult;
+			memset (searchResult, 0, sizeof (*searchResult));
+
+			/* get artists */
+			json_object *artists = json_object_object_get (result, "artists");
+			if (artists != NULL) {
+				for (size_t i=0; i < json_object_array_length (artists); i++) {
+					json_object *a = json_object_array_get_idx (artists, i);
+					PianoArtist_t *artist;
+
+					if ((artist = calloc (1, sizeof (*artist))) == NULL) {
+						return PIANO_RET_OUT_OF_MEMORY;
+					}
+
+					artist->name = PianoJsonStrdup (a, "artistName");
+					artist->musicId = PianoJsonStrdup (a, "musicToken");
+
+					/* add result to linked list */
+					if (searchResult->artists == NULL) {
+						searchResult->artists = artist;
+					} else {
+						PianoArtist_t *curArtist = searchResult->artists;
+						while (curArtist->next != NULL) {
+							curArtist = curArtist->next;
+						}
+						curArtist->next = artist;
+					}
+				}
+			}
+
+			/* get songs */
+			json_object *songs = json_object_object_get (result, "songs");
+			if (songs != NULL) {
+				for (size_t i=0; i < json_object_array_length (songs); i++) {
+					json_object *s = json_object_array_get_idx (songs, i);
+					PianoSong_t *song;
+
+					if ((song = calloc (1, sizeof (*song))) == NULL) {
+						return PIANO_RET_OUT_OF_MEMORY;
+					}
+
+					song->title = PianoJsonStrdup (s, "songName");
+					song->artist = PianoJsonStrdup (s, "artistName");
+					song->musicId = PianoJsonStrdup (s, "musicToken");
+
+					/* add result to linked list */
+					if (searchResult->songs == NULL) {
+						searchResult->songs = song;
+					} else {
+						PianoSong_t *curSong = searchResult->songs;
+						while (curSong->next != NULL) {
+							curSong = curSong->next;
+						}
+						curSong->next = song;
+					}
+				}
+			}
 			break;
 		}
 
