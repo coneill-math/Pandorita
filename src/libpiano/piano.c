@@ -437,26 +437,20 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_EXPLAIN: {
 			/* explain why particular song was played */
 			PianoRequestDataExplain_t *reqData = req->data;
+			char *urlencAuthToken;
 
 			assert (reqData != NULL);
 			assert (reqData->song != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>playlist.narrative</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					/* music id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->song->stationId,
-					reqData->song->musicId);
+			json_object_object_add(j, "trackToken", json_object_new_string(reqData->song->trackToken));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=narrative&arg1=%s&arg2=%s",
-					ph->routeId, ph->user.listenerId, reqData->song->stationId,
-					reqData->song->musicId);
+					"method=track.explainTrack&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -908,11 +902,34 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_EXPLAIN: {
 			/* explain why song was selected */
 			PianoRequestDataExplain_t *reqData = req->data;
+			const size_t strSize = 1024;
+			size_t pos = 0;
 
-			assert (req->responseData != NULL);
 			assert (reqData != NULL);
 
-			ret = PianoXmlParseNarrative (req->responseData, &reqData->retExplain);
+			json_object *explanations = json_object_object_get (result, "explanations");
+			if (explanations != NULL) {
+				reqData->retExplain = malloc (strSize * sizeof (*reqData->retExplain));
+				strncpy (reqData->retExplain, "We're playing this track because it features ", strSize);
+				pos = strlen (reqData->retExplain);
+				for (size_t i=0; i < json_object_array_length (explanations); i++) {
+					json_object *e = json_object_array_get_idx (explanations, i);
+					const char *s = json_object_get_string (json_object_object_get (e, "focusTraitName"));
+
+					strncpy (&reqData->retExplain[pos], s, strSize-pos-1);
+					pos += strlen (s);
+					if (i < json_object_array_length (explanations)-2) {
+						strncpy (&reqData->retExplain[pos], ", ", strSize-pos-1);
+						pos += 2;
+					} else if (i == json_object_array_length (explanations)-2) {
+						strncpy (&reqData->retExplain[pos], " and ", strSize-pos-1);
+						pos += 5;
+					} else {
+						strncpy (&reqData->retExplain[pos], ".", strSize-pos-1);
+						pos += 1;
+					}
+				}
+			}
 			break;
 		}
 
