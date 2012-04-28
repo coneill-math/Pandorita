@@ -391,26 +391,20 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			/* create new station from specified musicid (type=mi, get one by
 			 * performing a search) or shared station id (type=sh) */
 			PianoRequestDataCreateStation_t *reqData = req->data;
+			char *urlencAuthToken;
 
 			assert (reqData != NULL);
 			assert (reqData->id != NULL);
-			assert (reqData->type != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.createStation</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* music id */
-					"<param><value><string>%s%s</string></value></param>"
-					/* empty */
-					"<param><value><string></string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->type, reqData->id);
+			json_object_object_add(j, "musicToken", json_object_new_string(reqData->id));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=createStation&arg1=%s%s&arg2=", ph->routeId,
-					ph->user.listenerId, reqData->type, reqData->id);
+					"method=station.createStation&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -804,6 +798,13 @@ static char *PianoJsonStrdup (json_object *j, const char *key) {
 	return strdup (json_object_get_string (json_object_object_get (j, key)));
 }
 
+static void PianoJsonParseStation (json_object *j, PianoStation_t *s) {
+	s->name = PianoJsonStrdup (j, "stationName");
+	s->id = PianoJsonStrdup (j, "stationToken");
+	s->isCreator = true;
+	s->isQuickMix = json_object_get_boolean (json_object_object_get (j, "isQuickMix"));
+}
+
 /*	parse xml response and update data structures/return new data structure
  *	@param piano handle
  *	@param initialized request (expects responseData to be a NUL-terminated
@@ -879,10 +880,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					return PIANO_RET_OUT_OF_MEMORY;
 				}
 
-				tmpStation->name = PianoJsonStrdup (s, "stationName");
-				tmpStation->id = PianoJsonStrdup (s, "stationToken");
-				tmpStation->isCreator = true;
-				tmpStation->isQuickMix = json_object_get_boolean (json_object_object_get (s, "isQuickMix"));
+				PianoJsonParseStation (s, tmpStation);
 
 				/* get stations selected for quickmix */
 				if (tmpStation->isQuickMix) {
@@ -1079,9 +1077,24 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 		case PIANO_REQUEST_CREATE_STATION: {
 			/* create station, insert new station into station list on success */
-			assert (req->responseData != NULL);
+			PianoStation_t *tmpStation;
 
-			ret = PianoXmlParseCreateStation (ph, req->responseData);
+			if ((tmpStation = calloc (1, sizeof (*tmpStation))) == NULL) {
+				return PIANO_RET_OUT_OF_MEMORY;
+			}
+
+			PianoJsonParseStation (result, tmpStation);
+
+			/* start new linked list or append */
+			if (ph->stations == NULL) {
+				ph->stations = tmpStation;
+			} else {
+				PianoStation_t *curStation = ph->stations;
+				while (curStation->next != NULL) {
+					curStation = curStation->next;
+				}
+				curStation->next = tmpStation;
+			}
 			break;
 		}
 
