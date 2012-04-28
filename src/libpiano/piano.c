@@ -349,21 +349,21 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_DELETE_STATION: {
 			/* delete station */
 			PianoStation_t *station = req->data;
+			char *urlencAuthToken;
 
 			assert (station != NULL);
+			assert (station->id != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.removeStation</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, station->id);
+			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=removeStation&arg1=%s", ph->routeId,
-					ph->user.listenerId, station->id);
+					"method=station.deleteStation&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
+
 			break;
 		}
 
@@ -994,34 +994,31 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
-		case PIANO_REQUEST_DELETE_STATION:
+		case PIANO_REQUEST_DELETE_STATION: {
 			/* delete station from server and station list */
-			assert (req->responseData != NULL);
+			PianoStation_t *station = req->data;
 
-			if ((ret = PianoXmlParseSimple (req->responseData)) == PIANO_RET_OK) {
-				PianoStation_t *station = req->data;
+			assert (station != NULL);
 
-				assert (station != NULL);
-
-				/* delete station from local station list */
-				PianoStation_t *curStation = ph->stations, *lastStation = NULL;
-				while (curStation != NULL) {
-					if (curStation == station) {
-						if (lastStation != NULL) {
-							lastStation->next = curStation->next;
-						} else {
-							/* first station in list */
-							ph->stations = curStation->next;
-						}
-						PianoDestroyStation (curStation);
-						free (curStation);
-						break;
+			/* delete station from local station list */
+			PianoStation_t *curStation = ph->stations, *lastStation = NULL;
+			while (curStation != NULL) {
+				if (curStation == station) {
+					if (lastStation != NULL) {
+						lastStation->next = curStation->next;
+					} else {
+						/* first station in list */
+						ph->stations = curStation->next;
 					}
-					lastStation = curStation;
-					curStation = curStation->next;
+					PianoDestroyStation (curStation);
+					free (curStation);
+					break;
 				}
+				lastStation = curStation;
+				curStation = curStation->next;
 			}
 			break;
+		}
 
 		case PIANO_REQUEST_SEARCH: {
 			/* search artist/song */
