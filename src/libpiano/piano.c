@@ -327,67 +327,22 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_ADD_FEEDBACK: {
 			/* low-level, don't use directly (see _RATE_SONG and _MOVE_SONG) */
 			PianoRequestDataAddFeedback_t *reqData = req->data;
+			char *urlencAuthToken;
 			
 			assert (reqData != NULL);
-			assert (reqData->stationId != NULL);
+			assert (reqData->trackToken != NULL);
 			assert (reqData->rating != PIANO_RATE_NONE);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.addFeedback</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					/* track token */
-					"<param><value><string>%s</string></value></param>"
-					/* positive */
-					"<param><value><boolean>%i</boolean></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->stationId, reqData->trackToken,
-					(reqData->rating == PIANO_RATE_LOVE) ? 1 : 0);
+			json_object_object_add(j, "trackToken", json_object_new_string(reqData->trackToken));
+			json_object_object_add(j, "isPositive", json_object_new_boolean (reqData->rating == PIANO_RATE_LOVE));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=addFeedback&arg1=%s&arg2=%s"
-					"&arg3=%s",
-					ph->routeId, ph->user.listenerId, reqData->stationId,
-					reqData->trackToken,
-					(reqData->rating == PIANO_RATE_LOVE) ? "true" : "false");
-			break;
-		}
-
-		case PIANO_REQUEST_RENAME_STATION: {
-			/* rename stations */
-			PianoRequestDataRenameStation_t *reqData = req->data;
-			char *urlencodedNewName, *xmlencodedNewName;
-
-			assert (reqData != NULL);
-			assert (reqData->station != NULL);
-			assert (reqData->newName != NULL);
-
-			if ((xmlencodedNewName = PianoXmlEncodeString (reqData->newName)) == NULL) {
-				return PIANO_RET_OUT_OF_MEMORY;
-			}
-			urlencodedNewName = WaitressUrlEncode (reqData->newName);
-
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.setStationName</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					/* new name */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->station->id,
-					xmlencodedNewName);
-			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=setStationName&arg1=%s&arg2=%s",
-					ph->routeId, ph->user.listenerId, reqData->station->id,
-					urlencodedNewName);
-
-			free (urlencodedNewName);
-			free (xmlencodedNewName);
+					"method=station.addFeedback&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -988,6 +943,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 				song->artist = PianoJsonStrdup (s, "artistName");
 				song->album = PianoJsonStrdup (s, "albumName");
 				song->title = PianoJsonStrdup (s, "songName");
+				song->trackToken = PianoJsonStrdup (s, "trackToken");
 				song->fileGain = json_object_get_double (json_object_object_get (s, "trackGain"));
 				song->audioFormat = PIANO_AF_AACPLUS;
 				switch (json_object_get_int (json_object_object_get (s, "songRating"))) {
@@ -1014,13 +970,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 		case PIANO_REQUEST_RATE_SONG:
 			/* love/ban song */
-			assert (req->responseData != NULL);
-
-			ret = PianoXmlParseSimple (req->responseData);
-			if (ret == PIANO_RET_OK) {
-				PianoRequestDataRateSong_t *reqData = req->data;
-				reqData->song->rating = reqData->rating;
-			}
+			/* response unused */
 			break;
 
 		case PIANO_REQUEST_ADD_FEEDBACK:
@@ -1043,22 +993,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			}
 			break;
 		}
-
-		case PIANO_REQUEST_RENAME_STATION:
-			/* rename station and update PianoStation_t structure */
-			assert (req->responseData != NULL);
-
-			if ((ret = PianoXmlParseSimple (req->responseData)) == PIANO_RET_OK) {
-				PianoRequestDataRenameStation_t *reqData = req->data;
-
-				assert (reqData != NULL);
-				assert (reqData->station != NULL);
-				assert (reqData->newName != NULL);
-
-				free (reqData->station->name);
-				reqData->station->name = strdup (reqData->newName);
-			}
-			break;
 
 		case PIANO_REQUEST_DELETE_STATION:
 			/* delete station from server and station list */
