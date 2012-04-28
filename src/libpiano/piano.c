@@ -411,30 +411,19 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_ADD_TIRED_SONG: {
 			/* ban song for a month from all stations */
 			PianoSong_t *song = req->data;
+			char *urlencAuthToken;
 
 			assert (song != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>listener.addTiredSong</methodName><params>"
-					"<param><value><int>%lu</int></value></param>"
-					"<param><value><string>%s</string></value></param>"
-					/* key */
-					"<param><value><string>%s</string></value></param>"
-					/* user seed */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken,
-					(song->musicId == NULL) ? "" : song->musicId,
-					(song->userSeed == NULL) ? "" : song->userSeed,
-					song->stationId);
+			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=addTiredSong&arg1=%s&arg2=%s&arg3=%s",
-					ph->routeId, ph->user.listenerId,
-					(song->musicId == NULL) ? "" : song->musicId,
-					(song->userSeed == NULL) ? "" : song->userSeed,
-					song->stationId);
+					"method=user.sleepSong&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -906,9 +895,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_BOOKMARK_SONG:
 		case PIANO_REQUEST_BOOKMARK_ARTIST:
 		case PIANO_REQUEST_DELETE_FEEDBACK:
-			assert (req->responseData != NULL);
-
-			ret = PianoXmlParseSimple (req->responseData);
+			/* response unused */
 			break;
 
 		case PIANO_REQUEST_GET_GENRE_STATIONS:
