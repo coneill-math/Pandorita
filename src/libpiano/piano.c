@@ -346,6 +346,27 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
+		case PIANO_REQUEST_RENAME_STATION: {
+			PianoRequestDataRenameStation_t *reqData = req->data;
+			char *urlencAuthToken;
+
+			assert (reqData != NULL);
+			assert (reqData->station != NULL);
+			assert (reqData->newName != NULL);
+
+			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
+			json_object_object_add(j, "stationName", json_object_new_string(reqData->newName));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"method=station.renameStation&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
+			break;
+		}
+
 		case PIANO_REQUEST_DELETE_STATION: {
 			/* delete station */
 			PianoStation_t *station = req->data;
@@ -751,6 +772,20 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			/* never ever use this directly, low-level call */
 			assert (0);
 			break;
+
+		case PIANO_REQUEST_RENAME_STATION: {
+			/* rename station and update PianoStation_t structure */
+			PianoRequestDataRenameStation_t *reqData = req->data;
+
+			assert (reqData != NULL);
+			assert (reqData->station != NULL);
+			assert (reqData->newName != NULL);
+
+			free (reqData->station->name);
+			reqData->station->name = strdup (reqData->newName);
+			break;
+		}
+
 
 		case PIANO_REQUEST_MOVE_SONG: {
 			/* move song to different station */
