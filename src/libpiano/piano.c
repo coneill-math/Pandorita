@@ -429,6 +429,31 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
+		case PIANO_REQUEST_ADD_SEED: {
+			/* add another seed to specified station */
+			PianoRequestDataAddSeed_t *reqData = req->data;
+
+			assert (reqData != NULL);
+			assert (reqData->station != NULL);
+			assert (reqData->musicId != NULL);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.addSeed</methodName><params>"
+					"<param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* station id */
+					"<param><value><string>%s</string></value></param>"
+					/* music id */
+					"<param><value><string>%s</string></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, reqData->station->id, reqData->musicId);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=addSeed&arg1=%s&arg2=%s", ph->routeId,
+					ph->user.listenerId, reqData->station->id, reqData->musicId);
+			break;
+		}
+
 		case PIANO_REQUEST_ADD_TIRED_SONG: {
 			/* ban song for a month from all stations */
 			PianoSong_t *song = req->data;
@@ -448,12 +473,84 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
+		case PIANO_REQUEST_SET_QUICKMIX: {
+			/* select stations included in quickmix (see useQuickMix flag of
+			 * PianoStation_t) */
+			char valueBuf[1000], urlArgBuf[1000];
+			PianoStation_t *curStation = ph->stations;
+
+			memset (urlArgBuf, 0, sizeof (urlArgBuf));
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.setQuickMix</methodName><params>"
+					"<param><value><int>%lu</int></value></param>"
+					"<param><value><string>%s</string></value></param>"
+					/* quick mix type */
+					"<param><value><string>RANDOM</string></value></param>"
+					"<param><value><array><data>", (unsigned long) timestamp,
+					ph->user.authToken);
+			while (curStation != NULL) {
+				/* quick mix can't contain itself */
+				if (!curStation->useQuickMix || curStation->isQuickMix) {
+					curStation = curStation->next;
+					continue;
+				}
+				/* append to xml doc */
+				snprintf (valueBuf, sizeof (valueBuf),
+						"<value><string>%s</string></value>", curStation->id);
+				strncat (xmlSendBuf, valueBuf, sizeof (xmlSendBuf) -
+						strlen (xmlSendBuf) - 1);
+				/* append to url arg */
+				strncat (urlArgBuf, curStation->id, sizeof (urlArgBuf) -
+						strlen (urlArgBuf) - 1);
+				curStation = curStation->next;
+				/* if not last item: append "," */
+				if (curStation != NULL) {
+					strncat (urlArgBuf, "%2C", sizeof (urlArgBuf) -
+							strlen (urlArgBuf) - 1);
+				}
+			}
+			strncat (xmlSendBuf,
+					"</data></array></value></param>"
+					/* empty */
+					"<param><value><string></string></value></param>"
+					/* empty */
+					"<param><value><string></string></value></param>"
+					"</params></methodCall>",
+					sizeof (xmlSendBuf) - strlen (xmlSendBuf) - 1);
+
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=setQuickMix&arg1=RANDOM&arg2=%s&arg3=&arg4=",
+					ph->routeId, ph->user.listenerId, urlArgBuf);
+			break;
+		}
+
 		case PIANO_REQUEST_GET_GENRE_STATIONS:
 			/* receive list of pandora's genre stations */
 			xmlSendBuf[0] = '\0';
 			snprintf (req->urlPath, sizeof (req->urlPath), "/xml/genre?r=%lu",
 					(unsigned long) timestamp);
 			break;
+
+		case PIANO_REQUEST_TRANSFORM_STATION: {
+			/* transform shared station into private */
+			PianoStation_t *station = req->data;
+
+			assert (station != NULL);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.transformShared</methodName>"
+					"<params><param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* station id */
+					"<param><value><string>%s</string></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, station->id);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=transformShared&arg1=%s", ph->routeId,
+					ph->user.listenerId, station->id);
+			break;
+		}
 
 		case PIANO_REQUEST_EXPLAIN: {
 			/* explain why particular song was played */
@@ -472,6 +569,34 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
 					"method=track.explainTrack&auth_token=%s&partner_id=%i&user_id=%s",
 					urlencAuthToken, ph->partnerId, ph->user.listenerId);
+			break;
+		}
+
+		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
+			/* find similar artists */
+			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
+
+			assert (reqData != NULL);
+			assert (reqData->musicId != NULL);
+			assert (reqData->max != 0);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>music.getSeedSuggestions</methodName>"
+					"<params><param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* station id */
+					"<param><value><string>%s</string></value></param>"
+					/* seed music id */
+					"<param><value><string>%s</string></value></param>"
+					/* max */
+					"<param><value><int>%u</int></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, reqData->station->id, reqData->musicId,
+					reqData->max);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=getSeedSuggestions&arg1=%s&arg2=%u",
+					ph->routeId, ph->user.listenerId, reqData->musicId, reqData->max);
 			break;
 		}
 
@@ -510,6 +635,81 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
 					"method=bookmark.addArtistBookmark&auth_token=%s&partner_id=%i&user_id=%s",
 					urlencAuthToken, ph->partnerId, ph->user.listenerId);
+			break;
+		}
+
+		case PIANO_REQUEST_GET_STATION_INFO: {
+			/* get station information (seeds and feedback) */
+			PianoRequestDataGetStationInfo_t *reqData = req->data;
+
+			assert (reqData != NULL);
+			assert (reqData->station != NULL);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.getStation</methodName>"
+					"<params><param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* station id */
+					"<param><value><string>%s</string></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, reqData->station->id);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=getStation&arg1=%s",
+					ph->routeId, ph->user.listenerId, reqData->station->id);
+			break;
+		}
+
+		case PIANO_REQUEST_DELETE_FEEDBACK: {
+			PianoSong_t *song = req->data;
+
+			assert (song != NULL);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.deleteFeedback</methodName>"
+					"<params><param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* feedback id */
+					"<param><value><string>%s</string></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, song->feedbackId);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=deleteFeedback&arg1=%s",
+					ph->routeId, ph->user.listenerId, song->feedbackId);
+			break;
+		}
+
+		case PIANO_REQUEST_DELETE_SEED: {
+			PianoRequestDataDeleteSeed_t *reqData = req->data;
+			char *seedId = NULL;
+
+			assert (reqData != NULL);
+			assert (reqData->song != NULL || reqData->artist != NULL ||
+					reqData->station != NULL);
+
+			if (reqData->song != NULL) {
+				seedId = reqData->song->seedId;
+			} else if (reqData->artist != NULL) {
+				seedId = reqData->artist->seedId;
+			} else if (reqData->station != NULL) {
+				seedId = reqData->station->seedId;
+			}
+
+			assert (seedId != NULL);
+
+			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
+					"<methodCall><methodName>station.deleteSeed</methodName>"
+					"<params><param><value><int>%lu</int></value></param>"
+					/* auth token */
+					"<param><value><string>%s</string></value></param>"
+					/* seed id */
+					"<param><value><string>%s</string></value></param>"
+					"</params></methodCall>", (unsigned long) timestamp,
+					ph->user.authToken, seedId);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"rid=%s&lid=%s&method=deleteSeed&arg1=%s",
+					ph->routeId, ph->user.listenerId, seedId);
 			break;
 		}
 
@@ -575,10 +775,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			return pRet;
 			break;
 		}
-
-		default:
-			assert (0);
-			break;
 	}
 
 	jsonSendBuf = json_object_to_json_string (j);
@@ -913,7 +1109,21 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
+		case PIANO_REQUEST_ADD_SEED: {
+			/* add seed to station, updates station structure */
+			PianoRequestDataAddSeed_t *reqData = req->data;
+
+			assert (req->responseData != NULL);
+			assert (reqData != NULL);
+			assert (reqData->station != NULL);
+
+			/* FIXME: update station data instead of replacing them */
+			ret = PianoXmlParseAddSeed (ph, req->responseData, reqData->station);
+			break;
+		}
+
 		case PIANO_REQUEST_ADD_TIRED_SONG:
+		case PIANO_REQUEST_SET_QUICKMIX:
 		case PIANO_REQUEST_BOOKMARK_SONG:
 		case PIANO_REQUEST_BOOKMARK_ARTIST:
 		case PIANO_REQUEST_DELETE_FEEDBACK:
@@ -926,6 +1136,22 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 			ret = PianoXmlParseGenreExplorer (ph, req->responseData);
 			break;
+
+		case PIANO_REQUEST_TRANSFORM_STATION: {
+			/* transform shared station into private and update isCreator flag */
+			PianoStation_t *station = req->data;
+
+			assert (req->responseData != NULL);
+			assert (station != NULL);
+
+			/* though this call returns a bunch of "new" data only this one is
+			 * changed and important (at the moment) */
+			if ((ret = PianoXmlParseTranformStation (req->responseData)) ==
+					PIANO_RET_OK) {
+				station->isCreator = 1;
+			}
+			break;
+		}
 
 		case PIANO_REQUEST_EXPLAIN: {
 			/* explain why song was selected */
@@ -961,9 +1187,36 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
-		default:
-			assert (0);
+		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
+			/* find similar artists */
+			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
+
+			assert (req->responseData != NULL);
+			assert (reqData != NULL);
+
+			ret = PianoXmlParseSeedSuggestions (req->responseData,
+					&reqData->searchResult);
 			break;
+		}
+
+		case PIANO_REQUEST_GET_STATION_INFO: {
+			/* get station information (seeds and feedback) */
+			PianoRequestDataGetStationInfo_t *reqData = req->data;
+
+			assert (req->responseData != NULL);
+			assert (reqData != NULL);
+
+			ret = PianoXmlParseGetStationInfo (req->responseData,
+					&reqData->info);
+			break;
+		}
+
+		case PIANO_REQUEST_DELETE_SEED: {
+			assert (req->responseData != NULL);
+
+			/* dummy function, checks for errors only */
+			ret = PianoXmlParseTranformStation (req->responseData);
+		}
 	}
 
 	return ret;
