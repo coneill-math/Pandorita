@@ -516,21 +516,19 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_TRANSFORM_STATION: {
 			/* transform shared station into private */
 			PianoStation_t *station = req->data;
+			char *urlencAuthToken;
 
 			assert (station != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.transformShared</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, station->id);
+			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=transformShared&arg1=%s", ph->routeId,
-					ph->user.listenerId, station->id);
+					"method=station.transformSharedStation&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
@@ -1179,12 +1177,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			assert (req->responseData != NULL);
 			assert (station != NULL);
 
-			/* though this call returns a bunch of "new" data only this one is
-			 * changed and important (at the moment) */
-			if ((ret = PianoXmlParseTranformStation (req->responseData)) ==
-					PIANO_RET_OK) {
-				station->isCreator = 1;
-			}
+			station->isCreator = 1;
 			break;
 		}
 
