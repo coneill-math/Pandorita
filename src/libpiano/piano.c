@@ -501,12 +501,20 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
-		case PIANO_REQUEST_GET_GENRE_STATIONS:
+		case PIANO_REQUEST_GET_GENRE_STATIONS: {
 			/* receive list of pandora's genre stations */
-			xmlSendBuf[0] = '\0';
-			snprintf (req->urlPath, sizeof (req->urlPath), "/xml/genre?r=%lu",
-					(unsigned long) timestamp);
+			char *urlencAuthToken;
+
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
+			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
+					"method=station.getGenreStations&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
+		}
 
 		case PIANO_REQUEST_TRANSFORM_STATION: {
 			/* transform shared station into private */
@@ -1122,12 +1130,62 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			/* response unused */
 			break;
 
-		case PIANO_REQUEST_GET_GENRE_STATIONS:
+		case PIANO_REQUEST_GET_GENRE_STATIONS: {
 			/* get genre stations */
-			assert (req->responseData != NULL);
+			json_object *categories = json_object_object_get (result, "categories");
+			if (categories != NULL) {
+				for (size_t i = 0; i < json_object_array_length (categories); i++) {
+					json_object *c = json_object_array_get_idx (categories, i);
+					PianoGenreCategory_t *tmpGenreCategory;
 
-			ret = PianoXmlParseGenreExplorer (ph, req->responseData);
+					if ((tmpGenreCategory = calloc (1, sizeof (*tmpGenreCategory))) == NULL) {
+						return PIANO_RET_OUT_OF_MEMORY;
+					}
+
+					tmpGenreCategory->name = PianoJsonStrdup (c, "categoryName");
+
+					/* get genre subnodes */
+					json_object *stations = json_object_object_get (c, "stations");
+					if (stations != NULL) {
+						for (size_t k = 0; k < json_object_array_length (stations); k++) {
+							json_object *s = json_object_array_get_idx (stations, k);
+							PianoGenre_t *tmpGenre;
+
+							if ((tmpGenre = calloc (1, sizeof (*tmpGenre))) == NULL) {
+								return PIANO_RET_OUT_OF_MEMORY;
+							}
+
+							/* get genre attributes */
+							tmpGenre->name = PianoJsonStrdup (s, "stationName");
+							tmpGenre->musicId = PianoJsonStrdup (s, "stationToken");
+
+							/* append station */
+							if (tmpGenreCategory->genres == NULL) {
+								tmpGenreCategory->genres = tmpGenre;
+							} else {
+								PianoGenre_t *curGenre =
+										tmpGenreCategory->genres;
+								while (curGenre->next != NULL) {
+									curGenre = curGenre->next;
+								}
+								curGenre->next = tmpGenre;
+							}
+						}
+					}
+					/* append category */
+					if (ph->genreStations == NULL) {
+						ph->genreStations = tmpGenreCategory;
+					} else {
+						PianoGenreCategory_t *curCat = ph->genreStations;
+						while (curCat->next != NULL) {
+							curCat = curCat->next;
+						}
+						curCat->next = tmpGenreCategory;
+					}
+				}
+			}
 			break;
+		}
 
 		case PIANO_REQUEST_TRANSFORM_STATION: {
 			/* transform shared station into private and update isCreator flag */
