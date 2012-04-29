@@ -476,51 +476,28 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_SET_QUICKMIX: {
 			/* select stations included in quickmix (see useQuickMix flag of
 			 * PianoStation_t) */
-			char valueBuf[1000], urlArgBuf[1000];
 			PianoStation_t *curStation = ph->stations;
+			json_object *a = json_object_new_array ();
+			char *urlencAuthToken;
 
-			memset (urlArgBuf, 0, sizeof (urlArgBuf));
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.setQuickMix</methodName><params>"
-					"<param><value><int>%lu</int></value></param>"
-					"<param><value><string>%s</string></value></param>"
-					/* quick mix type */
-					"<param><value><string>RANDOM</string></value></param>"
-					"<param><value><array><data>", (unsigned long) timestamp,
-					ph->user.authToken);
 			while (curStation != NULL) {
 				/* quick mix can't contain itself */
-				if (!curStation->useQuickMix || curStation->isQuickMix) {
-					curStation = curStation->next;
-					continue;
+				if (curStation->useQuickMix && !curStation->isQuickMix) {
+					json_object_array_add (a, json_object_new_string (curStation->id));
 				}
-				/* append to xml doc */
-				snprintf (valueBuf, sizeof (valueBuf),
-						"<value><string>%s</string></value>", curStation->id);
-				strncat (xmlSendBuf, valueBuf, sizeof (xmlSendBuf) -
-						strlen (xmlSendBuf) - 1);
-				/* append to url arg */
-				strncat (urlArgBuf, curStation->id, sizeof (urlArgBuf) -
-						strlen (urlArgBuf) - 1);
-				curStation = curStation->next;
-				/* if not last item: append "," */
-				if (curStation != NULL) {
-					strncat (urlArgBuf, "%2C", sizeof (urlArgBuf) -
-							strlen (urlArgBuf) - 1);
-				}
-			}
-			strncat (xmlSendBuf,
-					"</data></array></value></param>"
-					/* empty */
-					"<param><value><string></string></value></param>"
-					/* empty */
-					"<param><value><string></string></value></param>"
-					"</params></methodCall>",
-					sizeof (xmlSendBuf) - strlen (xmlSendBuf) - 1);
 
+				curStation = curStation->next;
+			}
+
+			json_object_object_add(j, "quickMixStationIds", a);
+			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+
+			urlencAuthToken = WaitressUrlEncode (ph->user.authToken);
+			assert (urlencAuthToken != NULL);
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=setQuickMix&arg1=RANDOM&arg2=%s&arg3=&arg4=",
-					ph->routeId, ph->user.listenerId, urlArgBuf);
+					"method=user.setQuickMix&auth_token=%s&partner_id=%i&user_id=%s",
+					urlencAuthToken, ph->partnerId, ph->user.listenerId);
 			break;
 		}
 
