@@ -775,7 +775,7 @@ static char *PianoJsonStrdup (json_object *j, const char *key) {
 static void PianoJsonParseStation (json_object *j, PianoStation_t *s) {
 	s->name = PianoJsonStrdup (j, "stationName");
 	s->id = PianoJsonStrdup (j, "stationToken");
-	s->isCreator = true;
+	s->isCreator = !json_object_get_boolean (json_object_object_get (j, "isShared"));
 	s->isQuickMix = json_object_get_boolean (json_object_object_get (j, "isQuickMix"));
 }
 
@@ -844,7 +844,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			/* get stations */
 			assert (req->responseData != NULL);
 
-			json_object *stations = json_object_object_get (result, "stations");
+			json_object *stations = json_object_object_get (result, "stations"), *mix = NULL;
 
 			for (size_t i=0; i < json_object_array_length (stations); i++) {
 				PianoStation_t *tmpStation;
@@ -856,11 +856,11 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 				PianoJsonParseStation (s, tmpStation);
 
-				/* get stations selected for quickmix */
 				if (tmpStation->isQuickMix) {
-					/*PianoXmlStructParser (ezxml_child (dataNode, "struct"),
-							PianoXmlParseQuickMixStationsCb, &quickMixIds);*/
+					/* fix flags on other stations later */
+					mix = json_object_object_get (s, "quickMixStationIds");
 				}
+
 				/* start new linked list or append */
 				if (ph->stations == NULL) {
 					ph->stations = tmpStation;
@@ -870,6 +870,20 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 						curStation = curStation->next;
 					}
 					curStation->next = tmpStation;
+				}
+			}
+
+			/* fix quickmix flags */
+			if (mix != NULL) {
+				PianoStation_t *curStation = ph->stations;
+				while (curStation != NULL) {
+					for (size_t i = 0; i < json_object_array_length (mix); i++) {
+						json_object *id = json_object_array_get_idx (mix, i);
+						if (strcmp (json_object_get_string (id), curStation->id) == 0) {
+							curStation->useQuickMix = true;
+						}
+					}
+					curStation = curStation->next;
 				}
 			}
 			
