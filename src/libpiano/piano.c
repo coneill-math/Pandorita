@@ -674,13 +674,37 @@ static void PianoJsonParseStation (json_object *j, PianoStation_t *s) {
  */
 PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 	PianoReturn_t ret = PIANO_RET_OK;
-	json_object *j, *result;
+	json_object *j, *result, *status;
 
 	assert (ph != NULL);
 	assert (req != NULL);
 
 	j = json_tokener_parse (req->responseData);
+
+	status = json_object_object_get (j, "stat");
+	if (status == NULL) {
+		json_object_put (j);
+		return PIANO_RET_INVALID_RESPONSE;
+	}
+
+	/* error handling */
+	if (strcmp (json_object_get_string (status), "ok") != 0) {
+		json_object *code = json_object_object_get (j, "code");
+		if (code == NULL) {
+			ret = PIANO_RET_INVALID_RESPONSE;
+		} else {
+			ret = json_object_get_int (code)+PIANO_RET_OFFSET;
+		}
+
+		json_object_put (j);
+		return ret;
+	}
+
 	result = json_object_object_get (j, "result");
+	if (result == NULL) {
+		json_object_put (j);
+		return PIANO_RET_INVALID_RESPONSE;
+	}
 
 	switch (req->type) {
 		case PIANO_REQUEST_LOGIN: {
@@ -1216,6 +1240,8 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		}
 	}
 
+	json_object_put (j);
+
 	return ret;
 }
 
@@ -1249,70 +1275,51 @@ const char *PianoErrorToStr (PianoReturn_t ret) {
 			return "Unknown.";
 			break;
 
-		case PIANO_RET_XML_INVALID:
-			return "Invalid XML.";
+		case PIANO_RET_INVALID_RESPONSE:
+			return "Invalid response.";
 			break;
 
-		case PIANO_RET_AUTH_TOKEN_INVALID:
-			return "Invalid auth token.";
-			break;
-		
-		case PIANO_RET_AUTH_USER_PASSWORD_INVALID:
-			return "Username and/or password not correct.";
-			break;
-
-		case PIANO_RET_NOT_AUTHORIZED:
-			return "Not authorized.";
-			break;
-
-		case PIANO_RET_PROTOCOL_INCOMPATIBLE:
-			return "Protocol incompatible. Please upgrade " PACKAGE ".";
-			break;
-
-		case PIANO_RET_READONLY_MODE:
-			return "Request cannot be completed at this time, please try "
-					"again later.";
-			break;
-
-		case PIANO_RET_STATION_CODE_INVALID:
-			return "Station id is invalid.";
-			break;
-
-		case PIANO_RET_IP_REJECTED:
-			return "Your ip address was rejected. Please setup a control "
-					"proxy (see manpage).";
-			break;
-
-		case PIANO_RET_STATION_NONEXISTENT:
-			return "Station does not exist.";
+		case PIANO_RET_CONTINUE_REQUEST:
+			/* never shown to the user */
+			assert (0);
+			return "Fix your program.";
 			break;
 
 		case PIANO_RET_OUT_OF_MEMORY:
 			return "Out of memory.";
 			break;
 
-		case PIANO_RET_OUT_OF_SYNC:
-			return "Out of sync. Please correct your system's time.";
+		/* pandora error messages */
+		case PIANO_RET_P_INTERNAL:
+			return "Internal error.";
 			break;
 
-		case PIANO_RET_PLAYLIST_END:
-			return "Playlist end.";
+		case PIANO_RET_P_CALL_NOT_ALLOWED:
+			return "Call not allowed.";
 			break;
 
-		case PIANO_RET_QUICKMIX_NOT_PLAYABLE:
-			return "Quickmix not playable.";
+		case PIANO_RET_P_INVALID_AUTH_TOKEN:
+			return "Invalid auth token.";
 			break;
 
-		case PIANO_RET_REMOVING_TOO_MANY_SEEDS:
-			return "Last seed cannot be removed.";
+		case PIANO_RET_P_MAINTENANCE_MODE:
+			return "Maintenance mode.";
 			break;
 
-		case PIANO_RET_EXCESSIVE_ACTIVITY:
-			return "Excessive activity.";
+		case PIANO_RET_P_MAX_STATIONS_REACHED:
+			return "Max number of stations reached.";
 			break;
 
-		case PIANO_RET_DAILY_SKIP_LIMIT_REACHED:
-			return "Daily skip limit reached.";
+		case PIANO_RET_P_READ_ONLY_MODE:
+			return "Read only mode. Try again later.";
+			break;
+
+		case PIANO_RET_P_STATION_DOES_NOT_EXIST:
+			return "Station does not exist.";
+			break;
+
+		case PIANO_RET_P_INVALID_PARTNER_LOGIN:
+			return "Invalid partner login.";
 			break;
 
 		default:

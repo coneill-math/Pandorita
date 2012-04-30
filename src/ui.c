@@ -187,7 +187,7 @@ int BarUiPianoCall (BarApp_t * const app, PianoRequestType_t type,
 		*pRet = PianoResponse (&app->ph, &req);
 		if (*pRet != PIANO_RET_CONTINUE_REQUEST) {
 			/* checking for request type avoids infinite loops */
-			if (*pRet == PIANO_RET_AUTH_TOKEN_INVALID &&
+			if (*pRet == PIANO_RET_P_INVALID_AUTH_TOKEN &&
 					type != PIANO_REQUEST_LOGIN) {
 				/* reauthenticate */
 				PianoReturn_t authpRet;
