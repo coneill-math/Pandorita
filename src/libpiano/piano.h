@@ -38,7 +38,6 @@ THE SOFTWARE.
 #define PIANO_RPC_HOST "tuner.pandora.com"
 
 typedef struct PianoUserInfo {
-	char *webAuthToken;
 	char *listenerId;
 	char *authToken;
 } PianoUserInfo_t;
@@ -69,10 +68,8 @@ typedef enum {
 
 typedef struct PianoSong {
 	char *artist;
-	char *artistMusicId;
 	char *stationId;
 	char *album;
-	char *userSeed;
 	char *audioUrl;
 	char *coverArt;
 	char *musicId;
@@ -109,7 +106,6 @@ typedef struct PianoGenreCategory {
 } PianoGenreCategory_t;
 
 typedef struct PianoHandle {
-	char routeId[9];
 	PianoUserInfo_t user;
 	/* linked lists */
 	PianoStation_t *stations;

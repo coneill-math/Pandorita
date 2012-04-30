@@ -51,10 +51,6 @@ THE SOFTWARE.
  */
 void PianoInit (PianoHandle_t *ph) {
 	memset (ph, 0, sizeof (*ph));
-
-	/* route-id seems to be random. we're using time anyway... */
-	snprintf (ph->routeId, sizeof (ph->routeId), "%07luP",
-			(unsigned long) time (NULL) % 10000000);
 }
 
 /*	destroy artist linked list
@@ -122,10 +118,8 @@ void PianoDestroyPlaylist (PianoSong_t *playlist) {
 		free (curSong->artist);
 		free (curSong->musicId);
 		free (curSong->title);
-		free (curSong->userSeed);
 		free (curSong->stationId);
 		free (curSong->album);
-		free (curSong->artistMusicId);
 		free (curSong->feedbackId);
 		free (curSong->seedId);
 		free (curSong->detailUrl);
@@ -161,7 +155,6 @@ static void PianoDestroyGenres (PianoGenre_t *genres) {
 /*	destroy user information
  */
 static void PianoDestroyUserInfo (PianoUserInfo_t *user) {
-	free (user->webAuthToken);
 	free (user->authToken);
 	free (user->listenerId);
 }
