@@ -895,10 +895,12 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
-		case PIANO_REQUEST_RATE_SONG:
+		case PIANO_REQUEST_RATE_SONG: {
 			/* love/ban song */
-			/* response unused */
+			PianoRequestDataRateSong_t *reqData = req->data;
+			reqData->song->rating = reqData->rating;
 			break;
+		}
 
 		case PIANO_REQUEST_ADD_FEEDBACK:
 			/* never ever use this directly, low-level call */
@@ -917,7 +919,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			reqData->station->name = strdup (reqData->newName);
 			break;
 		}
-
 
 		case PIANO_REQUEST_MOVE_SONG: {
 			/* move song to different station */
