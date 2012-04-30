@@ -678,12 +678,10 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 	/* json to string */
 	jsonSendBuf = json_object_to_json_string (j);
 	if (encrypted) {
-		fprintf (stderr, "sending json: %s\n", jsonSendBuf);
 		if ((req->postData = PianoEncryptString (jsonSendBuf)) == NULL) {
 			return PIANO_RET_OUT_OF_MEMORY;
 		}
 	} else {
-		fprintf (stderr, "sending unencrypted json: %s\n", jsonSendBuf);
 		req->postData = strdup (jsonSendBuf);
 	}
 	json_object_put (j);
