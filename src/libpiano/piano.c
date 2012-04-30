@@ -227,7 +227,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		PianoRequestType_t type) {
 	char *jsonSendBuf;
 	const char *method = NULL;
-	json_object *j = json_object_new_object();
+	json_object *j = json_object_new_object ();
 	/* corrected timestamp */
 	time_t timestamp = time (NULL) - ph->timeOffset;
 	bool encrypted = true;
@@ -251,11 +251,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 					encrypted = false;
 					req->secure = true;
 
-					json_object_object_add(j, "username", json_object_new_string("android"));
-					json_object_object_add(j, "password", json_object_new_string("AC7IBG09A3DTSYM4R41UJWL07VLN8JI7"));
-					json_object_object_add(j, "deviceModel", json_object_new_string("android-generic"));
-					json_object_object_add(j, "version", json_object_new_string("5"));
-					json_object_object_add(j, "includeUrls", json_object_new_boolean(true));
+					json_object_object_add (j, "username", json_object_new_string ("android"));
+					json_object_object_add (j, "password", json_object_new_string ("AC7IBG09A3DTSYM4R41UJWL07VLN8JI7"));
+					json_object_object_add (j, "deviceModel", json_object_new_string ("android-generic"));
+					json_object_object_add (j, "version", json_object_new_string ("5"));
+					json_object_object_add (j, "includeUrls", json_object_new_boolean (true));
 					snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
 							"method=auth.partnerLogin");
 					break;
@@ -265,11 +265,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 					req->secure = true;
 
-					json_object_object_add(j, "loginType", json_object_new_string("user"));
-					json_object_object_add(j, "username", json_object_new_string(logindata->user));
-					json_object_object_add(j, "password", json_object_new_string(logindata->password));
-					json_object_object_add(j, "partnerAuthToken", json_object_new_string(ph->partnerAuthToken));
-					json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
+					json_object_object_add (j, "loginType", json_object_new_string ("user"));
+					json_object_object_add (j, "username", json_object_new_string (logindata->user));
+					json_object_object_add (j, "password", json_object_new_string (logindata->password));
+					json_object_object_add (j, "partnerAuthToken", json_object_new_string (ph->partnerAuthToken));
+					json_object_object_add (j, "syncTime", json_object_new_int (timestamp));
 
 					urlencAuthToken = WaitressUrlEncode (ph->partnerAuthToken);
 					assert (urlencAuthToken != NULL);
@@ -301,7 +301,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			req->secure = true;
 
-			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
+			json_object_object_add (j, "stationToken", json_object_new_string (reqData->station->id));
 
 			method = "station.getPlaylist";
 			break;
@@ -315,8 +315,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->trackToken != NULL);
 			assert (reqData->rating != PIANO_RATE_NONE);
 
-			json_object_object_add(j, "trackToken", json_object_new_string(reqData->trackToken));
-			json_object_object_add(j, "isPositive", json_object_new_boolean (reqData->rating == PIANO_RATE_LOVE));
+			json_object_object_add (j, "trackToken", json_object_new_string (reqData->trackToken));
+			json_object_object_add (j, "isPositive", json_object_new_boolean (reqData->rating == PIANO_RATE_LOVE));
 
 			method = "station.addFeedback";
 			break;
@@ -329,8 +329,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->station != NULL);
 			assert (reqData->newName != NULL);
 
-			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
-			json_object_object_add(j, "stationName", json_object_new_string(reqData->newName));
+			json_object_object_add (j, "stationToken", json_object_new_string (reqData->station->id));
+			json_object_object_add (j, "stationName", json_object_new_string (reqData->newName));
 
 			method = "station.renameStation";
 			break;
@@ -343,7 +343,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (station != NULL);
 			assert (station->id != NULL);
 
-			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
+			json_object_object_add (j, "stationToken", json_object_new_string (station->id));
 
 			method = "station.deleteStation";
 			break;
@@ -356,7 +356,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData != NULL);
 			assert (reqData->searchStr != NULL);
 
-			json_object_object_add(j, "searchText", json_object_new_string(reqData->searchStr));
+			json_object_object_add (j, "searchText", json_object_new_string (reqData->searchStr));
 
 			method = "music.search";
 			break;
@@ -370,7 +370,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData != NULL);
 			assert (reqData->id != NULL);
 
-			json_object_object_add(j, "musicToken", json_object_new_string(reqData->id));
+			json_object_object_add (j, "musicToken", json_object_new_string (reqData->id));
 
 			method = "station.createStation";
 			break;
@@ -384,8 +384,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->station != NULL);
 			assert (reqData->musicId != NULL);
 
-			json_object_object_add(j, "musicToken", json_object_new_string(reqData->musicId));
-			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
+			json_object_object_add (j, "musicToken", json_object_new_string (reqData->musicId));
+			json_object_object_add (j, "stationToken", json_object_new_string (reqData->station->id));
 
 			method = "station.addMusic";
 			break;
@@ -397,7 +397,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (song != NULL);
 
-			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
+			json_object_object_add (j, "trackToken", json_object_new_string (song->trackToken));
 
 			method = "user.sleepSong";
 			break;
@@ -418,7 +418,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 				curStation = curStation->next;
 			}
 
-			json_object_object_add(j, "quickMixStationIds", a);
+			json_object_object_add (j, "quickMixStationIds", a);
 
 			method = "user.setQuickMix";
 			break;
@@ -436,7 +436,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (station != NULL);
 
-			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
+			json_object_object_add (j, "stationToken", json_object_new_string (station->id));
 
 			method = "station.transformSharedStation";
 			break;
@@ -449,7 +449,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData != NULL);
 			assert (reqData->song != NULL);
 
-			json_object_object_add(j, "trackToken", json_object_new_string(reqData->song->trackToken));
+			json_object_object_add (j, "trackToken", json_object_new_string (reqData->song->trackToken));
 
 			method = "track.explainTrack";
 			break;
@@ -491,7 +491,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (song != NULL);
 
-			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
+			json_object_object_add (j, "trackToken", json_object_new_string (song->trackToken));
 
 			method = "bookmark.addSongBookmark";
 			break;
@@ -503,7 +503,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (song != NULL);
 
-			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
+			json_object_object_add (j, "trackToken", json_object_new_string (song->trackToken));
 
 			method = "bookmark.addArtistBookmark";
 			break;
@@ -516,8 +516,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData != NULL);
 			assert (reqData->station != NULL);
 
-			json_object_object_add(j, "stationToken", json_object_new_string (reqData->station->id));
-			json_object_object_add(j, "includeExtendedAttributes", json_object_new_boolean (true));
+			json_object_object_add (j, "stationToken", json_object_new_string (reqData->station->id));
+			json_object_object_add (j, "includeExtendedAttributes", json_object_new_boolean (true));
 
 			method = "station.getStation";
 			break;
@@ -528,7 +528,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (song != NULL);
 
-			json_object_object_add(j, "feedbackId", json_object_new_string (song->feedbackId));
+			json_object_object_add (j, "feedbackId", json_object_new_string (song->feedbackId));
 
 			method = "station.deleteFeedback";
 			break;
@@ -552,7 +552,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (seedId != NULL);
 
-			json_object_object_add(j, "seedId", json_object_new_string (seedId));
+			json_object_object_add (j, "seedId", json_object_new_string (seedId));
 
 			method = "station.deleteMusic";
 			break;
@@ -637,8 +637,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 		free (urlencAuthToken);
 
-		json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
-		json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
+		json_object_object_add (j, "userAuthToken", json_object_new_string (ph->user.authToken));
+		json_object_object_add (j, "syncTime", json_object_new_int (timestamp));
 	}
 
 	/* json to string */
@@ -820,7 +820,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					free (song);
 					continue;
 				}
-				song->audioUrl = strdup (json_object_get_string (json_object_object_get (json_object_object_get(json_object_object_get (s, "audioUrlMap"), "highQuality"), "audioUrl")));
+				song->audioUrl = strdup (json_object_get_string (json_object_object_get (json_object_object_get (json_object_object_get (s, "audioUrlMap"), "highQuality"), "audioUrl")));
 				song->artist = PianoJsonStrdup (s, "artistName");
 				song->album = PianoJsonStrdup (s, "albumName");
 				song->title = PianoJsonStrdup (s, "songName");
