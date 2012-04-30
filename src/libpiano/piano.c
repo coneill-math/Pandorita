@@ -701,10 +701,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 	}
 
 	result = json_object_object_get (j, "result");
-	if (result == NULL) {
-		json_object_put (j);
-		return PIANO_RET_INVALID_RESPONSE;
-	}
 
 	switch (req->type) {
 		case PIANO_REQUEST_LOGIN: {
