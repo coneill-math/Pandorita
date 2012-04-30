@@ -550,18 +550,12 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData != NULL);
 			assert (reqData->station != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.getStation</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* station id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, reqData->station->id);
-			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=getStation&arg1=%s",
-					ph->routeId, ph->user.listenerId, reqData->station->id);
+			json_object_object_add(j, "stationToken", json_object_new_string (reqData->station->id));
+			json_object_object_add(j, "includeExtendedAttributes", json_object_new_boolean (true));
+			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
+
+			method = "station.getStation";
 			break;
 		}
 
@@ -1172,12 +1166,103 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_GET_STATION_INFO: {
 			/* get station information (seeds and feedback) */
 			PianoRequestDataGetStationInfo_t *reqData = req->data;
+			PianoStationInfo_t *info;
 
-			assert (req->responseData != NULL);
 			assert (reqData != NULL);
 
-			ret = PianoXmlParseGetStationInfo (req->responseData,
-					&reqData->info);
+			info = &reqData->info;
+			assert (info != NULL);
+
+			/* parse music seeds */
+			json_object *music = json_object_object_get (result, "music");
+			if (music != NULL) {
+				/* songs */
+				json_object *songs = json_object_object_get (music, "songs");
+				if (songs != NULL) {
+					for (size_t i = 0; i < json_object_array_length (songs); i++) {
+						json_object *s = json_object_array_get_idx (songs, i);
+						PianoSong_t *seedSong;
+
+						seedSong = calloc (1, sizeof (*seedSong));
+						if (seedSong == NULL) {
+							return PIANO_RET_OUT_OF_MEMORY;
+						}
+
+						seedSong->title = PianoJsonStrdup (s, "songName");
+						seedSong->artist = PianoJsonStrdup (s, "artistName");
+						seedSong->seedId = PianoJsonStrdup (s, "seedId");
+
+						if (info->songSeeds == NULL) {
+							info->songSeeds = seedSong;
+						} else {
+							PianoSong_t *curSong = info->songSeeds;
+							while (curSong->next != NULL) {
+								curSong = curSong->next;
+							}
+							curSong->next = seedSong;
+						}
+					}
+				}
+
+				/* artists */
+				json_object *artists = json_object_object_get (music, "artists");
+				if (artists != NULL) {
+					for (size_t i = 0; i < json_object_array_length (artists); i++) {
+						json_object *a = json_object_array_get_idx (artists, i);
+						PianoArtist_t *seedArtist;
+
+						seedArtist = calloc (1, sizeof (*seedArtist));
+						if (seedArtist == NULL) {
+							return PIANO_RET_OUT_OF_MEMORY;
+						}
+
+						seedArtist->name = PianoJsonStrdup (a, "artistName");
+						seedArtist->seedId = PianoJsonStrdup (a, "seedId");
+
+						if (info->artistSeeds == NULL) {
+							info->artistSeeds = seedArtist;
+						} else {
+							PianoArtist_t *curArtist = info->artistSeeds;
+							while (curArtist->next != NULL) {
+								curArtist = curArtist->next;
+							}
+							curArtist->next = seedArtist;
+						}
+					}
+				}
+			}
+
+			/* parse feedback */
+			json_object *feedback = json_object_object_get (result, "feedback");
+			if (feedback != NULL) {
+				json_object_object_foreach (feedback, key, val) {
+					for (size_t i = 0; i < json_object_array_length (val); i++) {
+						json_object *s = json_object_array_get_idx (val, i);
+						PianoSong_t *feedbackSong;
+
+						feedbackSong = calloc (1, sizeof (*feedbackSong));
+						if (feedbackSong == NULL) {
+							return PIANO_RET_OUT_OF_MEMORY;
+						}
+
+						feedbackSong->title = PianoJsonStrdup (s, "songName");
+						feedbackSong->artist = PianoJsonStrdup (s, "artistName");
+						feedbackSong->feedbackId = PianoJsonStrdup (s, "feedbackId");
+						feedbackSong->rating = json_object_get_boolean (json_object_object_get (s, "isPositive")) ? PIANO_RATE_LOVE : PIANO_RATE_BAN;
+
+
+						if (info->feedback == NULL) {
+							info->feedback = feedbackSong;
+						} else {
+							PianoSong_t *curSong = info->feedback;
+							while (curSong->next != NULL) {
+								curSong = curSong->next;
+							}
+							curSong->next = feedbackSong;
+						}
+					}
+				}
+			}
 			break;
 		}
 
