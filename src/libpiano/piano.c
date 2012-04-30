@@ -564,18 +564,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (song != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.deleteFeedback</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* feedback id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, song->feedbackId);
-			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=deleteFeedback&arg1=%s",
-					ph->routeId, ph->user.listenerId, song->feedbackId);
+			json_object_object_add(j, "feedbackId", json_object_new_string (song->feedbackId));
+			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
+
+			method = "station.deleteFeedback";
 			break;
 		}
 
@@ -597,18 +590,11 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			assert (seedId != NULL);
 
-			snprintf (xmlSendBuf, sizeof (xmlSendBuf), "<?xml version=\"1.0\"?>"
-					"<methodCall><methodName>station.deleteSeed</methodName>"
-					"<params><param><value><int>%lu</int></value></param>"
-					/* auth token */
-					"<param><value><string>%s</string></value></param>"
-					/* seed id */
-					"<param><value><string>%s</string></value></param>"
-					"</params></methodCall>", (unsigned long) timestamp,
-					ph->user.authToken, seedId);
-			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
-					"rid=%s&lid=%s&method=deleteSeed&arg1=%s",
-					ph->routeId, ph->user.listenerId, seedId);
+			json_object_object_add(j, "seedId", json_object_new_string (seedId));
+			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
+			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
+
+			method = "station.deleteMusic";
 			break;
 		}
 
@@ -1046,6 +1032,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 		case PIANO_REQUEST_BOOKMARK_SONG:
 		case PIANO_REQUEST_BOOKMARK_ARTIST:
 		case PIANO_REQUEST_DELETE_FEEDBACK:
+		case PIANO_REQUEST_DELETE_SEED:
 			/* response unused */
 			break;
 
@@ -1264,13 +1251,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 				}
 			}
 			break;
-		}
-
-		case PIANO_REQUEST_DELETE_SEED: {
-			assert (req->responseData != NULL);
-
-			/* dummy function, checks for errors only */
-			ret = PianoXmlParseTranformStation (req->responseData);
 		}
 	}
 
