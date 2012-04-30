@@ -31,6 +31,10 @@ THE SOFTWARE.
  * all strings _must_ be utf-8 encoded. i won't care, but pandora does. so
  * be nice and check the encoding of your strings. thanks :) */
 
+/* Pandora API documentation is available at
+ * http://pan-do-ra-api.wikia.com
+ */
+
 #define PIANO_RPC_HOST "tuner.pandora.com"
 
 typedef struct PianoUserInfo {
