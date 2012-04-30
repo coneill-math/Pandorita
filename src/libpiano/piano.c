@@ -175,6 +175,7 @@ void PianoDestroy (PianoHandle_t *ph) {
 		curGenreCat = curGenreCat->next;
 		free (lastGenreCat);
 	}
+	free (ph->partnerAuthToken);
 	memset (ph, 0, sizeof (*ph));
 }
 
