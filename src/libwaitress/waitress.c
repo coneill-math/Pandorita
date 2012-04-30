@@ -845,9 +845,9 @@ static WaitressReturn_t WaitressConnect (WaitressHandle_t *waith) {
 			return WAITRESS_RET_TLS_HANDSHAKE_ERR;
 		}
 
-		//if (WaitressTlsVerify (waith) != 0) {
-		//	return WAITRESS_RET_TLS_HANDSHAKE_ERR;
-		//}
+		if (WaitressTlsVerify (waith) != 0) {
+			return WAITRESS_RET_TLS_HANDSHAKE_ERR;
+		}
 
 		/* now we can talk encrypted */
 		waith->request.read = WaitressGnutlsRead;

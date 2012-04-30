@@ -133,7 +133,8 @@ void BarSettingsRead (BarSettings_t *settings) {
 	settings->listSongFormat = strdup ("%i) %a - %t%r");
 	settings->fifo = malloc (PATH_MAX * sizeof (*settings->fifo));
 	BarGetXdgConfigDir (PACKAGE "/ctl", settings->fifo, PATH_MAX);
-	memcpy (settings->tlsFingerprint, "\xA2\xA0\xBE\x8A\x37\x92\x39\xAE\x2B\x2E\x71\x4C\x56\xB3\x8B\xC1\x2A\x9B\x4B\x77",
+	memcpy (settings->tlsFingerprint, "\xA2\xA0\xBE\x8A\x37\x92\x39\xAE"
+			"\x2B\x2E\x71\x4C\x56\xB3\x8B\xC1\x2A\x9B\x4B\x77",
 			sizeof (settings->tlsFingerprint));
 
 	settings->msgFormat[MSG_NONE].prefix = NULL;
