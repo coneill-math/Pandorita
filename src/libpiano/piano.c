@@ -487,6 +487,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
+#if 0
 		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
 			/* find similar artists */
 			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
@@ -514,6 +515,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 					ph->routeId, ph->user.listenerId, reqData->musicId, reqData->max);
 			break;
 		}
+#endif
 
 		case PIANO_REQUEST_BOOKMARK_SONG: {
 			/* bookmark song */
@@ -1138,6 +1140,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
+#if 0
 		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
 			/* find similar artists */
 			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
@@ -1149,6 +1152,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					&reqData->searchResult);
 			break;
 		}
+#endif
 
 		case PIANO_REQUEST_GET_STATION_INFO: {
 			/* get station information (seeds and feedback) */
