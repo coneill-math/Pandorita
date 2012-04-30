@@ -39,7 +39,6 @@ THE SOFTWARE.
 
 #include "piano_private.h"
 #include "piano.h"
-#include "xml.h"
 #include "crypt.h"
 #include "config.h"
 
@@ -226,7 +225,6 @@ static const char *PianoAudioFormatToString (PianoAudioFormat_t format) {
  */
 PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		PianoRequestType_t type) {
-	char xmlSendBuf[PIANO_SEND_BUFFER_SIZE];
 	char *jsonSendBuf;
 	const char *method = NULL;
 	json_object *j = json_object_new_object();
@@ -813,8 +811,6 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					curStation = curStation->next;
 				}
 			}
-			
-			ret = PianoXmlParseStations (ph, req->responseData);
 			break;
 		}
 
@@ -903,8 +899,7 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			assert (reqData != NULL);
 			assert (reqData->step < 2);
 
-			ret = PianoXmlParseSimple (req->responseData);
-			if (ret == PIANO_RET_OK && reqData->step == 0) {
+			if (reqData->step == 0) {
 				ret = PIANO_RET_CONTINUE_REQUEST;
 				++reqData->step;
 			}
