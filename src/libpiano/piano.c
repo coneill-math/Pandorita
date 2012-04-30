@@ -225,7 +225,7 @@ static const char *PianoAudioFormatToString (PianoAudioFormat_t format) {
  */
 PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		PianoRequestType_t type) {
-	char *jsonSendBuf;
+	const char *jsonSendBuf;
 	const char *method = NULL;
 	json_object *j = json_object_new_object ();
 	/* corrected timestamp */
@@ -481,8 +481,8 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			break;
 		}
 
-#if 0
 		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
+#if 0
 			/* find similar artists */
 			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
 
@@ -507,9 +507,9 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			snprintf (req->urlPath, sizeof (req->urlPath), PIANO_RPC_PATH
 					"rid=%s&lid=%s&method=getSeedSuggestions&arg1=%s&arg2=%u",
 					ph->routeId, ph->user.listenerId, reqData->musicId, reqData->max);
+#endif
 			break;
 		}
-#endif
 
 		case PIANO_REQUEST_BOOKMARK_SONG: {
 			/* bookmark song */
@@ -684,8 +684,9 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		}
 	} else {
 		fprintf (stderr, "sending unencrypted json: %s\n", jsonSendBuf);
-		req->postData = jsonSendBuf;
+		req->postData = strdup (jsonSendBuf);
 	}
+	json_object_put (j);
 
 	return PIANO_RET_OK;
 }
@@ -1175,8 +1176,8 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 			break;
 		}
 
-#if 0
 		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
+#if 0
 			/* find similar artists */
 			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
 
@@ -1185,9 +1186,9 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 			ret = PianoXmlParseSeedSuggestions (req->responseData,
 					&reqData->searchResult);
+#endif
 			break;
 		}
-#endif
 
 		case PIANO_REQUEST_GET_STATION_INFO: {
 			/* get station information (seeds and feedback) */
