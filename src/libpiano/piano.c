@@ -286,10 +286,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		case PIANO_REQUEST_GET_STATIONS: {
 			/* get stations, user must be authenticated */
 			assert (ph->user.listenerId != NULL);
-
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
-
 			method = "user.getStationList";
 			break;
 		}
@@ -306,8 +302,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			req->secure = true;
 
 			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.getPlaylist";
 			break;
@@ -323,8 +317,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			json_object_object_add(j, "trackToken", json_object_new_string(reqData->trackToken));
 			json_object_object_add(j, "isPositive", json_object_new_boolean (reqData->rating == PIANO_RATE_LOVE));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.addFeedback";
 			break;
@@ -339,8 +331,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
 			json_object_object_add(j, "stationName", json_object_new_string(reqData->newName));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.renameStation";
 			break;
@@ -354,8 +344,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (station->id != NULL);
 
 			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.deleteStation";
 			break;
@@ -369,8 +357,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->searchStr != NULL);
 
 			json_object_object_add(j, "searchText", json_object_new_string(reqData->searchStr));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "music.search";
 			break;
@@ -385,8 +371,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->id != NULL);
 
 			json_object_object_add(j, "musicToken", json_object_new_string(reqData->id));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.createStation";
 			break;
@@ -402,8 +386,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			json_object_object_add(j, "musicToken", json_object_new_string(reqData->musicId));
 			json_object_object_add(j, "stationToken", json_object_new_string(reqData->station->id));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.addMusic";
 			break;
@@ -416,8 +398,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (song != NULL);
 
 			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "user.sleepSong";
 			break;
@@ -439,8 +419,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			}
 
 			json_object_object_add(j, "quickMixStationIds", a);
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "user.setQuickMix";
 			break;
@@ -448,10 +426,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 		case PIANO_REQUEST_GET_GENRE_STATIONS: {
 			/* receive list of pandora's genre stations */
-
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
-
 			method = "station.getGenreStations";
 			break;
 		}
@@ -463,8 +437,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (station != NULL);
 
 			json_object_object_add(j, "stationToken", json_object_new_string(station->id));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "station.transformSharedStation";
 			break;
@@ -478,8 +450,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (reqData->song != NULL);
 
 			json_object_object_add(j, "trackToken", json_object_new_string(reqData->song->trackToken));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "track.explainTrack";
 			break;
@@ -522,8 +492,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (song != NULL);
 
 			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "bookmark.addSongBookmark";
 			break;
@@ -536,8 +504,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (song != NULL);
 
 			json_object_object_add(j, "trackToken", json_object_new_string(song->trackToken));
-			json_object_object_add(j, "userAuthToken", json_object_new_string(ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int(timestamp));
 
 			method = "bookmark.addArtistBookmark";
 			break;
@@ -552,8 +518,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 
 			json_object_object_add(j, "stationToken", json_object_new_string (reqData->station->id));
 			json_object_object_add(j, "includeExtendedAttributes", json_object_new_boolean (true));
-			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
 
 			method = "station.getStation";
 			break;
@@ -565,8 +529,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (song != NULL);
 
 			json_object_object_add(j, "feedbackId", json_object_new_string (song->feedbackId));
-			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
 
 			method = "station.deleteFeedback";
 			break;
@@ -591,8 +553,6 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 			assert (seedId != NULL);
 
 			json_object_object_add(j, "seedId", json_object_new_string (seedId));
-			json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
-			json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
 
 			method = "station.deleteMusic";
 			break;
@@ -662,7 +622,7 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 		}
 	}
 
-	/* standard url parameter */
+	/* standard parameter */
 	if (method != NULL) {
 		char *urlencAuthToken;
 
@@ -676,6 +636,9 @@ PianoReturn_t PianoRequest (PianoHandle_t *ph, PianoRequest_t *req,
 				urlencAuthToken, ph->partnerId, ph->user.listenerId);
 
 		free (urlencAuthToken);
+
+		json_object_object_add(j, "userAuthToken", json_object_new_string (ph->user.authToken));
+		json_object_object_add(j, "syncTime", json_object_new_int (timestamp));
 	}
 
 	/* json to string */
