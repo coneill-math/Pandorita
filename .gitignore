@@ -2,6 +2,9 @@
 *.lo
 # vim swap files
 .*.sw*
-pianobar
-libpiano.a
-libpiano.so*
+
+build/Debug
+build/Release
+build/Pandorita.build
+resources/Pandorita.xcodeproj/chris*
+resources/Pandorita.xcodeproj/xc*
