@@ -1,16 +1,7 @@
-pianobar
+Pandorita
 ========
 
-pianobar is a console client for the personalized web radio pandora
-(http://www.pandora.com).
+Pandorita is a native Cocoa interface for the personalized web radio pandora (http://www.pandora.com).  
+It uses pianolib as its core (http://github.com/PromyLOPh/pianobar/).  
 
-- play and manage (create, add more music, delete, rename, ...) your stations
-- rate played songs and let pandora explain why they have been selected
-- show upcoming songs/song history
-- configure keybindings
-- last.fm scrobbling support (external application)
-- proxy support for listeners outside the USA
-
-The sourcecode can be downloaded at http://github.com/PromyLOPh/pianobar/ or
-http://6xq.net/projects/pianobar/
-
+The sourcecode can be downloaded at http://github.com/musicman3320/Pandorita
