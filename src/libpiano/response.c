@@ -26,11 +26,11 @@ THE SOFTWARE.
 #define _DARWIN_C_SOURCE /* strdup() on OS X */
 #endif
 
-#include <json.h>
 #include <string.h>
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+#include <json.h>
 
 #include "piano.h"
 #include "piano_private.h"
@@ -209,18 +209,15 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					free (song);
 					continue;
 				}
-
-				song->audioUrl = PianoJsonStrdup (s, "additionalAudioUrl");
+				song->audioUrl = strdup (json_object_get_string (json_object_object_get (json_object_object_get (json_object_object_get (s, "audioUrlMap"), "highQuality"), "audioUrl")));
 				song->artist = PianoJsonStrdup (s, "artistName");
 				song->album = PianoJsonStrdup (s, "albumName");
 				song->title = PianoJsonStrdup (s, "songName");
 				song->trackToken = PianoJsonStrdup (s, "trackToken");
 				song->stationId = PianoJsonStrdup (s, "stationId");
-				song->coverArt = PianoJsonStrdup (s, "albumArtUrl");
-				song->detailUrl = PianoJsonStrdup (s, "songDetailUrl");
 				song->fileGain = json_object_get_double (
 						json_object_object_get (s, "trackGain"));
-				song->audioFormat = reqData->format;
+				song->audioFormat = PIANO_AF_AACPLUS;
 				switch (json_object_get_int (json_object_object_get (s,
 						"songRating"))) {
 					case 1:
@@ -523,6 +520,20 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					}
 				}
 			}
+			break;
+		}
+
+		case PIANO_REQUEST_GET_SEED_SUGGESTIONS: {
+#if 0
+			/* find similar artists */
+			PianoRequestDataGetSeedSuggestions_t *reqData = req->data;
+
+			assert (req->responseData != NULL);
+			assert (reqData != NULL);
+
+			ret = PianoXmlParseSeedSuggestions (req->responseData,
+					&reqData->searchResult);
+#endif
 			break;
 		}
 

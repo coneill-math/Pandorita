@@ -1,0 +1,79 @@
+//
+// Prefix header for all source files of the 'Pandorita' target in the 'Pandorita' project
+//
+
+#ifdef __OBJC__
+	#import <Cocoa/Cocoa.h>
+	#import <QTKit/QTKit.h>
+//	#import <QuickTime/QuickTime.h>
+	
+	#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
+	@protocol NSApplicationDelegate <NSObject> @end
+	@protocol NSTableViewDelegate <NSObject> @end
+	@protocol NSTableViewDataSource <NSObject> @end
+	@protocol NSWindowDelegate <NSObject> @end
+	@protocol NSSplitViewDelegate <NSObject> @end
+	@protocol NSOpenSavePanelDelegate <NSObject> @end
+	@protocol NSSoundDelegate <NSObject> @end
+	#endif
+
+	#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_6
+	@protocol NSURLConnectionDelegate <NSObject> @end
+	#endif
+#endif
+
+#define ERROR_ON_FAIL(a) \
+if (!(a)) \
+{ \
+NSLog(@"Error in %s on line %d\n", __FILE__, __LINE__); \
+goto error; \
+} \
+
+
+
+#define ERROR_ON_FAIL_WITH_MESSAGE(a,b) \
+if (!(a)) \
+{ \
+NSLog(@"Error in %s on line %d: %s\n", __FILE__, __LINE__, b); \
+goto error; \
+} \
+
+#define ERROR_ON_FAIL_WITH_MESSAGE_NS(a,b) \
+if (!(a)) \
+{ \
+NSLog(@"Error in %s on line %d: %@\n", __FILE__, __LINE__, b); \
+goto error; \
+} \
+
+
+#define FATAL_ERROR(m) NSLog(@"*** ERROR: %@ ***", (m));
+
+#define RELEASE_MEMBER(mem) RELEASE_MEMBER_FUNC(mem, release) 
+
+#define FREE_MEMBER(mem) FREE_MEMBER_FUNC(mem,free)
+
+#define RELEASE_MEMBER_FUNC(mem, func) \
+if (mem) \
+{ \
+[mem func]; \
+mem = nil; \
+}
+
+#define FREE_MEMBER_FUNC(mem,func) \
+if (mem) \
+{ \
+func(mem); \
+mem = NULL; \
+}
+
+#define RETAIN_MEMBER(mem) \
+if (mem) \
+{ \
+[mem retain]; \
+}
+
+#define ASSIGN_MEMBER(to,from) \
+RETAIN_MEMBER(from); \
+RELEASE_MEMBER(to); \
+to = from;
+

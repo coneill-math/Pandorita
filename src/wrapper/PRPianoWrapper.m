@@ -1,0 +1,249 @@
+//
+//  PRPianoWrapper.m
+//  Pandorita
+//
+//  Created by Chris O'Neill on 1/29/12.
+//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "PRPianoWrapper.h"
+
+#import "PRPianoJob.h"
+#import "PRPianoLoginJob.h"
+#import "PRPianoGetStationsJob.h"
+#import "PRPianoGetPlaylistJob.h"
+#import "PRPianoSetRatingJob.h"
+
+
+@interface PRPianoWrapper (PRPianoWrapper_Private)
+
+- (void)queueJob:(PRPianoJob *)job;
+- (void)updateStations;
+- (void)updatePlaylist;
+
+@end
+
+
+@implementation PRPianoWrapper
+
+- (id)init
+{
+	self = [super init];
+	
+	if (self != nil)
+	{
+		jobQueue = [[NSMutableArray alloc] init];
+		
+		stations = [[NSMutableArray alloc] init];
+		playlist = [[NSMutableArray alloc] init];
+		
+		currentSongIndex = 0;
+		currentStation = nil;
+		delegate = nil;
+		
+		username = NULL;
+		password = NULL;
+		
+		PianoInit(&pHandle, "android", "AC7IBG09A3DTSYM4R41UJWL07VLN8JI7", "android-generic", "R=U!LH$O2B#", "6#26FRL$ZWD");
+	}
+	
+	return self;
+}
+
+- (NSArray *)stations
+{
+	return stations;
+}
+
+- (NSArray *)playlist
+{
+	return playlist;
+}
+
+- (PRStation *)currentStation
+{
+	return currentStation;
+}
+
+- (void)setCurrentStation:(PRStation *)station
+{
+	RETAIN_MEMBER(station);
+	RELEASE_MEMBER(currentStation);
+	currentStation = station;
+}
+
+- (id <PRPianoDelegate>)delegate
+{
+	return delegate;
+}
+
+- (void)setDelegate:(id <PRPianoDelegate>)d
+{
+	RETAIN_MEMBER(d);
+	RELEASE_MEMBER(delegate);
+	delegate = d;
+}
+
+- (void)queueJob:(PRPianoJob *)job
+{
+	[jobQueue addObject:job];
+	
+	if ([jobQueue count] == 1)
+	{
+		[job startJob];
+	}
+}
+
+- (void)updateStations
+{
+	PRPianoJob *job = [[[PRPianoGetStationsJob alloc] initWithWrapper:self] autorelease];
+	[self queueJob:job];
+}
+
+- (void)updatePlaylist
+{
+	if (!currentStation)
+	{
+		NSLog(@"No station selected!");
+		return;
+	}
+	
+	PRPianoJob *job = [[[PRPianoGetPlaylistJob alloc] initWithWrapper:self station:currentStation] autorelease];
+	[self queueJob:job];
+}
+
+- (void)loginWithUsername:(NSString *)user password:(NSString *)pass
+{
+	// clean up in case we were already logged in
+	[playlist removeAllObjects];
+	RELEASE_MEMBER(currentStation);
+	[stations removeAllObjects];
+	[jobQueue removeAllObjects];
+	
+	username = [user retain];
+	password = [pass retain];
+	
+	// init Piano
+	PianoDestroy(&pHandle);
+	PianoInit(&pHandle, "android", "AC7IBG09A3DTSYM4R41UJWL07VLN8JI7", "android-generic", "R=U!LH$O2B#", "6#26FRL$ZWD");
+	
+	// init station gettingz
+//	[self queueJobWithType:PIANO_REQUEST_GET_STATIONS data:NULL extraInfo:nil callback:@selector(updateStationsCompleted:) startImmediately:NO];
+	
+	// log in user
+	[self login];
+	
+	[self updateStations];
+}
+
+- (void)login
+{
+	// make sure we continue on to the next one
+	PRPianoJob *job = [[PRPianoLoginJob alloc] initWithWrapper:self username:username password:password];
+	[jobQueue insertObject:job atIndex:0];
+	[job release];
+	
+	NSLog(@"Logging in...");
+	[job startJob];
+}
+
+- (void)requestNextSong
+{
+	currentSongIndex++;
+	
+	if (playlist && currentSongIndex < [playlist count])
+	{
+		// call the delegate method immediately
+		[delegate didStartNextSong:[playlist objectAtIndex:currentSongIndex] error:nil];
+	}
+	else
+	{
+		[self updatePlaylist];
+	}
+}
+
+- (void)setRating:(PRRating)rating forSong:(PRSong *)song
+{
+	PRPianoJob *job = [[[PRPianoSetRatingJob alloc] initWithWrapper:self withRating:rating forSong:song] autorelease];
+	[self queueJob:job];
+}
+
+//////////////////////////////////
+// Called from PRPianoJob only! //
+//////////////////////////////////
+
+- (void)createRequestForJob:(PRPianoJob *)job
+{
+	job.pRet = PianoRequest(&pHandle, job.req, job.type);
+}
+
+- (void)createResponseForJob:(PRPianoJob *)job
+{
+	job.pRet = PianoResponse(&pHandle, job.req);
+}
+
+- (void)setTimeOffsetForLoginHack:(time_t)offset
+{
+	pHandle.timeOffset = offset;
+}
+
+- (void)finishJob:(PRPianoJob *)job
+{
+	[jobQueue removeObject:job];
+	
+	NSLog(@"Finish job completed");
+	
+	if ([jobQueue count] > 0)
+	{
+		[[jobQueue objectAtIndex:0] startJob];
+	}
+}
+
+- (void)loadStationsFromPianoHandle
+{
+	RELEASE_MEMBER(currentStation);
+	[stations removeAllObjects];
+	
+	PianoStation_t *cur = pHandle.stations;
+	
+	while(cur != NULL)
+	{
+		PRStation *s = [[PRStation alloc] initWithStation:cur];
+		[stations addObject:s];
+		[s release];
+		
+		cur = cur->next;
+	}
+}
+
+- (void)clearPlaylist
+{
+	[playlist removeAllObjects];
+	currentSongIndex = 0;
+}
+
+- (void)addSongToPlaylist:(PRSong *)song
+{
+	[playlist addObject:song];
+}
+
+- (void)removeAllJobs
+{
+	[jobQueue removeAllObjects];
+}
+
+- (void)dealloc
+{
+	RELEASE_MEMBER(delegate);
+	RELEASE_MEMBER(stations);
+	RELEASE_MEMBER(playlist);
+	RELEASE_MEMBER(jobQueue);
+	RELEASE_MEMBER(username);
+	RELEASE_MEMBER(password);
+	PianoDestroy(&pHandle);
+	
+	[super dealloc];
+}
+
+
+@end

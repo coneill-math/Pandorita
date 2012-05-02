@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2011
+Copyright (c) 2009-2011
 	Lars-Dominik Braun <lars@6xq.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,13 +21,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#ifndef _CRYPH_H
-#define _CRYPT_H
+#ifndef __FreeBSD__
+#define _POSIX_C_SOURCE 1 /* required by getaddrinfo() */
+#define _BSD_SOURCE /* snprintf() */
+#define _DARWIN_C_SOURCE /* snprintf() on OS X */
+#endif
 
-#include <gcrypt.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-char *PianoDecryptString (gcry_cipher_hd_t, const char * const,
-		size_t * const);
-char *PianoEncryptString (gcry_cipher_hd_t, const char *);
+#include "macwaitress.h"
 
-#endif /* _CRYPT_H */
+/*	urlencode post-data
+ *	@param encode this
+ *	@return malloc'ed encoded string, don't forget to free it
+ */
+char *WaitressUrlEncode (const char *in) {
+//	assert (in != NULL);
+
+	size_t inLen = strlen (in);
+	/* worst case: encode all characters */
+	char *out = calloc (inLen * 3 + 1, sizeof (*in));
+	const char *inPos = in;
+	char *outPos = out;
+
+	while (inPos - in < inLen) {
+		if (!isalnum (*inPos) && *inPos != '_' && *inPos != '-' && *inPos != '.') {
+			*outPos++ = '%';
+			snprintf (outPos, 3, "%02x", *inPos & 0xff);
+			outPos += 2;
+		} else {
+			/* copy character */
+			*outPos++ = *inPos;
+		}
+		++inPos;
+	}
+
+	return out;
+}
+
+

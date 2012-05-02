@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2008-2011
+Copyright (c) 2009-2011
 	Lars-Dominik Braun <lars@6xq.net>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,13 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#ifndef _CRYPH_H
-#define _CRYPT_H
+#ifndef _WAITRESS_H
+#define _WAITRESS_H
 
-#include <gcrypt.h>
+char *WaitressUrlEncode (const char *);
 
-char *PianoDecryptString (gcry_cipher_hd_t, const char * const,
-		size_t * const);
-char *PianoEncryptString (gcry_cipher_hd_t, const char *);
+#endif /* _WAITRESS_H */
 
-#endif /* _CRYPT_H */
