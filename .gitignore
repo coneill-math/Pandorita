@@ -8,3 +8,4 @@ build/Release
 build/Pandorita.build
 resources/Pandorita.xcodeproj/chris*
 resources/Pandorita.xcodeproj/xc*
+resources/Pandorita.xcodeproj/*.xcworkspace
