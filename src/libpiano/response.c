@@ -26,11 +26,11 @@ THE SOFTWARE.
 #define _DARWIN_C_SOURCE /* strdup() on OS X */
 #endif
 
-#include <json.h>
 #include <string.h>
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+#include <json.h>
 
 #include "piano.h"
 #include "piano_private.h"

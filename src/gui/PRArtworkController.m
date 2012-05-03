@@ -39,7 +39,6 @@
 	
 	RELEASE_MEMBER(artworkData);
 	
-	NSLog(@"Artwork url: %@", [song coverArtURL]);
 	NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:[song coverArtURL]] autorelease];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	[connection start];

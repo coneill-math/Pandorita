@@ -26,12 +26,13 @@ THE SOFTWARE.
 #define _DARWIN_C_SOURCE /* strdup() on OS X */
 #endif
 
-#include <json.h>
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <json.h>
 /* needed for urlencode */
-#include <waitress.h>
+#include <macwaitress.h>
 
 #include "piano.h"
 #include "crypt.h"
