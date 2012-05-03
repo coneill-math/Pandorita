@@ -17,7 +17,7 @@
 	NSMutableArray *songHistory;
 }
 
--  (PRSong *)currentSong;
+- (PRSong *)currentSong;
 
 - (PRSong *)songForRow:(NSUInteger)index;
 

@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "PRSong.h"
+
 
 @interface PRArtworkController : NSObject <NSURLConnectionDelegate, NSSplitViewDelegate>
 {
@@ -15,8 +17,11 @@
 	
 	NSMutableData *responseData;
 	NSURLConnection *connection;
+	
+	NSData *artworkData;
 }
 
-- (void)loadImageFromURL:(NSURL *)url;
+- (void)loadImageFromSong:(PRSong *)song;
+- (NSData *)artworkData;
 
 @end

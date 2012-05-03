@@ -21,6 +21,8 @@
 		831D821E14F74AEA009B73C4 /* PRAdvancedPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831D821D14F74AEA009B73C4 /* PRAdvancedPrefsController.m */; };
 		831D822014F74D06009B73C4 /* AdvancedPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831D821F14F74D06009B73C4 /* AdvancedPrefs.xib */; };
 		83239B9B154F9377003AFF5A /* PRPianoGetPlaylistJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 83239B9A154F9377003AFF5A /* PRPianoGetPlaylistJob.m */; };
+		8334FA5B15524D3C002C2D6E /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8334FA5A15524D3C002C2D6E /* Growl.framework */; };
+		8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8334FA5A15524D3C002C2D6E /* Growl.framework */; };
 		8336626215503192008D8351 /* request.c in Sources */ = {isa = PBXBuildFile; fileRef = 8336626015503192008D8351 /* request.c */; };
 		8336626315503192008D8351 /* response.c in Sources */ = {isa = PBXBuildFile; fileRef = 8336626115503192008D8351 /* response.c */; };
 		8336626E15503681008D8351 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8336626D15503680008D8351 /* libjson.a */; };
@@ -61,6 +63,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8334FA5C15524D82002C2D6E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8336627F15508B26008D8351 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,6 +114,7 @@
 		831D821F14F74D06009B73C4 /* AdvancedPrefs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AdvancedPrefs.xib; path = interfaces/AdvancedPrefs.xib; sourceTree = "<group>"; };
 		83239B99154F9377003AFF5A /* PRPianoGetPlaylistJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPianoGetPlaylistJob.h; path = ../src/wrapper/PRPianoGetPlaylistJob.h; sourceTree = "<group>"; };
 		83239B9A154F9377003AFF5A /* PRPianoGetPlaylistJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPianoGetPlaylistJob.m; path = ../src/wrapper/PRPianoGetPlaylistJob.m; sourceTree = "<group>"; };
+		8334FA5A15524D3C002C2D6E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = frameworks/Growl.framework; sourceTree = "<group>"; };
 		8336625F15503192008D8351 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../src/libpiano/config.h; sourceTree = "<group>"; };
 		8336626015503192008D8351 /* request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = request.c; path = ../src/libpiano/request.c; sourceTree = "<group>"; };
 		8336626115503192008D8351 /* response.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = response.c; path = ../src/libpiano/response.c; sourceTree = "<group>"; };
@@ -182,6 +195,7 @@
 				8336626E15503681008D8351 /* libjson.a in Frameworks */,
 				8336627C15503E37008D8351 /* libgcrypt.dylib in Frameworks */,
 				8336627D15503E37008D8351 /* libgpg-error.dylib in Frameworks */,
+				8334FA5B15524D3C002C2D6E /* Growl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,10 +205,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8366CBD21551D63B00EF173C /* Utils */,
+				837D425514F89D9D00709D9D /* Wrapper */,
 				8366CBD11551D62F00EF173C /* GUI */,
 				8354555214F5A53C0067890A /* Preferences */,
-				837D425514F89D9D00709D9D /* Wrapper */,
+				8366CBD21551D63B00EF173C /* Utils */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -270,8 +284,17 @@
 				8336626D15503680008D8351 /* libjson.a */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+				8334FA5915524D1D002C2D6E /* External Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8334FA5915524D1D002C2D6E /* External Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8334FA5A15524D3C002C2D6E /* Growl.framework */,
+			);
+			name = "External Frameworks";
 			sourceTree = "<group>";
 		};
 		8336626415503653008D8351 /* json */ = {
@@ -437,6 +460,7 @@
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				8336627F15508B26008D8351 /* CopyFiles */,
+				8334FA5C15524D82002C2D6E /* CopyFiles */,
 				830111331551DD420099C231 /* ShellScript */,
 			);
 			buildRules = (
@@ -579,6 +603,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/frameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -598,6 +626,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/frameworks\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ../src/other/Pandorita_Prefix.pch;

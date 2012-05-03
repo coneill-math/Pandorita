@@ -12,25 +12,32 @@
 
 /*
 P1 Blockers:
-- Restructure PianoWrapper
+x Restructure PianoWrapper
 - Create stations
 - Cleanup menu bar
+- Volume control
 - Preferences window
-  - Login info
-  - Global hotkeys
+  x Login info
+  - Global hotkeys/media keys
   - Automatic updates (+Sparkle)
-- Sourceforge
+x Sourceforge/Github
 
 Enhancements: 
 - Additional Pandora functionality
-- 
+- Last.fm
+- Growl
 */
+
+#define PR_GROWL_PLAYING_NOTIFICATION @"Pandorita - Now Playing"
+#define PR_GROWL_PAUSED_NOTIFICATION @"Pandorita - Paused"
 
 @implementation PRAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	NSLog(@"Opened!");
+	
+	[GrowlApplicationBridge setGrowlDelegate:self];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
@@ -134,6 +141,7 @@ error:
 	}
 	
 	[self updatePlayButton];
+	[self pushGrowlNotification];
 }
 
 - (IBAction)moveToNextSong:(id)sender
@@ -192,6 +200,19 @@ error:
 	[pianoWrapper setRating:rating forSong:song];
 }
 
+- (void)pushGrowlNotification
+{
+	PRSong *song = [songHistoryTableDelegate currentSong];
+	NSData *data = [coverArtController artworkData];
+	
+	NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
+	NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
+	NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
+	NSString *ident = @"PandoritaNowPlaying";
+	
+	[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+}
+
 - (void)didLoginWithError:(NSError *)error
 {
 	if (error)
@@ -231,7 +252,7 @@ error:
 	[songHistoryTableView reloadData];
 	
 	// update cover art
-	[coverArtController loadImageFromURL:[song coverArtURL]];
+	[coverArtController loadImageFromSong:song];
 	
 	// update buttons
 	[self updatePlayButton];
@@ -291,6 +312,25 @@ error:
 	[[[splitView subviews] objectAtIndex:1] setFrame:secondRect];
 }
 
+// growl delegate methods
+- (NSString *) applicationNameForGrowl
+{
+	return @"Pandorita";
+}
+
+- (NSDictionary *) registrationDictionaryForGrowl
+{
+	NSArray *notifications = [NSArray arrayWithObjects:PR_GROWL_PLAYING_NOTIFICATION, PR_GROWL_PAUSED_NOTIFICATION, nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:notifications, GROWL_NOTIFICATIONS_ALL, notifications, GROWL_NOTIFICATIONS_DEFAULT, nil];
+}
+
+- (void)growlIsReady
+{
+	// nothing needed atm
+}
+
+//- (void) growlNotificationWasClicked:(id)clickContext;
+
 - (void)movieLoadStateDidChange:(NSNotification *)notification
 {
 	// First make sure that this notification is for our movie.
@@ -302,6 +342,7 @@ error:
 			// {
 			[player play];
 			[self updatePlayButton];
+			[self pushGrowlNotification];
 			// }
 		}
 	}

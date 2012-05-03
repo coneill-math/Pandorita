@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <Growl/Growl.h>
+
 #import "PRURLDownloader.h"
 #import "PRPianoWrapper.h"
 
@@ -22,7 +24,7 @@
 #import "PRUtils.h"
 
 
-@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, PRPianoDelegate>
+@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, GrowlApplicationBridgeDelegate, PRPianoDelegate>
 {
 	IBOutlet NSWindow *window;
 	
@@ -56,6 +58,8 @@
 
 - (void)setRatingFromSegmentClick:(PRRating)rating;
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
+
+- (void)pushGrowlNotification;
 
 - (IBAction)showPreferences:(id)sender;
 

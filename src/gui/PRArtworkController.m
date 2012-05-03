@@ -9,6 +9,7 @@
 #import "PRArtworkController.h"
 
 #import "PRUtils.h"
+#import "PRAppDelegate.h"
 
 
 @implementation PRArtworkController
@@ -18,10 +19,17 @@
 	responseData = [[NSMutableData alloc] init];
 	connection = nil;
 	
+	artworkData = nil;
+	
 	[imageView setImage:[NSImage imageNamed:@"nothingplaying"]];
 }
 
-- (void)loadImageFromURL:(NSURL *)url
+- (NSData *)artworkData
+{
+	return artworkData;
+}
+
+- (void)loadImageFromSong:(PRSong *)song
 {
 	if (connection)
 	{
@@ -29,7 +37,10 @@
 		RELEASE_MEMBER(connection);
 	}
 	
-	NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url] autorelease];
+	RELEASE_MEMBER(artworkData);
+	
+	NSLog(@"Artwork url: %@", [song coverArtURL]);
+	NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:[song coverArtURL]] autorelease];
 	connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	[connection start];
 	
@@ -57,6 +68,10 @@
 	NSImage *image = [[NSImage alloc] initWithData:responseData];
 	[imageView setImage:image];
 	[image release];
+	
+	artworkData = [[NSData alloc] initWithData:responseData];
+	
+	[[NSApp delegate] pushGrowlNotification];
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview
@@ -94,6 +109,7 @@
 - (void)dealloc
 {
 	RELEASE_MEMBER(responseData);
+	RELEASE_MEMBER(artworkData);
 	
 	[super dealloc];
 }
