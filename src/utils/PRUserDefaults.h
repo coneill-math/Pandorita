@@ -11,8 +11,13 @@
 
 @interface NSUserDefaults (PRUtils_Additions)
 
++ (void)registerPandoritaUserDefaults;
+
 + (BOOL)shouldAutoLogin;
 + (void)setShouldAutoLogin:(BOOL)should;
+
++ (BOOL)shouldUseGrowl;
++ (void)setShouldUseGrowl:(BOOL)should;
 
 + (NSString *)lastUsername;
 + (void)setLastUsername:(NSString *)last;

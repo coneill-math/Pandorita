@@ -64,8 +64,7 @@
 
 - (void)showPreferences
 {
-	[preferencesWindow display];
-	[preferencesWindow makeKeyWindow];
+	[preferencesWindow makeKeyAndOrderFront:self];
 }
 
 - (IBAction)switchToPane:(id)sender

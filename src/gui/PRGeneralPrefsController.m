@@ -28,11 +28,17 @@
 - (void)awakeFromNib
 {
 	[autoLoginCheckbox setState:([NSUserDefaults shouldAutoLogin] ? NSOnState : NSOffState)];
+	[useGrowlCheckbox setState:([NSUserDefaults shouldUseGrowl] ? NSOnState : NSOffState)];
 }
 
 - (IBAction)autoLoginChanged:(id)sender
 {
 	[NSUserDefaults setShouldAutoLogin:([autoLoginCheckbox state] != NSOffState)];
+}
+
+- (IBAction)useGrowlChanged:(id)sender
+{
+	[NSUserDefaults setShouldUseGrowl:([useGrowlCheckbox state] != NSOffState)];
 }
 
 @end

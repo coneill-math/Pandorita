@@ -69,6 +69,12 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 
 @implementation NSUserDefaults (PRUtils_Additions)
 
++ (void)registerPandoritaUserDefaults
+{
+	NSDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Defaults" ofType:@"plist"]];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
+
 + (BOOL)shouldAutoLogin
 {
 	return [[NSUserDefaults standardUserDefaults] boolForKey:@"PRAutoLogin"];
@@ -77,6 +83,16 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 + (void)setShouldAutoLogin:(BOOL)should
 {
 	[[NSUserDefaults standardUserDefaults] setBool:should forKey:@"PRAutoLogin"];
+}
+
++ (BOOL)shouldUseGrowl
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"PRUseGrowl"];
+}
+
++ (void)setShouldUseGrowl:(BOOL)should
+{
+	[[NSUserDefaults standardUserDefaults] setBool:should forKey:@"PRUseGrowl"];
 }
 
 + (NSString *)lastUsername

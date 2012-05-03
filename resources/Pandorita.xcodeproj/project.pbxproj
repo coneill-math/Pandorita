@@ -43,6 +43,7 @@
 		835CB9A214D7B19B00A1B503 /* PRSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9A114D7B19B00A1B503 /* PRSong.m */; };
 		835CB9BA14D83C4400A1B503 /* PRSongHistoryTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */; };
 		835CBAD014D8CB2C00A1B503 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 835CBACF14D8CB2C00A1B503 /* QTKit.framework */; };
+		837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 837CF2491552F37A0005B9DB /* Defaults.plist */; };
 		837D425414F89C9500709D9D /* PRPianoJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D425314F89C9500709D9D /* PRPianoJob.m */; };
 		837D425914F89FE000709D9D /* PRPianoLoginJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D425814F89FE000709D9D /* PRPianoLoginJob.m */; };
 		838F55FC14D7649900E9134E /* PRStationTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F55FB14D7649900E9134E /* PRStationTableDelegate.m */; };
@@ -154,6 +155,7 @@
 		835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRSongHistoryTableDelegate.h; path = ../src/gui/PRSongHistoryTableDelegate.h; sourceTree = "<group>"; };
 		835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRSongHistoryTableDelegate.m; path = ../src/gui/PRSongHistoryTableDelegate.m; sourceTree = "<group>"; };
 		835CBACF14D8CB2C00A1B503 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		837CF2491552F37A0005B9DB /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		837D425214F89C9500709D9D /* PRPianoJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPianoJob.h; path = ../src/wrapper/PRPianoJob.h; sourceTree = "<group>"; };
 		837D425314F89C9500709D9D /* PRPianoJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPianoJob.m; path = ../src/wrapper/PRPianoJob.m; sourceTree = "<group>"; };
 		837D425714F89FE000709D9D /* PRPianoLoginJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPianoLoginJob.h; path = ../src/wrapper/PRPianoLoginJob.h; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				8D1107310486CEB800E47090 /* Pandorita-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				833662881551A663008D8351 /* Credits.rtf */,
+				837CF2491552F37A0005B9DB /* Defaults.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				831D821814F74A3F009B73C4 /* UpdatesPrefs.xib in Resources */,
 				831D822014F74D06009B73C4 /* AdvancedPrefs.xib in Resources */,
 				833662891551A663008D8351 /* Credits.rtf in Resources */,
+				837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,6 +62,7 @@
 - (void)pushGrowlNotification;
 
 - (IBAction)showPreferences:(id)sender;
+- (IBAction)hidePreferences:(id)sender;
 
 - (IBAction)switchAccounts:(id)sender;
 

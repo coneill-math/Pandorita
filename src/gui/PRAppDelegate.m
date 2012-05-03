@@ -16,8 +16,9 @@ x Restructure PianoWrapper
 - Create stations
 - Cleanup menu bar
 - Volume control
+- Song progress
 - Preferences window
-  x Login info
+  - Login info
   - Global hotkeys/media keys
   - Automatic updates (+Sparkle)
 x Sourceforge/Github
@@ -37,6 +38,7 @@ x Growl
 {
 	NSLog(@"Opened!");
 	
+	[NSUserDefaults registerPandoritaUserDefaults];
 	[GrowlApplicationBridge setGrowlDelegate:self];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
@@ -117,6 +119,11 @@ error:
 	}
 	
 	[prefsController showPreferences];
+}
+
+- (IBAction)hidePreferences:(id)sender
+{
+	RELEASE_MEMBER(prefsController);
 }
 
 - (IBAction)switchAccounts:(id)sender
@@ -202,15 +209,18 @@ error:
 
 - (void)pushGrowlNotification
 {
-	PRSong *song = [songHistoryTableDelegate currentSong];
-	NSData *data = [coverArtController artworkData];
-	
-	NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
-	NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
-	NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
-	NSString *ident = @"PandoritaNowPlaying";
-	
-	[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+	if ([NSUserDefaults shouldUseGrowl])
+	{
+		PRSong *song = [songHistoryTableDelegate currentSong];
+		NSData *data = [coverArtController artworkData];
+		
+		NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
+		NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
+		NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
+		NSString *ident = @"PandoritaNowPlaying";
+		
+		[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+	}
 }
 
 - (void)didLoginWithError:(NSError *)error

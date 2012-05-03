@@ -12,8 +12,10 @@
 @interface PRGeneralPrefsController : NSViewController
 {
 	IBOutlet NSButton *autoLoginCheckbox;
+	IBOutlet NSButton *useGrowlCheckbox;
 }
 
 - (IBAction)autoLoginChanged:(id)sender;
+- (IBAction)useGrowlChanged:(id)sender;
 
 @end
