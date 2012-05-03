@@ -536,7 +536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} == \"Release\" ]\nthen\n\ncd $BUILT_PRODUCTS_DIR\nrm -f ../Pandorita.tar.gz\ntar -cf Pandorita.tar Pandorita.app\ngzip Pandorita.tar\nmv Pandorita.tar.gz ..\n\nfi\n";
+			shellScript = "if [ ${CONFIGURATION} == \"Release\" ]\nthen\n\ncd $BUILT_PRODUCTS_DIR\nrm -f ${SYMROOT}/../build/Pandorita.tar.gz\ntar -cf Pandorita.tar Pandorita.app\ngzip Pandorita.tar\nmv Pandorita.tar.gz ${SYMROOT}/../build\necho ${SRCROOT}\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

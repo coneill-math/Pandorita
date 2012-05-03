@@ -25,7 +25,7 @@ x Sourceforge/Github
 Enhancements: 
 - Additional Pandora functionality
 - Last.fm
-- Growl
+x Growl
 */
 
 #define PR_GROWL_PLAYING_NOTIFICATION @"Pandorita - Now Playing"
