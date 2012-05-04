@@ -24,4 +24,6 @@
 - (void)addSong:(PRSong *)song;
 - (void)replaceSongAfterRating:(PRSong *)song;
 
+- (void)clearHistory;
+
 @end

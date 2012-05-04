@@ -107,12 +107,27 @@ error:
 		[playButton setTitle:@"Play"];
 		[playButton setEnabled:NO];
 	}
+	
+	// update dock menu
+	PRSong *currentSong = [songHistoryTableDelegate currentSong];
+	if (currentSong != nil)
+	{
+		[songDockItem setTitle:[NSString stringWithFormat:@"%@", [currentSong title]]];
+		[artistDockItem setTitle:[NSString stringWithFormat:@"Artist: %@", [currentSong artist]]];
+		[albumDockItem setTitle:[NSString stringWithFormat:@"Album: %@", [currentSong album]]];
+	}
+	else
+	{
+		[songDockItem setTitle:@"Song"];
+		[artistDockItem setTitle:@"Artist"];
+		[albumDockItem setTitle:@"Album"];
+	}
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-//	if ([item action] == @selector(togglePause:) || [item action] == @selector(moveToNextSong:))
-//	{
+	if ([item action] != nil)
+	{
 		if (player && [self isPlaying])
 		{
 			return YES;
@@ -125,9 +140,9 @@ error:
 		{
 			return NO;
 		}
-//	}
+	}
 	
-//	return YES;
+	return NO;
 }
 
 - (IBAction)showPreferences:(id)sender
@@ -202,9 +217,14 @@ error:
 
 - (void)playStation:(PRStation *)station
 {
-	[pianoWrapper setCurrentStation:station];
-	
-	[self moveToNextSong:self];
+	if (station != [pianoWrapper currentStation])
+	{
+		[pianoWrapper clearPlaylist];
+		[songHistoryTableDelegate clearHistory];
+		[pianoWrapper setCurrentStation:station];
+		
+		[self moveToNextSong:self];
+	}
 }
 
 - (void)setRatingFromSegmentClick:(PRRating)rating

@@ -46,6 +46,10 @@
 	IBOutlet NSMenu *dockMenu;
 	IBOutlet NSMenuItem *playDockItem;
 	
+	IBOutlet NSMenuItem *songDockItem;
+	IBOutlet NSMenuItem *artistDockItem;
+	IBOutlet NSMenuItem *albumDockItem;
+	
 	PRLoginController *loginController;
 	PRPreferencesController *prefsController;
 	

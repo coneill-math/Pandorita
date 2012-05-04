@@ -59,6 +59,11 @@
 	NSLog(@"Error: Song not found for replacement in history: %@", song);
 }
 
+- (void)clearHistory
+{
+	[songHistory removeAllObjects];
+}
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
 	return [songHistory count];
