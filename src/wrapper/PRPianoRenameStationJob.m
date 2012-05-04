@@ -25,6 +25,7 @@
 		[name getCString:cName maxLength:([name length]+1) encoding:NSASCIIStringEncoding];
 		
 		PianoRequestDataRenameStation_t *reqData = (PianoRequestDataRenameStation_t *)malloc(sizeof(PianoRequestDataRenameStation_t));
+		memset(reqData, 0, sizeof(PianoRequestDataRenameStation_t));
 		
 		reqData->station = [station internalStation];
 		reqData->newName = cName;
@@ -39,8 +40,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to raname station!");
-		// try anyway?
+		NSLog(@"Unable to rename station!");
 	}
 	
 	[station reloadFromInternalStation];

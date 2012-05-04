@@ -23,8 +23,11 @@
 - (void)didUpdateStationsWithError:(NSError *)error;
 - (void)didStartNextSong:(PRSong *)song error:(NSError *)error;
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error;
+- (void)didCreateStation:(PRStation *)station error:(NSError *)error;
 - (void)didRenameStation:(PRStation *)station error:(NSError *)error;
 - (void)didRemoveStationWithError:(NSError *)error;
+
+- (void)didGetSearchResultWithArtists:(NSArray *)artists songs:(NSArray *)songs withError:(NSError *)error;
 
 @end
 
@@ -64,8 +67,11 @@
 
 - (void)updateQuickMix;
 
+- (void)createStationWithMusicId:(NSString *)musicId;
 - (void)setName:(NSString *)name forStation:(PRStation *)station;
 - (void)removeStation:(PRStation *)station;
+
+- (void)submitSearch:(NSString *)search;
 
 //////////////////////////////////
 // Called from PRPianoJob only! //

@@ -22,6 +22,7 @@
 		station = [s retain];
 		
 		PianoRequestDataGetPlaylist_t *reqData = (PianoRequestDataGetPlaylist_t *)malloc(sizeof(PianoRequestDataGetPlaylist_t));
+		memset(reqData, 0, sizeof(PianoRequestDataGetPlaylist_t));
 		
 		reqData->station = [station internalStation];
 		reqData->format = PIANO_AF_MP3;

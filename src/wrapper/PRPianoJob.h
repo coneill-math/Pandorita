@@ -13,6 +13,7 @@
 #import "PRURLDownloader.h"
 #import "PRStation.h"
 #import "PRSong.h"
+#import "PRArtist.h"
 
 
 @class PRPianoWrapper;

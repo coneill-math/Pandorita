@@ -9,7 +9,6 @@
 #import "PRStationTableDelegate.h"
 
 #import "PRAppDelegate.h"
-#import "PRStationCell.h"
 
 
 @implementation PRStationTableDelegate
@@ -119,6 +118,17 @@
 	return NO;
 }
 
+- (void)tableDoubleClicked:(id)sender
+{
+	NSArray *stations = [pianoWrapper stations];
+	NSInteger row = [tableView clickedRow];
+	
+	if (stations && row >= 0 && row < [stations count])
+	{
+		[[NSApp delegate] playStation:[stations objectAtIndex:row]];
+	}
+}
+
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
 	NSArray *stations = [pianoWrapper stations];
@@ -128,7 +138,14 @@
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
 	NSArray *stations = [pianoWrapper stations];
-	return stations ? [[stations objectAtIndex:rowIndex] name] : @"";
+	if ([[tableView tableColumns] indexOfObject:aTableColumn] > 0)
+	{
+		return stations ? [[stations objectAtIndex:rowIndex] name] : @"";
+	}
+	else
+	{
+		return ([stations objectAtIndex:rowIndex] == [pianoWrapper currentStation]) ? [NSImage imageNamed:@"Bullet"] : nil;
+	}
 }
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
@@ -141,49 +158,12 @@
 	return NO;
 }
 
-- (CGFloat)tableView:(NSTableView *)aTableView heightOfRow:(NSInteger)row
+// don't want any highlighting
+- (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
 {
-	NSArray *stations = [pianoWrapper stations];
-	if ([stations objectAtIndex:row] == [pianoWrapper currentStation])
-	{
-		return [tableView rowHeight] + [[[[tableView tableColumns] objectAtIndex:0] dataCell] extraHeightForMainStation];
-	}
-	else
-	{
-		return [tableView rowHeight];
-	}
+	return NO;
 }
 
-- (void)tableView:(NSTableView *)aTableView willDisplayCell:(id)aCell forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
-{
-	NSArray *stations = [pianoWrapper stations];
-	if ([stations objectAtIndex:rowIndex] == [pianoWrapper currentStation])
-	{
-		[aCell setIsMainStation:YES];
-	//	[aCell setBackgroundStyle:NSBackgroundStyleRaised];
-	}
-	else
-	{
-		[aCell setIsMainStation:NO];
-	}
-}
-
-- (void)tableDoubleClicked:(id)sender
-{
-	NSArray *stations = [pianoWrapper stations];
-	NSInteger row = [tableView clickedRow];
-	
-	if (stations && row >= 0 && row < [stations count])
-	{
-		[[NSApp delegate] playStation:[stations objectAtIndex:row]];
-	}
-}
-/*
-- (NSIndexSet *)tableView:(NSTableView *)aTableView selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes
-{
-	return [NSIndexSet indexSet];
-}
-*/
 - (void)dealloc
 {
 	RELEASE_MEMBER(pianoWrapper);

@@ -18,3 +18,8 @@
 @end
 
 
+@interface NSSearchField (PRUtils_Additions)
+
+- (IBAction)endEditingAndClear:(id)sender;
+
+@end

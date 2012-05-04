@@ -14,8 +14,10 @@
 #import "PRPianoGetPlaylistJob.h"
 #import "PRPianoSetRatingJob.h"
 #import "PRPianoUpdateQuickMixJob.h"
+#import "PRPianoCreateStationJob.h"
 #import "PRPianoRenameStationJob.h"
 #import "PRPianoRemoveStationJob.h"
+#import "PRPianoSearchJob.h"
 
 
 @interface PRPianoWrapper (PRPianoWrapper_Private)
@@ -177,6 +179,12 @@
 	[self queueJob:job];
 }
 
+- (void)createStationWithMusicId:(NSString *)musicId
+{
+	PRPianoCreateStationJob *job = [[[PRPianoCreateStationJob alloc] initWithWrapper:self musicId:musicId] autorelease];
+	[self queueJob:job];
+}
+
 - (void)setName:(NSString *)name forStation:(PRStation *)station
 {
 	PRPianoRenameStationJob *job = [[[PRPianoRenameStationJob alloc] initWithWrapper:self withName:name forStation:station] autorelease];
@@ -187,6 +195,13 @@
 {
 	PRPianoRemoveStationJob *job = [[[PRPianoRemoveStationJob alloc] initWithWrapper:self withStation:station] autorelease];
 	[self queueJob:job];
+}
+
+- (void)submitSearch:(NSString *)search
+{
+	PRPianoSearchJob *job = [[[PRPianoSearchJob alloc] initWithWrapper:self search:search] autorelease];
+	[self queueJob:job];
+	NSLog(@"Searching: %@", search);
 }
 
 //////////////////////////////////
@@ -242,6 +257,7 @@
 	if (station == currentStation)
 	{
 		RELEASE_MEMBER(currentStation);
+		[self clearPlaylist];
 	}
 	
 	[stations removeObject:station];

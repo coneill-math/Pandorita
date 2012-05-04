@@ -13,7 +13,6 @@
 		831CA5BE14F30D9900FDAA4A /* covererror.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BB14F30D9900FDAA4A /* covererror.pdf */; };
 		831CA5BF14F30D9900FDAA4A /* loadingcover.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BC14F30D9900FDAA4A /* loadingcover.pdf */; };
 		831CA5C014F30D9900FDAA4A /* nothingplaying.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BD14F30D9900FDAA4A /* nothingplaying.pdf */; };
-		831CA62514F32F6700FDAA4A /* PRStationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 831CA62414F32F6700FDAA4A /* PRStationCell.m */; };
 		831D81F214F70DF2009B73C4 /* LoginPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 831D81F114F70DF2009B73C4 /* LoginPrefs.xib */; };
 		831D821014F74848009B73C4 /* refresh.icns in Resources */ = {isa = PBXBuildFile; fileRef = 831D820D14F74848009B73C4 /* refresh.icns */; };
 		831D821614F749AA009B73C4 /* PRUpdatesPrefsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831D821514F749AA009B73C4 /* PRUpdatesPrefsController.m */; };
@@ -43,6 +42,11 @@
 		835CB9A214D7B19B00A1B503 /* PRSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9A114D7B19B00A1B503 /* PRSong.m */; };
 		835CB9BA14D83C4400A1B503 /* PRSongHistoryTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */; };
 		835CBAD014D8CB2C00A1B503 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 835CBACF14D8CB2C00A1B503 /* QTKit.framework */; };
+		837B4A5B15542AA300FFD88C /* PRArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A5A15542AA300FFD88C /* PRArtist.m */; };
+		837B4A5F15542CF900FFD88C /* PRPianoSearchJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A5E15542CF900FFD88C /* PRPianoSearchJob.m */; };
+		837B4A6215543A2800FFD88C /* PRSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */; };
+		837B4A6515545C3F00FFD88C /* PRPianoCreateStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A6415545C3E00FFD88C /* PRPianoCreateStationJob.m */; };
+		837B4A67155473AD00FFD88C /* Bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 837B4A66155473AD00FFD88C /* Bullet.png */; };
 		837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 837CF2491552F37A0005B9DB /* Defaults.plist */; };
 		837CF24E1553086A0005B9DB /* PRPianoRenameStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837CF24D1553086A0005B9DB /* PRPianoRenameStationJob.m */; };
 		837CF25115534EA80005B9DB /* PRPianoRemoveStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837CF25015534EA80005B9DB /* PRPianoRemoveStationJob.m */; };
@@ -95,19 +99,17 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		256AC3D80F4B6AC300CF3369 /* PRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRAppDelegate.h; path = ../src/gui/PRAppDelegate.h; sourceTree = "<group>"; };
-		256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRAppDelegate.m; path = ../src/gui/PRAppDelegate.m; sourceTree = "<group>"; };
+		256AC3D80F4B6AC300CF3369 /* PRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRAppDelegate.m; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* Pandorita_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pandorita_Prefix.pch; path = ../src/other/Pandorita_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../src/other/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		831458A514DDCF78002248D9 /* PRRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRRatingCell.h; path = ../src/gui/PRRatingCell.h; sourceTree = "<group>"; };
-		831458A614DDCF78002248D9 /* PRRatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRRatingCell.m; path = ../src/gui/PRRatingCell.m; sourceTree = "<group>"; };
+		831458A514DDCF78002248D9 /* PRRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRRatingCell.h; sourceTree = "<group>"; };
+		831458A614DDCF78002248D9 /* PRRatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRRatingCell.m; sourceTree = "<group>"; };
 		831CA5BB14F30D9900FDAA4A /* covererror.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = covererror.pdf; sourceTree = "<group>"; };
 		831CA5BC14F30D9900FDAA4A /* loadingcover.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = loadingcover.pdf; sourceTree = "<group>"; };
 		831CA5BD14F30D9900FDAA4A /* nothingplaying.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = nothingplaying.pdf; sourceTree = "<group>"; };
-		831CA62314F32F6700FDAA4A /* PRStationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRStationCell.h; path = ../src/gui/PRStationCell.h; sourceTree = "<group>"; };
-		831CA62414F32F6700FDAA4A /* PRStationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRStationCell.m; path = ../src/gui/PRStationCell.m; sourceTree = "<group>"; };
 		831D81F114F70DF2009B73C4 /* LoginPrefs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginPrefs.xib; path = interfaces/LoginPrefs.xib; sourceTree = "<group>"; };
 		831D820D14F74848009B73C4 /* refresh.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = refresh.icns; sourceTree = "<group>"; };
 		831D821414F749AA009B73C4 /* PRUpdatesPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRUpdatesPrefsController.h; path = ../src/gui/PRUpdatesPrefsController.h; sourceTree = "<group>"; };
@@ -116,7 +118,7 @@
 		831D821C14F74AEA009B73C4 /* PRAdvancedPrefsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRAdvancedPrefsController.h; path = ../src/gui/PRAdvancedPrefsController.h; sourceTree = "<group>"; };
 		831D821D14F74AEA009B73C4 /* PRAdvancedPrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRAdvancedPrefsController.m; path = ../src/gui/PRAdvancedPrefsController.m; sourceTree = "<group>"; };
 		831D821F14F74D06009B73C4 /* AdvancedPrefs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AdvancedPrefs.xib; path = interfaces/AdvancedPrefs.xib; sourceTree = "<group>"; };
-		83239B99154F9377003AFF5A /* PRPianoGetPlaylistJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoGetPlaylistJob.h; sourceTree = "<group>"; };
+		83239B99154F9377003AFF5A /* PRPianoGetPlaylistJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoGetPlaylistJob.h; sourceTree = "<group>"; };
 		83239B9A154F9377003AFF5A /* PRPianoGetPlaylistJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoGetPlaylistJob.m; sourceTree = "<group>"; };
 		8334FA5A15524D3C002C2D6E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = frameworks/Growl.framework; sourceTree = "<group>"; };
 		8336625F15503192008D8351 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../src/libpiano/config.h; sourceTree = "<group>"; };
@@ -136,9 +138,9 @@
 		8336627A15503E37008D8351 /* libgcrypt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgcrypt.dylib; path = libs/libgcrypt.dylib; sourceTree = "<group>"; };
 		8336627B15503E37008D8351 /* libgpg-error.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgpg-error.dylib"; path = "libs/libgpg-error.dylib"; sourceTree = "<group>"; };
 		8336627E15508129008D8351 /* gcrypt-module.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "gcrypt-module.h"; path = "../src/headers/gcrypt/gcrypt-module.h"; sourceTree = "<group>"; };
-		833662821550F68C008D8351 /* PRPianoGetStationsJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoGetStationsJob.h; sourceTree = "<group>"; };
+		833662821550F68C008D8351 /* PRPianoGetStationsJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoGetStationsJob.h; sourceTree = "<group>"; };
 		833662831550F68D008D8351 /* PRPianoGetStationsJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoGetStationsJob.m; sourceTree = "<group>"; };
-		833662851550F886008D8351 /* PRPianoSetRatingJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoSetRatingJob.h; sourceTree = "<group>"; };
+		833662851550F886008D8351 /* PRPianoSetRatingJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSetRatingJob.h; sourceTree = "<group>"; };
 		833662861550F886008D8351 /* PRPianoSetRatingJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoSetRatingJob.m; sourceTree = "<group>"; };
 		833662881551A663008D8351 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		8350308B14DB3380001353AC /* PRURLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRURLDownloader.h; path = ../src/utils/PRURLDownloader.h; sourceTree = "<group>"; };
@@ -153,24 +155,33 @@
 		8354559214F5AE8A0067890A /* PRHotkeyPrefsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRHotkeyPrefsController.m; path = ../src/gui/PRHotkeyPrefsController.m; sourceTree = "<group>"; };
 		835455A114F5AF410067890A /* PRUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRUserDefaults.h; path = ../src/utils/PRUserDefaults.h; sourceTree = "<group>"; };
 		835455A214F5AF410067890A /* PRUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRUserDefaults.m; path = ../src/utils/PRUserDefaults.m; sourceTree = "<group>"; };
-		835CB9A014D7B19B00A1B503 /* PRSong.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRSong.h; sourceTree = "<group>"; };
+		835CB9A014D7B19B00A1B503 /* PRSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRSong.h; sourceTree = "<group>"; };
 		835CB9A114D7B19B00A1B503 /* PRSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRSong.m; sourceTree = "<group>"; };
-		835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRSongHistoryTableDelegate.h; path = ../src/gui/PRSongHistoryTableDelegate.h; sourceTree = "<group>"; };
-		835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRSongHistoryTableDelegate.m; path = ../src/gui/PRSongHistoryTableDelegate.m; sourceTree = "<group>"; };
+		835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRSongHistoryTableDelegate.h; sourceTree = "<group>"; };
+		835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRSongHistoryTableDelegate.m; sourceTree = "<group>"; };
 		835CBACF14D8CB2C00A1B503 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		837B4A5915542AA300FFD88C /* PRArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRArtist.h; sourceTree = "<group>"; };
+		837B4A5A15542AA300FFD88C /* PRArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRArtist.m; sourceTree = "<group>"; };
+		837B4A5D15542CF900FFD88C /* PRPianoSearchJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSearchJob.h; sourceTree = "<group>"; };
+		837B4A5E15542CF900FFD88C /* PRPianoSearchJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoSearchJob.m; sourceTree = "<group>"; };
+		837B4A6015543A2700FFD88C /* PRSearchTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRSearchTableDelegate.h; sourceTree = "<group>"; };
+		837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRSearchTableDelegate.m; sourceTree = "<group>"; };
+		837B4A6315545C3D00FFD88C /* PRPianoCreateStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoCreateStationJob.h; sourceTree = "<group>"; };
+		837B4A6415545C3E00FFD88C /* PRPianoCreateStationJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoCreateStationJob.m; sourceTree = "<group>"; };
+		837B4A66155473AD00FFD88C /* Bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bullet.png; sourceTree = "<group>"; };
 		837CF2491552F37A0005B9DB /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
-		837CF24C1553086A0005B9DB /* PRPianoRenameStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoRenameStationJob.h; sourceTree = "<group>"; };
+		837CF24C1553086A0005B9DB /* PRPianoRenameStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoRenameStationJob.h; sourceTree = "<group>"; };
 		837CF24D1553086A0005B9DB /* PRPianoRenameStationJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoRenameStationJob.m; sourceTree = "<group>"; };
 		837CF24F15534EA80005B9DB /* PRPianoRemoveStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoRemoveStationJob.h; sourceTree = "<group>"; };
 		837CF25015534EA80005B9DB /* PRPianoRemoveStationJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoRemoveStationJob.m; sourceTree = "<group>"; };
 		837CF252155358D90005B9DB /* PRPianoUpdateQuickMixJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoUpdateQuickMixJob.h; sourceTree = "<group>"; };
 		837CF253155358D90005B9DB /* PRPianoUpdateQuickMixJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoUpdateQuickMixJob.m; sourceTree = "<group>"; };
-		837D425214F89C9500709D9D /* PRPianoJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoJob.h; sourceTree = "<group>"; };
+		837D425214F89C9500709D9D /* PRPianoJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoJob.h; sourceTree = "<group>"; };
 		837D425314F89C9500709D9D /* PRPianoJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoJob.m; sourceTree = "<group>"; };
-		837D425714F89FE000709D9D /* PRPianoLoginJob.h */ = {isa = PBXFileReference; fileEncoding = 4; path = PRPianoLoginJob.h; sourceTree = "<group>"; };
+		837D425714F89FE000709D9D /* PRPianoLoginJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoLoginJob.h; sourceTree = "<group>"; };
 		837D425814F89FE000709D9D /* PRPianoLoginJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoLoginJob.m; sourceTree = "<group>"; };
-		838F55FA14D7649900E9134E /* PRStationTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRStationTableDelegate.h; path = ../src/gui/PRStationTableDelegate.h; sourceTree = "<group>"; };
-		838F55FB14D7649900E9134E /* PRStationTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRStationTableDelegate.m; path = ../src/gui/PRStationTableDelegate.m; sourceTree = "<group>"; };
+		838F55FA14D7649900E9134E /* PRStationTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRStationTableDelegate.h; sourceTree = "<group>"; };
+		838F55FB14D7649900E9134E /* PRStationTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStationTableDelegate.m; sourceTree = "<group>"; };
 		83C13D1614F4B8AC00FCBBB6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		83C13D4114F4C50100FCBBB6 /* PRPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPreferencesController.h; path = ../src/gui/PRPreferencesController.h; sourceTree = "<group>"; };
 		83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPreferencesController.m; path = ../src/gui/PRPreferencesController.m; sourceTree = "<group>"; };
@@ -187,10 +198,10 @@
 		83E0518614D63ACE007854FB /* PRStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRStation.h; sourceTree = "<group>"; };
 		83E0518714D63ACE007854FB /* PRStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStation.m; sourceTree = "<group>"; };
 		83EDEFDC14F095B100EA6AC8 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = interfaces/Login.xib; sourceTree = "<group>"; };
-		83EDEFE014F0962B00EA6AC8 /* PRLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRLoginController.h; path = ../src/gui/PRLoginController.h; sourceTree = "<group>"; };
-		83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRLoginController.m; path = ../src/gui/PRLoginController.m; sourceTree = "<group>"; };
-		83EDF11014F2206D00EA6AC8 /* PRArtworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRArtworkController.h; path = ../src/gui/PRArtworkController.h; sourceTree = "<group>"; };
-		83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRArtworkController.m; path = ../src/gui/PRArtworkController.m; sourceTree = "<group>"; };
+		83EDEFE014F0962B00EA6AC8 /* PRLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLoginController.h; sourceTree = "<group>"; };
+		83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLoginController.m; sourceTree = "<group>"; };
+		83EDF11014F2206D00EA6AC8 /* PRArtworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRArtworkController.h; sourceTree = "<group>"; };
+		83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRArtworkController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Pandorita-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pandorita-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Pandorita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pandorita.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -363,14 +374,15 @@
 				83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */,
 				838F55FA14D7649900E9134E /* PRStationTableDelegate.h */,
 				838F55FB14D7649900E9134E /* PRStationTableDelegate.m */,
+				837B4A6015543A2700FFD88C /* PRSearchTableDelegate.h */,
+				837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */,
 				835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */,
 				835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */,
 				831458A514DDCF78002248D9 /* PRRatingCell.h */,
 				831458A614DDCF78002248D9 /* PRRatingCell.m */,
-				831CA62314F32F6700FDAA4A /* PRStationCell.h */,
-				831CA62414F32F6700FDAA4A /* PRStationCell.m */,
 			);
 			name = GUI;
+			path = ../src/gui;
 			sourceTree = "<group>";
 		};
 		8366CBD21551D63B00EF173C /* Utils */ = {
@@ -419,6 +431,8 @@
 				83E0518714D63ACE007854FB /* PRStation.m */,
 				835CB9A014D7B19B00A1B503 /* PRSong.h */,
 				835CB9A114D7B19B00A1B503 /* PRSong.m */,
+				837B4A5915542AA300FFD88C /* PRArtist.h */,
+				837B4A5A15542AA300FFD88C /* PRArtist.m */,
 				837D425214F89C9500709D9D /* PRPianoJob.h */,
 				837D425314F89C9500709D9D /* PRPianoJob.m */,
 				837D425714F89FE000709D9D /* PRPianoLoginJob.h */,
@@ -435,6 +449,10 @@
 				837CF25015534EA80005B9DB /* PRPianoRemoveStationJob.m */,
 				837CF252155358D90005B9DB /* PRPianoUpdateQuickMixJob.h */,
 				837CF253155358D90005B9DB /* PRPianoUpdateQuickMixJob.m */,
+				837B4A5D15542CF900FFD88C /* PRPianoSearchJob.h */,
+				837B4A5E15542CF900FFD88C /* PRPianoSearchJob.m */,
+				837B4A6315545C3D00FFD88C /* PRPianoCreateStationJob.h */,
+				837B4A6415545C3E00FFD88C /* PRPianoCreateStationJob.m */,
 			);
 			name = Wrapper;
 			path = ../src/wrapper;
@@ -460,6 +478,7 @@
 		83EDF12614F227F600EA6AC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				837B4A66155473AD00FFD88C /* Bullet.png */,
 				831D820D14F74848009B73C4 /* refresh.icns */,
 				831CA5BB14F30D9900FDAA4A /* covererror.pdf */,
 				831CA5BC14F30D9900FDAA4A /* loadingcover.pdf */,
@@ -539,6 +558,7 @@
 				831D822014F74D06009B73C4 /* AdvancedPrefs.xib in Resources */,
 				833662891551A663008D8351 /* Credits.rtf in Resources */,
 				837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */,
+				837B4A67155473AD00FFD88C /* Bullet.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +600,6 @@
 				831458A714DDCF78002248D9 /* PRRatingCell.m in Sources */,
 				83EDEFE214F0962B00EA6AC8 /* PRLoginController.m in Sources */,
 				83EDF11214F2206D00EA6AC8 /* PRArtworkController.m in Sources */,
-				831CA62514F32F6700FDAA4A /* PRStationCell.m in Sources */,
 				83C13D4314F4C50100FCBBB6 /* PRPreferencesController.m in Sources */,
 				8354555514F5A56B0067890A /* PRGeneralPrefsController.m in Sources */,
 				8354559314F5AE8A0067890A /* PRHotkeyPrefsController.m in Sources */,
@@ -597,6 +616,10 @@
 				837CF24E1553086A0005B9DB /* PRPianoRenameStationJob.m in Sources */,
 				837CF25115534EA80005B9DB /* PRPianoRemoveStationJob.m in Sources */,
 				837CF254155358D90005B9DB /* PRPianoUpdateQuickMixJob.m in Sources */,
+				837B4A5B15542AA300FFD88C /* PRArtist.m in Sources */,
+				837B4A5F15542CF900FFD88C /* PRPianoSearchJob.m in Sources */,
+				837B4A6215543A2800FFD88C /* PRSearchTableDelegate.m in Sources */,
+				837B4A6515545C3F00FFD88C /* PRPianoCreateStationJob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

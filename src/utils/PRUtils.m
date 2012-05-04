@@ -30,3 +30,14 @@
 
 @end
 
+
+@implementation NSSearchField (PRUtils_Additions)
+
+- (IBAction)endEditingAndClear:(id)sender
+{
+	[self setStringValue:@""];
+	[[[self cell] cancelButtonCell] performClick:self];
+}
+
+@end
+

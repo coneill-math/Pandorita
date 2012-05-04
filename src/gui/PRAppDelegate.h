@@ -16,6 +16,7 @@
 #import "PRRatingCell.h"
 #import "PRStationTableDelegate.h"
 #import "PRSongHistoryTableDelegate.h"
+#import "PRSearchTableDelegate.h"
 
 #import "PRPreferencesController.h"
 #import "PRLoginController.h"
@@ -31,6 +32,10 @@
 	IBOutlet NSTableView *stationTableView;
 	IBOutlet NSTableView *songHistoryTableView;
 	IBOutlet PRArtworkController *coverArtController;
+	
+	IBOutlet NSSearchField *stationSearch;
+	IBOutlet NSTableView *searchTableView;
+	IBOutlet PRSearchTableDelegate *searchTableDelegate;
 	
 	IBOutlet NSButton *playButton;
 	IBOutlet NSButton *skipButton;
@@ -71,6 +76,8 @@
 - (IBAction)showPreferences:(id)sender;
 
 - (IBAction)switchAccounts:(id)sender;
+
+- (IBAction)stationSearch:(id)sender;
 
 - (IBAction)togglePause:(id)sender;
 - (IBAction)moveToNextSong:(id)sender;

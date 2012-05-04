@@ -33,6 +33,7 @@
 		[pass getCString:cPassword maxLength:[pass length] + 1 encoding:NSASCIIStringEncoding];
 		
 		PianoRequestDataLogin_t *reqLoginData = (PianoRequestDataLogin_t *)malloc(sizeof(PianoRequestDataLogin_t));
+		memset(reqLoginData, 0, sizeof(PianoRequestDataLogin_t));
 		
 		reqLoginData->user = cUsername;
 		reqLoginData->password = cPassword;

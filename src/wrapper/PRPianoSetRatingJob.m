@@ -23,6 +23,7 @@
 		song = [s retain];
 		
 		PianoRequestDataRateSong_t *reqData = (PianoRequestDataRateSong_t *)malloc(sizeof(PianoRequestDataRateSong_t));
+		memset(reqData, 0, sizeof(PianoRequestDataRateSong_t));
 		
 		reqData->song = [song originalSong];
 		reqData->rating = (PianoSongRating_t)rating;

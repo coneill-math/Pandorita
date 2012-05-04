@@ -32,10 +32,12 @@
 	if (error)
 	{
 		NSLog(@"Unable to remove station!");
-		// try anyway?
+	}
+	else
+	{
+		[wrapper stationRemoved:station];
 	}
 	
-	[wrapper stationRemoved:station];
 	[[wrapper delegate] didRemoveStationWithError:error];
 }
 

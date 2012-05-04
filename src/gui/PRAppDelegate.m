@@ -52,6 +52,13 @@ x Growl
 	[stationTableView setTarget:stationTableDelegate];
 	[stationTableView setDoubleAction:@selector(tableDoubleClicked:)];
 	
+	[searchTableDelegate setPianoWrapper:pianoWrapper];
+	[searchTableView setTarget:searchTableDelegate];
+	[searchTableView setDoubleAction:@selector(tableDoubleClicked:)];
+	
+	[[searchTableView enclosingScrollView] setHidden:YES];
+	[[stationTableView enclosingScrollView] setHidden:NO];
+	
 	player = nil;
 	
 	NSTableColumn *column = [songHistoryTableView tableColumnWithIdentifier:@"rating"];
@@ -166,6 +173,24 @@ error:
 	[loginController runLoginScreen:YES];
 }
 
+- (IBAction)stationSearch:(id)sender
+{
+	NSString *searchString = [stationSearch stringValue];
+	
+	if ([searchString length] > 0)
+	{
+		[[searchTableView enclosingScrollView] setHidden:NO];
+		[[stationTableView enclosingScrollView] setHidden:YES];
+		[pianoWrapper submitSearch:searchString];
+	}
+	else
+	{
+		[[searchTableView enclosingScrollView] setHidden:YES];
+		[[stationTableView enclosingScrollView] setHidden:NO];
+		[searchTableDelegate setFoundArtists:nil songs:nil];
+	}
+}
+
 - (IBAction)togglePause:(id)sender
 {
 	if (player && [self isPlaying])
@@ -223,6 +248,8 @@ error:
 		[songHistoryTableDelegate clearHistory];
 		[pianoWrapper setCurrentStation:station];
 		
+		[stationTableView reloadData];
+		
 		[self moveToNextSong:self];
 	}
 }
@@ -247,14 +274,18 @@ error:
 	if ([NSUserDefaults shouldUseGrowl])
 	{
 		PRSong *song = [songHistoryTableDelegate currentSong];
-		NSData *data = [coverArtController artworkData];
 		
-		NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
-		NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
-		NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
-		NSString *ident = @"PandoritaNowPlaying";
-		
-		[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+		if (song)
+		{
+			NSData *data = [coverArtController artworkData];
+			
+			NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
+			NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
+			NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
+			NSString *ident = @"PandoritaNowPlaying";
+			
+			[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+		}
 	}
 }
 
@@ -332,6 +363,14 @@ error:
 	NSLog(@"Successfully set rating!");
 }
 
+- (void)didCreateStation:(PRStation *)station error:(NSError *)error
+{
+	if (!error)
+	{
+		[self playStation:station];
+	}
+}
+
 - (void)didRenameStation:(PRStation *)station error:(NSError *)error
 {
 	[stationTableView reloadData];
@@ -340,6 +379,25 @@ error:
 - (void)didRemoveStationWithError:(NSError *)error
 {
 	[stationTableView reloadData];
+	
+	if ([pianoWrapper currentStation] == nil)
+	{
+		if (player)
+		{
+			[player stop];
+			RELEASE_MEMBER(player);
+			[self updatePlayButton];
+			[songHistoryTableView reloadData];
+		}
+	}
+}
+
+- (void)didGetSearchResultWithArtists:(NSArray *)artists songs:(NSArray *)songs withError:(NSError *)error
+{
+	if (!error)
+	{
+		[searchTableDelegate setFoundArtists:artists songs:songs];
+	}
 }
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize
@@ -368,12 +426,12 @@ error:
 }
 
 // growl delegate methods
-- (NSString *) applicationNameForGrowl
+- (NSString *)applicationNameForGrowl
 {
 	return @"Pandorita";
 }
 
-- (NSDictionary *) registrationDictionaryForGrowl
+- (NSDictionary *)registrationDictionaryForGrowl
 {
 	NSArray *notifications = [NSArray arrayWithObjects:PR_GROWL_PLAYING_NOTIFICATION, PR_GROWL_PAUSED_NOTIFICATION, nil];
 	return [NSDictionary dictionaryWithObjectsAndKeys:notifications, GROWL_NOTIFICATIONS_ALL, notifications, GROWL_NOTIFICATIONS_DEFAULT, nil];
