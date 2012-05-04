@@ -91,19 +91,43 @@ error:
 {
 	if (player && [self isPlaying])
 	{
+		[playDockItem setTitle:@"Pause"];
 		[playButton setTitle:@"Pause"];
 		[playButton setEnabled:YES];
 	}
 	else if (player)
 	{
+		[playDockItem setTitle:@"Play"];
 		[playButton setTitle:@"Play"];
 		[playButton setEnabled:YES];
 	}
 	else
 	{
+		[playDockItem setTitle:@"Play"];
 		[playButton setTitle:@"Play"];
 		[playButton setEnabled:NO];
 	}
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)item
+{
+//	if ([item action] == @selector(togglePause:) || [item action] == @selector(moveToNextSong:))
+//	{
+		if (player && [self isPlaying])
+		{
+			return YES;
+		}
+		else if (player)
+		{
+			return YES;
+		}
+		else
+		{
+			return NO;
+		}
+//	}
+	
+//	return YES;
 }
 
 - (IBAction)showPreferences:(id)sender

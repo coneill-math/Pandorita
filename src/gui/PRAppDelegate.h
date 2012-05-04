@@ -43,6 +43,9 @@
 	IBOutlet PRStationTableDelegate *stationTableDelegate;
 	IBOutlet PRSongHistoryTableDelegate *songHistoryTableDelegate;
 	
+	IBOutlet NSMenu *dockMenu;
+	IBOutlet NSMenuItem *playDockItem;
+	
 	PRLoginController *loginController;
 	PRPreferencesController *prefsController;
 	
