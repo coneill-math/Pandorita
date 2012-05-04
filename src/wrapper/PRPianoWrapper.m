@@ -13,6 +13,7 @@
 #import "PRPianoGetStationsJob.h"
 #import "PRPianoGetPlaylistJob.h"
 #import "PRPianoSetRatingJob.h"
+#import "PRPianoUpdateQuickMixJob.h"
 #import "PRPianoRenameStationJob.h"
 #import "PRPianoRemoveStationJob.h"
 
@@ -167,6 +168,12 @@
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song
 {
 	PRPianoSetRatingJob *job = [[[PRPianoSetRatingJob alloc] initWithWrapper:self withRating:rating forSong:song] autorelease];
+	[self queueJob:job];
+}
+
+- (void)updateQuickMix
+{
+	PRPianoUpdateQuickMixJob *job = [[[PRPianoUpdateQuickMixJob alloc] initWithWrapper:self] autorelease];
 	[self queueJob:job];
 }
 

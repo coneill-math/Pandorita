@@ -34,6 +34,7 @@
 - (BOOL)isCreator;
 - (BOOL)isQuickMix;
 - (BOOL)useQuickMix;
+- (void)setUseQuickMix:(BOOL)use;
 
 - (PianoStation_t *)internalStation;
 

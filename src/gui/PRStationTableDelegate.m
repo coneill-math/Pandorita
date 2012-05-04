@@ -77,6 +77,41 @@
 	}
 }
 
+- (IBAction)toggleUsesQuickMix:(id)sender
+{
+	NSInteger row = [tableView clickedRow];
+	
+	if (row >= 0 && row < [[pianoWrapper stations] count])
+	{
+		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
+		
+		if (![station isQuickMix])
+		{
+			[station setUseQuickMix:![station useQuickMix]];
+			[pianoWrapper updateQuickMix];
+		}
+	}
+}
+/*
+- (BOOL)menu:(NSMenu *)menu updateItem:(NSMenuItem *)item atIndex:(NSInteger)index shouldCancel:(BOOL)shouldCancel
+{
+	NSInteger row = [tableView clickedRow];
+	
+	NSLog(@"Updating");
+	
+	if (row >= 0 && row < [[pianoWrapper stations] count])
+	{
+		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
+		
+		if ([item action] == @selector(toggleUsesQuickMix:))
+		{
+			[item setState:([station useQuickMix] ? NSOnState : NSOffState)];
+		}
+	}
+	
+	return YES;
+}
+*/
 // informal protocol
 // called by each menu item on the target of its action
 - (BOOL)validateMenuItem:(NSMenuItem *)item
@@ -87,9 +122,14 @@
 	{
 		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
 		
-		if ([item action] == @selector(removeStation:) && [station isQuickMix])
+		if (([item action] == @selector(removeStation:) || [item action] == @selector(toggleUsesQuickMix:)) && [station isQuickMix])
 		{
 			return NO;
+		}
+		
+		if ([item action] == @selector(toggleUsesQuickMix:))
+		{
+			[item setState:([station useQuickMix] ? NSOnState : NSOffState)];
 		}
 		
 		return YES;

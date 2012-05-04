@@ -69,6 +69,12 @@
 	return useQuickMix;
 }
 
+- (void)setUseQuickMix:(BOOL)use
+{
+	useQuickMix = use;
+	pStation->useQuickMix = useQuickMix;
+}
+
 - (PianoStation_t *)internalStation
 {
 	return pStation;

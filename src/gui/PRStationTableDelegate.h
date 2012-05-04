@@ -11,7 +11,7 @@
 #import "PRPianoWrapper.h"
 
 
-@interface PRStationTableDelegate : NSObject <NSTableViewDataSource, NSTableViewDelegate>
+@interface PRStationTableDelegate : NSObject <NSTableViewDataSource, NSTableViewDelegate, NSMenuDelegate>
 {
 	IBOutlet NSTableView *tableView;
 	IBOutlet NSMenu *rightClickMenu;
@@ -28,5 +28,6 @@
 - (IBAction)getStationInfo:(id)sender;
 - (IBAction)renameStation:(id)sender;
 - (IBAction)removeStation:(id)sender;
+- (IBAction)toggleUsesQuickMix:(id)sender;
 
 @end

@@ -62,6 +62,8 @@
 
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
 
+- (void)updateQuickMix;
+
 - (void)setName:(NSString *)name forStation:(PRStation *)station;
 - (void)removeStation:(PRStation *)station;
 
