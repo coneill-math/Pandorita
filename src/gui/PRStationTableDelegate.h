@@ -13,11 +13,20 @@
 
 @interface PRStationTableDelegate : NSObject <NSTableViewDataSource, NSTableViewDelegate>
 {
+	IBOutlet NSTableView *tableView;
+	IBOutlet NSMenu *rightClickMenu;
+	
 	PRPianoWrapper *pianoWrapper;
 }
 
-- (id)initWithPianoWrapper:(PRPianoWrapper *)wrapper;
+//- (id)initWithPianoWrapper:(PRPianoWrapper *)wrapper forTable:(NSTableView *)table;
 
-- (void)tableDoubleClicked:(id)view;
+- (void)setPianoWrapper:(PRPianoWrapper *)wrapper;
+
+- (IBAction)tableDoubleClicked:(id)sender;
+
+- (IBAction)getStationInfo:(id)sender;
+- (IBAction)renameStation:(id)sender;
+- (IBAction)removeStation:(id)sender;
 
 @end

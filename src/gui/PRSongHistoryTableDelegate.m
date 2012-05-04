@@ -10,7 +10,7 @@
 
 
 @implementation PRSongHistoryTableDelegate
-
+/*
 - (id)init
 {
 	self = [super init];
@@ -21,6 +21,11 @@
 	}
 	
 	return self;
+}
+*/
+- (void)awakeFromNib
+{
+	songHistory = [[NSMutableArray alloc] init];
 }
 
 -  (PRSong *)currentSong

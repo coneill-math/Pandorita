@@ -25,6 +25,8 @@
 
 - (id)initWithStation:(PianoStation_t *)s;
 
+- (void)reloadFromInternalStation;
+
 - (NSString *)name;
 - (NSString *)listId;
 - (NSString *)seedId;

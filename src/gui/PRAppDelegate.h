@@ -40,11 +40,11 @@
 	IBOutlet NSSplitView *mainSplitView;
 	IBOutlet NSSplitView *imageSplitView;
 	
+	IBOutlet PRStationTableDelegate *stationTableDelegate;
+	IBOutlet PRSongHistoryTableDelegate *songHistoryTableDelegate;
+	
 	PRLoginController *loginController;
 	PRPreferencesController *prefsController;
-	
-	PRStationTableDelegate *stationTableDelegate;
-	PRSongHistoryTableDelegate *songHistoryTableDelegate;
 	
 	PRPianoWrapper *pianoWrapper;
 	QTMovie *player;
@@ -62,7 +62,6 @@
 - (void)pushGrowlNotification;
 
 - (IBAction)showPreferences:(id)sender;
-- (IBAction)hidePreferences:(id)sender;
 
 - (IBAction)switchAccounts:(id)sender;
 

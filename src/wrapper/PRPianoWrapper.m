@@ -13,6 +13,8 @@
 #import "PRPianoGetStationsJob.h"
 #import "PRPianoGetPlaylistJob.h"
 #import "PRPianoSetRatingJob.h"
+#import "PRPianoRenameStationJob.h"
+#import "PRPianoRemoveStationJob.h"
 
 
 @interface PRPianoWrapper (PRPianoWrapper_Private)
@@ -96,7 +98,7 @@
 
 - (void)updateStations
 {
-	PRPianoJob *job = [[[PRPianoGetStationsJob alloc] initWithWrapper:self] autorelease];
+	PRPianoGetStationsJob *job = [[[PRPianoGetStationsJob alloc] initWithWrapper:self] autorelease];
 	[self queueJob:job];
 }
 
@@ -108,7 +110,7 @@
 		return;
 	}
 	
-	PRPianoJob *job = [[[PRPianoGetPlaylistJob alloc] initWithWrapper:self station:currentStation] autorelease];
+	PRPianoGetPlaylistJob *job = [[[PRPianoGetPlaylistJob alloc] initWithWrapper:self station:currentStation] autorelease];
 	[self queueJob:job];
 }
 
@@ -139,7 +141,7 @@
 - (void)login
 {
 	// make sure we continue on to the next one
-	PRPianoJob *job = [[PRPianoLoginJob alloc] initWithWrapper:self username:username password:password];
+	PRPianoLoginJob *job = [[PRPianoLoginJob alloc] initWithWrapper:self username:username password:password];
 	[jobQueue insertObject:job atIndex:0];
 	[job release];
 	
@@ -164,7 +166,19 @@
 
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song
 {
-	PRPianoJob *job = [[[PRPianoSetRatingJob alloc] initWithWrapper:self withRating:rating forSong:song] autorelease];
+	PRPianoSetRatingJob *job = [[[PRPianoSetRatingJob alloc] initWithWrapper:self withRating:rating forSong:song] autorelease];
+	[self queueJob:job];
+}
+
+- (void)setName:(NSString *)name forStation:(PRStation *)station
+{
+	PRPianoRenameStationJob *job = [[[PRPianoRenameStationJob alloc] initWithWrapper:self withName:name forStation:station] autorelease];
+	[self queueJob:job];
+}
+
+- (void)removeStation:(PRStation *)station
+{
+	PRPianoRemoveStationJob *job = [[[PRPianoRemoveStationJob alloc] initWithWrapper:self withStation:station] autorelease];
 	[self queueJob:job];
 }
 
@@ -216,6 +230,16 @@
 	}
 }
 
+- (void)stationRemoved:(PRStation *)station
+{
+	if (station == currentStation)
+	{
+		RELEASE_MEMBER(currentStation);
+	}
+	
+	[stations removeObject:station];
+}
+
 - (void)clearPlaylist
 {
 	[playlist removeAllObjects];
@@ -235,6 +259,7 @@
 - (void)dealloc
 {
 	RELEASE_MEMBER(delegate);
+	RELEASE_MEMBER(currentStation);
 	RELEASE_MEMBER(stations);
 	RELEASE_MEMBER(playlist);
 	RELEASE_MEMBER(jobQueue);

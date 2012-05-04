@@ -17,6 +17,7 @@ x Restructure PianoWrapper
 - Cleanup menu bar
 - Volume control
 - Song progress
+- Dock menu
 - Preferences window
   - Login info
   - Global hotkeys/media keys
@@ -44,21 +45,14 @@ x Growl
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
 	
-	stationTableDelegate = nil;
 	pianoWrapper = [[PRPianoWrapper alloc] init];
 	[pianoWrapper setDelegate:self];
 	
-	stationTableDelegate = [[PRStationTableDelegate alloc] initWithPianoWrapper:pianoWrapper];
-	[stationTableView setDataSource:stationTableDelegate];
-	[stationTableView setDelegate:stationTableDelegate];
+	[stationTableDelegate setPianoWrapper:pianoWrapper];
 	[stationTableView setTarget:stationTableDelegate];
 	[stationTableView setDoubleAction:@selector(tableDoubleClicked:)];
 	
 	player = nil;
-	
-	songHistoryTableDelegate = [[PRSongHistoryTableDelegate alloc] init];
-	[songHistoryTableView setDataSource:songHistoryTableDelegate];
-	[songHistoryTableView setDelegate:songHistoryTableDelegate];
 	
 	NSTableColumn *column = [songHistoryTableView tableColumnWithIdentifier:@"rating"];
 	[column setWidth:[[column dataCell] cellSize].width];
@@ -69,6 +63,8 @@ x Growl
 	[NSBundle loadNibNamed:@"Login" owner:loginController];
 	
 	[loginController runLoginScreen:NO];
+	
+	NSLog(@"Opening finished!");
 	
 	return;
 
@@ -119,11 +115,6 @@ error:
 	}
 	
 	[prefsController showPreferences];
-}
-
-- (IBAction)hidePreferences:(id)sender
-{
-	RELEASE_MEMBER(prefsController);
 }
 
 - (IBAction)switchAccounts:(id)sender
@@ -295,6 +286,16 @@ error:
 	}
 	
 	NSLog(@"Successfully set rating!");
+}
+
+- (void)didRenameStation:(PRStation *)station error:(NSError *)error
+{
+	[stationTableView reloadData];
+}
+
+- (void)didRemoveStationWithError:(NSError *)error
+{
+	[stationTableView reloadData];
 }
 
 - (void)splitView:(NSSplitView *)splitView resizeSubviewsWithOldSize:(NSSize)oldSize

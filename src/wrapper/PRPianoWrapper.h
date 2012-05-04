@@ -23,6 +23,8 @@
 - (void)didUpdateStationsWithError:(NSError *)error;
 - (void)didStartNextSong:(PRSong *)song error:(NSError *)error;
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error;
+- (void)didRenameStation:(PRStation *)station error:(NSError *)error;
+- (void)didRemoveStationWithError:(NSError *)error;
 
 @end
 
@@ -60,6 +62,9 @@
 
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
 
+- (void)setName:(NSString *)name forStation:(PRStation *)station;
+- (void)removeStation:(PRStation *)station;
+
 //////////////////////////////////
 // Called from PRPianoJob only! //
 //////////////////////////////////
@@ -71,6 +76,8 @@
 
 // for specific jobs
 - (void)loadStationsFromPianoHandle;
+
+- (void)stationRemoved:(PRStation *)station;
 
 - (void)clearPlaylist;
 - (void)addSongToPlaylist:(PRSong *)song;

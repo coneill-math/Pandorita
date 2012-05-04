@@ -13,19 +13,89 @@
 
 
 @implementation PRStationTableDelegate
-
-- (id)initWithPianoWrapper:(PRPianoWrapper *)wrapper
+/*
+- (id)initWithPianoWrapper:(PRPianoWrapper *)wrapper forTable:(NSTableView *)table
 {
 	self = [super init];
 	
 	if (self != nil)
 	{
 		pianoWrapper = [wrapper retain];
+		tableView = [table retain];
 		
 		RETAIN_MEMBER(pianoWrapper);
 	}
 	
 	return self;
+}
+*/
+- (void)awakeFromNib
+{
+	
+}
+
+- (void)setPianoWrapper:(PRPianoWrapper *)wrapper
+{
+	pianoWrapper = [wrapper retain];
+}
+
+- (IBAction)getStationInfo:(id)sender
+{
+	// coming soon...
+}
+
+- (IBAction)renameStation:(id)sender
+{
+	NSInteger row = [tableView clickedRow];
+	
+	if (row >= 0 && row < [[pianoWrapper stations] count])
+	{
+		[tableView editColumn:0 row:row withEvent:nil select:YES];
+	}
+}
+
+- (IBAction)removeStation:(id)sender
+{
+	NSInteger row = [tableView clickedRow];
+	
+	if (row >= 0 && row < [[pianoWrapper stations] count])
+	{
+		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
+		
+		if (![station isQuickMix])
+		{
+			NSString *text = [NSString stringWithFormat:@"Are you sure you want to remove the playlist %@?", [station name]];
+			NSString *inform = @"You cannot undo this action";
+			NSAlert *alert = [NSAlert alertWithMessageText:text defaultButton:@"Remove" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:inform];
+			
+			NSInteger result = [alert runModal];
+			if (result == NSAlertDefaultReturn)
+			{
+				[pianoWrapper removeStation:station];
+			}
+		}
+	}
+}
+
+// informal protocol
+// called by each menu item on the target of its action
+- (BOOL)validateMenuItem:(NSMenuItem *)item
+{
+	NSInteger row = [tableView clickedRow];
+	
+	if (row >= 0 && row < [[pianoWrapper stations] count])
+	{
+		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
+		
+		if ([item action] == @selector(removeStation:) && [station isQuickMix])
+		{
+			return NO;
+		}
+		
+		return YES;
+	}
+	
+	return NO;
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -40,12 +110,17 @@
 	return stations ? [[stations objectAtIndex:rowIndex] name] : @"";
 }
 
+- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+{
+	[pianoWrapper setName:anObject forStation:[[pianoWrapper stations] objectAtIndex:rowIndex]];
+}
+
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
 	return NO;
 }
 
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
+- (CGFloat)tableView:(NSTableView *)aTableView heightOfRow:(NSInteger)row
 {
 	NSArray *stations = [pianoWrapper stations];
 	if ([stations objectAtIndex:row] == [pianoWrapper currentStation])
@@ -72,10 +147,10 @@
 	}
 }
 
-- (void)tableDoubleClicked:(id)view
+- (void)tableDoubleClicked:(id)sender
 {
 	NSArray *stations = [pianoWrapper stations];
-	NSInteger row = [view clickedRow];
+	NSInteger row = [tableView clickedRow];
 	
 	if (stations && row >= 0 && row < [stations count])
 	{
@@ -83,7 +158,7 @@
 	}
 }
 /*
-- (NSIndexSet *)tableView:(NSTableView *)tableView selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes
+- (NSIndexSet *)tableView:(NSTableView *)aTableView selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes
 {
 	return [NSIndexSet indexSet];
 }
@@ -91,6 +166,7 @@
 - (void)dealloc
 {
 	RELEASE_MEMBER(pianoWrapper);
+	RELEASE_MEMBER(tableView);
 	
 	[super dealloc];
 }

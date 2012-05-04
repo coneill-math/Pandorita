@@ -17,18 +17,26 @@
 	
 	if (self != nil)
 	{
-		name = [[NSString alloc] initWithFormat:@"%s", s->name];
-		listId = [[NSString alloc] initWithFormat:@"%s", s->id];
-		seedId = [[NSString alloc] initWithFormat:@"%s", s->seedId];
-		
-		isCreator = (BOOL)s->isCreator;
-		isQuickMix = (BOOL)s->isQuickMix;
-		useQuickMix = (BOOL)s->useQuickMix;
-		
 		pStation = s;
+		[self reloadFromInternalStation];
 	}
 	
 	return self;
+}
+
+- (void)reloadFromInternalStation
+{
+	RELEASE_MEMBER(name);
+	RELEASE_MEMBER(listId);
+	RELEASE_MEMBER(seedId);
+	
+	name = [[NSString alloc] initWithFormat:@"%s", pStation->name];
+	listId = [[NSString alloc] initWithFormat:@"%s", pStation->id];
+	seedId = [[NSString alloc] initWithFormat:@"%s", pStation->seedId];
+	
+	isCreator = (BOOL)pStation->isCreator;
+	isQuickMix = (BOOL)pStation->isQuickMix;
+	useQuickMix = (BOOL)pStation->useQuickMix;
 }
 
 - (NSString *)name
