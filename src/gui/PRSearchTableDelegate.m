@@ -14,6 +14,13 @@
 #import "PRUtils.h"
 
 
+@interface PRSearchTableDelegate (PRSearchTableDelegate_Private)
+
+- (NSString *)musicIdForRow:(NSInteger)rowIndex;
+- (NSInteger)indexOfMusicId:(NSString *)musicId;
+
+@end
+
 @implementation PRSearchTableDelegate
 
 - (id)init
@@ -32,6 +39,45 @@
 - (void)setPianoWrapper:(PRPianoWrapper *)wrapper
 {
 	pianoWrapper = [wrapper retain];
+}
+
+- (NSString *)musicIdForRow:(NSInteger)rowIndex
+{
+	if (rowIndex >= 0 && rowIndex < [artists count])
+	{
+		return [[artists objectAtIndex:rowIndex] musicId];
+	}
+	else if (rowIndex >= [artists count] && rowIndex < [artists count] + [songs count])
+	{
+		return [[songs objectAtIndex:(rowIndex - [artists count])] musicId];
+	}
+	else
+	{
+		return nil;
+	}
+}
+
+- (NSInteger)indexOfMusicId:(NSString *)musicId
+{
+	NSInteger i;
+	
+	for(i = 0;i < [artists count];i++)
+	{
+		if ([[[artists objectAtIndex:i] musicId] isEqualToString:musicId])
+		{
+			return i;
+		}
+	}
+	
+	for(i = 0;i < [songs count];i++)
+	{
+		if ([[[songs objectAtIndex:i] musicId] isEqualToString:musicId])
+		{
+			return i + [artists count];
+		}
+	}
+	
+	return NSNotFound;
 }
 
 - (void)setFoundArtists:(NSArray *)a songs:(NSArray *)s
@@ -53,25 +99,56 @@
 	{
 		[artists removeAllObjects];
 	}
+	/*
+	NSIndexSet *indexes = [tableView selectedRowIndexes];
+	NSString *musicId = nil;
 	
+	if ([indexes count] > 0)
+	{
+		musicId = [self musicIdForRow:[indexes firstIndex]];
+	}
+	*/
 	[tableView reloadData];
+	/*
+	if ([tableView numberOfRows] > 0 && musicId != nil)
+	{
+		NSInteger rowIndex = [self indexOfMusicId:musicId];
+		
+		if (rowIndex == NSNotFound)
+		{
+			rowIndex = 0;
+		}
+		
+		[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:rowIndex] byExtendingSelection:NO];
+	}
+	*/
 }
-
+/*
+- (void)shiftSelection:(NSInteger)shift
+{
+	NSIndexSet *indexes = [tableView selectedRowIndexes];
+	NSInteger index = 0;
+	
+	if ([indexes count] > 0)
+	{
+		index = [indexes firstIndex] + shift;
+	}
+	
+	if (index >= 0 && index < [tableView numberOfRows])
+	{
+		[tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
+		[tableView scrollRowToVisible:index];
+	}
+}
+*/
 - (IBAction)tableDoubleClicked:(id)sender
 {
 	NSInteger row = [tableView clickedRow];
+	NSString *musicId = [self musicIdForRow:row];
 	
-	if (row >= 0 && row < [artists count])
+	if (musicId)
 	{
-		PRArtist *artist = [artists objectAtIndex:row];
-		[pianoWrapper createStationWithMusicId:[artist musicId]];
-		
-		[searchField endEditingAndClear:self];
-	}
-	else if (row >= [artists count] && row < [artists count] + [songs count])
-	{
-		PRSong *song = [songs objectAtIndex:row];
-		[pianoWrapper createStationWithMusicId:[song musicId]];
+		[pianoWrapper createStationWithMusicId:musicId];
 		
 		[searchField endEditingAndClear:self];
 	}
@@ -90,7 +167,8 @@
 	}
 	else
 	{
-		return [[songs objectAtIndex:(rowIndex - [artists count])] title];
+		PRSong *song = [songs objectAtIndex:(rowIndex - [artists count])];
+		return [NSString stringWithFormat:@"%@ - %@", [song title], [song artist]];
 	}
 }
 

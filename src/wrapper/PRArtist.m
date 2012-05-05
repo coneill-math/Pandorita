@@ -52,6 +52,11 @@
 	return originalArtist;
 }
 
+- (BOOL)isEqual:(id)object
+{
+	return [object class] == [self class] && [[object musicId] isEqualToString:musicId];
+}
+
 - (void)dealloc
 {
 	RELEASE_MEMBER(name);

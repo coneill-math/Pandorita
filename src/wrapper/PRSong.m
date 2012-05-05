@@ -127,9 +127,9 @@
 	return [NSString stringWithFormat:@"%@ - %@ - %@", artist, album, title];
 }
 
-- (BOOL)representsSong:(PRSong *)obj
+- (BOOL)isEqual:(id)object
 {
-	return [[obj stationId] isEqualToString:[self stationId]] && [[obj musicId] isEqualToString:[self musicId]];
+	return [object class] == [self class] && [[object musicId] isEqualToString:musicId];
 }
 
 - (void)dealloc

@@ -49,7 +49,7 @@
 	
 	for(i = 0;i < [songHistory count];i++)
 	{
-		if ([[songHistory objectAtIndex:i] representsSong:song])
+		if ([song isEqual:[songHistory objectAtIndex:i]])
 		{
 			[songHistory replaceObjectAtIndex:i withObject:song];
 			return;

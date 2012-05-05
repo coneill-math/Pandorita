@@ -69,6 +69,6 @@ typedef enum
 - (PRAudioFormat)audioFormat;
 
 // only checks ids, not artist/album/rating/etc.
-- (BOOL)representsSong:(PRSong *)obj;
+- (BOOL)isEqual:(id)object;
 
 @end

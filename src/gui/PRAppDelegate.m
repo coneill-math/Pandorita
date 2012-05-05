@@ -13,11 +13,12 @@
 /*
 P1 Blockers:
 x Restructure PianoWrapper
-- Create stations
+x Create stations
 - Cleanup menu bar
 - Volume control
-- Song progress
-- Dock menu
+- Song progress/Now Playing
+x Dock menu
+- Error reporting
 - Preferences window
   - Login info
   - Global hotkeys/media keys
@@ -133,23 +134,28 @@ error:
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-	if ([item action] != nil)
+	if ([item menu] == dockMenu)
 	{
-		if (player && [self isPlaying])
+		if ([item action] != nil)
 		{
-			return YES;
+			if (player && [self isPlaying])
+			{
+				return YES;
+			}
+			else if (player)
+			{
+				return YES;
+			}
+			else
+			{
+				return NO;
+			}
 		}
-		else if (player)
-		{
-			return YES;
-		}
-		else
-		{
-			return NO;
-		}
+		
+		return NO;
 	}
 	
-	return NO;
+	return YES;
 }
 
 - (IBAction)showPreferences:(id)sender

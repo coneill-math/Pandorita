@@ -24,6 +24,8 @@
 - (void)setPianoWrapper:(PRPianoWrapper *)wrapper;
 - (void)setFoundArtists:(NSArray *)a songs:(NSArray *)s;
 
+//- (void)shiftSelection:(NSInteger)shift;
+
 - (IBAction)tableDoubleClicked:(id)sender;
 
 @end
