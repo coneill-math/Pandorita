@@ -14,12 +14,12 @@
 P1 Blockers:
 x Restructure PianoWrapper
 x Create stations
-- Cleanup menu bar
+x Cleanup menu bar
 - Volume control
 - Song progress/Now Playing
 x Dock menu
 - Error reporting
-- Fix rename station
+x Fix rename station
 - Preferences window
   - Login info
   - Global hotkeys/media keys
@@ -250,6 +250,16 @@ error:
 	}
 }
 
+- (IBAction)markAsTired:(id)sender
+{
+	PRSong *currentSong = [songHistoryTableDelegate currentSong];
+	
+	if (currentSong)
+	{
+		[pianoWrapper markSongAsTired:currentSong];
+	}
+}
+
 - (void)playStation:(PRStation *)station
 {
 	if (station != [pianoWrapper currentStation])
@@ -371,6 +381,30 @@ error:
 	}
 	
 	NSLog(@"Successfully set rating!");
+}
+
+- (void)didMarkSongAsTired:(PRSong *)song error:(NSError *)error
+{
+	if (error)
+	{
+		NSLog(@"Error marking song as tired: %@!", error);
+	}
+	
+	// this song may be a different object, 
+	// so do a replacement
+//	[songHistoryTableDelegate replaceSongAfterRating:song];
+	[songHistoryTableView reloadData];
+	
+	// if the current song was banned, switch to the next one
+	PRSong *currentSong = [songHistoryTableDelegate currentSong];
+	
+	// yes, thats right, pointer equality
+	if (currentSong == song)
+	{
+		[self moveToNextSong:self];
+	}
+	
+	NSLog(@"Successfully marked as tired!");
 }
 
 - (void)didCreateStation:(PRStation *)station error:(NSError *)error

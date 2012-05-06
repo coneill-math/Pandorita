@@ -764,7 +764,7 @@
 																						<int key="NSCellFlags2">33554432</int>
 																						<reference key="NSSupport" ref="1000202818"/>
 																						<string key="NSCellIdentifier">_NS:4001</string>
-																						<int key="NSAlign">0</int>
+																						<int key="NSAlign">8</int>
 																						<int key="NSScale">2</int>
 																						<int key="NSStyle">0</int>
 																						<bool key="NSAnimates">NO</bool>
@@ -2176,6 +2176,14 @@
 						<reference key="destination" ref="786563088"/>
 					</object>
 					<int key="connectionID">660</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">markAsTired:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="425141417"/>
+					</object>
+					<int key="connectionID">807</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -3660,7 +3668,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">806</int>
+			<int key="maxID">807</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3692,6 +3700,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>banClicked:</string>
 							<string>loveClicked:</string>
+							<string>markAsTired:</string>
 							<string>moveToNextSong:</string>
 							<string>showPreferences:</string>
 							<string>stationSearch:</string>
@@ -3700,6 +3709,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -3715,6 +3725,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>banClicked:</string>
 							<string>loveClicked:</string>
+							<string>markAsTired:</string>
 							<string>moveToNextSong:</string>
 							<string>showPreferences:</string>
 							<string>stationSearch:</string>
@@ -3729,6 +3740,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">loveClicked:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">markAsTired:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

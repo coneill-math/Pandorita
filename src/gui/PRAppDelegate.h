@@ -86,6 +86,7 @@
 - (IBAction)moveToNextSong:(id)sender;
 - (IBAction)loveClicked:(id)sender;
 - (IBAction)banClicked:(id)sender;
+- (IBAction)markAsTired:(id)sender;
 
 
 @end

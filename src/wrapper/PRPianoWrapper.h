@@ -23,6 +23,7 @@
 - (void)didUpdateStationsWithError:(NSError *)error;
 - (void)didStartNextSong:(PRSong *)song error:(NSError *)error;
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error;
+- (void)didMarkSongAsTired:(PRSong *)song error:(NSError *)error;
 - (void)didCreateStation:(PRStation *)station error:(NSError *)error;
 - (void)didRenameStation:(PRStation *)station error:(NSError *)error;
 - (void)didRemoveStationWithError:(NSError *)error;
@@ -64,6 +65,7 @@
 - (void)requestNextSong;
 
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
+- (void)markSongAsTired:(PRSong *)song;
 
 - (void)updateQuickMix;
 
