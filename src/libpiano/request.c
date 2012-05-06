@@ -43,6 +43,10 @@ THE SOFTWARE.
  */
 static const char *PianoAudioFormatToString (PianoAudioFormat_t format) {
 	switch (format) {
+		case PIANO_AF_AACPLUS_LO:
+			return "HTTP_32_AACPLUS";
+			break;
+
 		case PIANO_AF_AACPLUS:
 			return "HTTP_64_AACPLUS";
 			break;
