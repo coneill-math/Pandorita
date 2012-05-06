@@ -68,6 +68,10 @@
 		83EDEFE214F0962B00EA6AC8 /* PRLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */; };
 		83EDF11214F2206D00EA6AC8 /* PRArtworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */; };
 		83F00F6A1556413A008C8C9F /* PRPianoTiredTrackJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F00F691556413A008C8C9F /* PRPianoTiredTrackJob.m */; };
+		83F00F6E15564ED9008C8C9F /* Scribbler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F00F6C15564ED9008C8C9F /* Scribbler.framework */; };
+		83F00F6F15564ED9008C8C9F /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */; };
+		83F00F7015564F1D008C8C9F /* Scribbler.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6C15564ED9008C8C9F /* Scribbler.framework */; };
+		83F00F7115564F21008C8C9F /* ShortcutRecorder.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -81,6 +85,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */,
+				83F00F7015564F1D008C8C9F /* Scribbler.framework in CopyFiles */,
+				83F00F7115564F21008C8C9F /* ShortcutRecorder.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +129,7 @@
 		831D821F14F74D06009B73C4 /* AdvancedPrefs.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = AdvancedPrefs.xib; path = interfaces/AdvancedPrefs.xib; sourceTree = "<group>"; };
 		83239B99154F9377003AFF5A /* PRPianoGetPlaylistJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoGetPlaylistJob.h; sourceTree = "<group>"; };
 		83239B9A154F9377003AFF5A /* PRPianoGetPlaylistJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoGetPlaylistJob.m; sourceTree = "<group>"; };
-		8334FA5A15524D3C002C2D6E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Growl.framework; path = frameworks/Growl.framework; sourceTree = "<group>"; };
+		8334FA5A15524D3C002C2D6E /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		8336625F15503192008D8351 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../src/libpiano/config.h; sourceTree = "<group>"; };
 		8336626015503192008D8351 /* request.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = request.c; path = ../src/libpiano/request.c; sourceTree = "<group>"; };
 		8336626115503192008D8351 /* response.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = response.c; path = ../src/libpiano/response.c; sourceTree = "<group>"; };
@@ -211,6 +217,8 @@
 		83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRArtworkController.m; sourceTree = "<group>"; };
 		83F00F681556413A008C8C9F /* PRPianoTiredTrackJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoTiredTrackJob.h; sourceTree = "<group>"; };
 		83F00F691556413A008C8C9F /* PRPianoTiredTrackJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoTiredTrackJob.m; sourceTree = "<group>"; };
+		83F00F6C15564ED9008C8C9F /* Scribbler.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Scribbler.framework; sourceTree = "<group>"; };
+		83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Pandorita-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pandorita-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Pandorita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pandorita.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -227,6 +235,8 @@
 				8336627C15503E37008D8351 /* libgcrypt.dylib in Frameworks */,
 				8336627D15503E37008D8351 /* libgpg-error.dylib in Frameworks */,
 				8334FA5B15524D3C002C2D6E /* Growl.framework in Frameworks */,
+				83F00F6E15564ED9008C8C9F /* Scribbler.framework in Frameworks */,
+				83F00F6F15564ED9008C8C9F /* ShortcutRecorder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,9 +334,12 @@
 		8334FA5915524D1D002C2D6E /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83F00F6C15564ED9008C8C9F /* Scribbler.framework */,
+				83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */,
 				8334FA5A15524D3C002C2D6E /* Growl.framework */,
 			);
 			name = "External Frameworks";
+			path = frameworks;
 			sourceTree = "<group>";
 		};
 		8336626415503653008D8351 /* json */ = {
