@@ -3,9 +3,7 @@
 # vim swap files
 .*.sw*
 
-build/Debug
-build/Release
-build/Pandorita.build
+build
 resources/Pandorita.xcodeproj/chris*
 resources/Pandorita.xcodeproj/xc*
 resources/Pandorita.xcodeproj/*.xcworkspace
