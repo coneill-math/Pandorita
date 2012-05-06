@@ -19,6 +19,7 @@ x Create stations
 - Song progress/Now Playing
 x Dock menu
 - Error reporting
+- Fix rename station
 - Preferences window
   - Login info
   - Global hotkeys/media keys
@@ -100,18 +101,21 @@ error:
 	if (player && [self isPlaying])
 	{
 		[playDockItem setTitle:@"Pause"];
+		[playMenuItem setTitle:@"Pause"];
 		[playButton setTitle:@"Pause"];
 		[playButton setEnabled:YES];
 	}
 	else if (player)
 	{
 		[playDockItem setTitle:@"Play"];
+		[playMenuItem setTitle:@"Play"];
 		[playButton setTitle:@"Play"];
 		[playButton setEnabled:YES];
 	}
 	else
 	{
 		[playDockItem setTitle:@"Play"];
+		[playMenuItem setTitle:@"Play"];
 		[playButton setTitle:@"Play"];
 		[playButton setEnabled:NO];
 	}
@@ -134,7 +138,7 @@ error:
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-	if ([item menu] == dockMenu)
+	if ([item menu] == dockMenu || [item menu] == controlsMenu)
 	{
 		if ([item action] != nil)
 		{
@@ -392,9 +396,10 @@ error:
 		{
 			[player stop];
 			RELEASE_MEMBER(player);
-			[self updatePlayButton];
-			[songHistoryTableView reloadData];
 		}
+		
+		[self updatePlayButton];
+		[songHistoryTableView reloadData];
 	}
 }
 

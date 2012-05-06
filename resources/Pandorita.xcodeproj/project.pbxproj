@@ -60,6 +60,7 @@
 		83C5DFA714CE83A3004243B1 /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 83C5DFA014CE83A3004243B1 /* crypt.c */; };
 		83C5DFA814CE83A3004243B1 /* piano.c in Sources */ = {isa = PBXBuildFile; fileRef = 83C5DFA314CE83A3004243B1 /* piano.c */; };
 		83C5DFAC14CE83C2004243B1 /* macwaitress.c in Sources */ = {isa = PBXBuildFile; fileRef = 83C5DFAA14CE83C2004243B1 /* macwaitress.c */; };
+		83DA788E155631DB00559543 /* PRMainWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DA788D155631DB00559543 /* PRMainWindow.m */; };
 		83E0517D14D62A77007854FB /* PRPianoWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0517C14D62A77007854FB /* PRPianoWrapper.m */; };
 		83E0518814D63ACE007854FB /* PRStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0518714D63ACE007854FB /* PRStation.m */; };
 		83E5387F1554BA2A00EABE0F /* PRStationSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E5387E1554BA2A00EABE0F /* PRStationSearchField.m */; };
@@ -194,6 +195,8 @@
 		83C5DFA414CE83A3004243B1 /* piano.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = piano.h; path = ../src/libpiano/piano.h; sourceTree = SOURCE_ROOT; };
 		83C5DFAA14CE83C2004243B1 /* macwaitress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = macwaitress.c; path = ../src/libpiano/macwaitress.c; sourceTree = SOURCE_ROOT; };
 		83C5DFAB14CE83C2004243B1 /* macwaitress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = macwaitress.h; path = ../src/libpiano/macwaitress.h; sourceTree = SOURCE_ROOT; };
+		83DA788C155631DB00559543 /* PRMainWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRMainWindow.h; sourceTree = "<group>"; };
+		83DA788D155631DB00559543 /* PRMainWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRMainWindow.m; sourceTree = "<group>"; };
 		83E0517B14D62A77007854FB /* PRPianoWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoWrapper.h; sourceTree = "<group>"; };
 		83E0517C14D62A77007854FB /* PRPianoWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoWrapper.m; sourceTree = "<group>"; };
 		83E0518614D63ACE007854FB /* PRStation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRStation.h; sourceTree = "<group>"; };
@@ -381,6 +384,8 @@
 				837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */,
 				835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */,
 				835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */,
+				83DA788C155631DB00559543 /* PRMainWindow.h */,
+				83DA788D155631DB00559543 /* PRMainWindow.m */,
 				831458A514DDCF78002248D9 /* PRRatingCell.h */,
 				831458A614DDCF78002248D9 /* PRRatingCell.m */,
 				83E5387D1554BA2A00EABE0F /* PRStationSearchField.h */,
@@ -626,6 +631,7 @@
 				837B4A6215543A2800FFD88C /* PRSearchTableDelegate.m in Sources */,
 				837B4A6515545C3F00FFD88C /* PRPianoCreateStationJob.m in Sources */,
 				83E5387F1554BA2A00EABE0F /* PRStationSearchField.m in Sources */,
+				83DA788E155631DB00559543 /* PRMainWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

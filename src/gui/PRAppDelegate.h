@@ -51,6 +51,9 @@
 	IBOutlet NSMenu *dockMenu;
 	IBOutlet NSMenuItem *playDockItem;
 	
+	IBOutlet NSMenu *controlsMenu;
+	IBOutlet NSMenuItem *playMenuItem;
+	
 	IBOutlet NSMenuItem *songDockItem;
 	IBOutlet NSMenuItem *artistDockItem;
 	IBOutlet NSMenuItem *albumDockItem;

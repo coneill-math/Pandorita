@@ -47,15 +47,25 @@
 {
 	NSInteger row = [tableView clickedRow];
 	
+	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
+	{
+		row = [[tableView selectedRowIndexes] firstIndex];
+	}
+	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{
-		[tableView editColumn:0 row:row withEvent:nil select:YES];
+		[tableView editColumn:1 row:row withEvent:nil select:YES];
 	}
 }
 
 - (IBAction)removeStation:(id)sender
 {
 	NSInteger row = [tableView clickedRow];
+	
+	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
+	{
+		row = [[tableView selectedRowIndexes] firstIndex];
+	}
 	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{
@@ -80,6 +90,11 @@
 {
 	NSInteger row = [tableView clickedRow];
 	
+	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
+	{
+		row = [[tableView selectedRowIndexes] firstIndex];
+	}
+	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{
 		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
@@ -97,6 +112,11 @@
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
 	NSInteger row = [tableView clickedRow];
+	
+	if ([item menu] != rightClickMenu)
+	{
+		row = [[tableView selectedRowIndexes] firstIndex];
+	}
 	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{
@@ -122,6 +142,11 @@
 {
 	NSArray *stations = [pianoWrapper stations];
 	NSInteger row = [tableView clickedRow];
+	
+	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
+	{
+		row = [[tableView selectedRowIndexes] firstIndex];
+	}
 	
 	if (stations && row >= 0 && row < [stations count])
 	{
@@ -157,13 +182,13 @@
 {
 	return NO;
 }
-
+/*
 // don't want any highlighting
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
 {
 	return NO;
 }
-
+*/
 - (void)dealloc
 {
 	RELEASE_MEMBER(pianoWrapper);
