@@ -10,30 +10,10 @@
 
 #import "PRAppDelegate.h"
 
-/*
-P1 Blockers:
-x Restructure PianoWrapper
-x Create stations
-x Cleanup menu bar
-- Volume control
-- Song progress/Now Playing
-x Dock menu
-- Error reporting
-x Fix rename station
-- Preferences window
-  - Login info
-  - Global hotkeys/media keys
-  - Automatic updates (+Sparkle)
-x Sourceforge/Github
-
-Enhancements: 
-- Additional Pandora functionality
-- Last.fm
-x Growl
-*/
 
 #define PR_GROWL_PLAYING_NOTIFICATION @"Pandorita - Now Playing"
 #define PR_GROWL_PAUSED_NOTIFICATION @"Pandorita - Paused"
+
 
 @implementation PRAppDelegate
 
@@ -43,6 +23,16 @@ x Growl
 	
 	[NSUserDefaults registerPandoritaUserDefaults];
 	[GrowlApplicationBridge setGrowlDelegate:self];
+	/*
+	LFWebService *lastfm = [LFWebService sharedWebService];
+	[lastfm setDelegate:self];
+	[lastfm setAPIKey:@"0cfd2e44230806a07104b63b1d4bcf6f"];
+	[lastfm setSharedSecret:@"5654580e9a27f4a502012841bca2db2c"];
+	
+	[lastfm setClientID:@"Pandorita"];
+	[lastfm setClientVersion:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
+	*/
+	hotkeyManager = [[PRHotkeyManager alloc] init];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
@@ -94,6 +84,11 @@ error:
 	
 	[stationTableView reloadData];
 	[songHistoryTableView reloadData];
+}
+
+- (PRHotkeyManager *)hotkeyManager
+{
+	return hotkeyManager;
 }
 
 - (void)updatePlayButton
@@ -282,6 +277,11 @@ error:
 		PRSong *song = [songHistoryTableDelegate songForRow:row];
 		[self setRating:rating forSong:song];
 	}
+}
+
+- (void)setRating:(PRRating)rating
+{
+	[self setRating:rating forSong:[songHistoryTableDelegate currentSong]];
 }
 
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song
@@ -582,6 +582,7 @@ error:
 
 - (void)dealloc
 {
+	RELEASE_MEMBER(hotkeyManager);
 	RELEASE_MEMBER(pianoWrapper);
 	RELEASE_MEMBER(player);
 	

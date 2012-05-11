@@ -125,5 +125,141 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 	return PRWriteKeychainPassword([NSUserDefaults lastUsername], pass);
 }
 
++ (BOOL)shouldEnableHotkeys
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"PREnableHotkeys"];
+}
+
++ (void)setShouldEnableHotkeys:(BOOL)should
+{
+	[[NSUserDefaults standardUserDefaults] setBool:should forKey:@"PREnableHotkeys"];
+}
+
++ (SGKeyCombo *)hotKeyForKey:(NSString *)key
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setHotkey:(SGKeyCombo *)combo forKey:(NSString *)key
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:key];
+	}
+}
+/*
++ (SGKeyCombo *)pauseHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRPauseHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setPauseHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRPauseHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRPauseHotkey"];
+	}
+}
+
++ (SGKeyCombo *)skipHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRSkipHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setSkipHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRSkipHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRSkipHotkey"];
+	}
+}
+
++ (SGKeyCombo *)loveHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRLoveHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setLoveHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRLoveHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRLoveHotkey"];
+	}
+}
+
++ (SGKeyCombo *)banHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRBanHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setBanHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRBanHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRBanHotkey"];
+	}
+}
+
++ (SGKeyCombo *)volumeUpHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRVolumeUpHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setVolumeUpHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRVolumeUpHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRVolumeUpHotkey"];
+	}
+}
+
++ (SGKeyCombo *)volumeDownHotkey
+{
+	id keyComboPlist = [[NSUserDefaults standardUserDefaults] objectForKey:@"PRVolumeDownHotkey"];
+	return (keyComboPlist ? [[[SGKeyCombo alloc] initWithPlistRepresentation:keyComboPlist] autorelease] : nil);
+}
+
++ (void)setVolumeDownHotkey:(SGKeyCombo *)combo
+{
+	if (!combo)
+	{
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PRVolumeDownHotkey"];
+	}
+	else
+	{
+		[[NSUserDefaults standardUserDefaults] setObject:[combo plistRepresentation] forKey:@"PRVolumeDownHotkey"];
+	}
+}
+*/
 @end
 

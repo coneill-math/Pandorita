@@ -8,5 +8,7 @@
 	<true/>
 	<key>PRLastUsername</key>
 	<string></string>
+	<key>PREnableHotkeys</key>
+	<false/>
 </dict>
 </plist>

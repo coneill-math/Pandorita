@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "SGKeyCombo.h"
 
 @interface NSUserDefaults (PRUtils_Additions)
 
@@ -25,6 +26,33 @@
 + (NSString *)passwordFromKeychain;
 + (BOOL)writePasswordToKeychain:(NSString *)pass;
 
++ (BOOL)shouldEnableHotkeys;
++ (void)setShouldEnableHotkeys:(BOOL)should;
+
+
+// hotkeys
++ (SGKeyCombo *)hotKeyForKey:(NSString *)key;
++ (void)setHotkey:(SGKeyCombo *)combo forKey:(NSString *)key;
+
+/*
++ (SGKeyCombo *)pauseHotkey;
++ (void)setPauseHotkey:(SGKeyCombo *)combo;
+
++ (SGKeyCombo *)skipHotkey;
++ (void)setSkipHotkey:(SGKeyCombo *)combo;
+
++ (SGKeyCombo *)loveHotkey;
++ (void)setLoveHotkey:(SGKeyCombo *)combo;
+
++ (SGKeyCombo *)banHotkey;
++ (void)setBanHotkey:(SGKeyCombo *)combo;
+
++ (SGKeyCombo *)volumeUpHotkey;
++ (void)setVolumeUpHotkey:(SGKeyCombo *)combo;
+
++ (SGKeyCombo *)volumeDownHotkey;
++ (void)setVolumeDownHotkey:(SGKeyCombo *)combo;
+*/
 @end
 
 

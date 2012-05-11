@@ -8,10 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <Scribbler/Scribbler.h>
 #import <Growl/Growl.h>
 
 #import "PRURLDownloader.h"
 #import "PRPianoWrapper.h"
+#import "PRHotkeyManager.h"
 
 #import "PRRatingCell.h"
 #import "PRStationTableDelegate.h"
@@ -25,7 +27,7 @@
 #import "PRUtils.h"
 
 
-@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, GrowlApplicationBridgeDelegate, PRPianoDelegate>
+@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, PRPianoDelegate, GrowlApplicationBridgeDelegate, LFWebServiceDelegate>
 {
 	IBOutlet NSWindow *window;
 	
@@ -61,9 +63,13 @@
 	PRLoginController *loginController;
 	PRPreferencesController *prefsController;
 	
+	PRHotkeyManager *hotkeyManager;
+	
 	PRPianoWrapper *pianoWrapper;
 	QTMovie *player;
 }
+
+- (PRHotkeyManager *)hotkeyManager;
 
 - (void)updatePlayButton;
 - (void)playStation:(PRStation *)station;
@@ -72,6 +78,7 @@
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 
 - (void)setRatingFromSegmentClick:(PRRating)rating;
+- (void)setRating:(PRRating)rating;
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
 
 - (void)pushGrowlNotification;
