@@ -32,11 +32,11 @@
 		833662841550F68D008D8351 /* PRPianoGetStationsJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662831550F68D008D8351 /* PRPianoGetStationsJob.m */; };
 		833662871550F886008D8351 /* PRPianoSetRatingJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662861550F886008D8351 /* PRPianoSetRatingJob.m */; };
 		833662891551A663008D8351 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 833662881551A663008D8351 /* Credits.rtf */; };
-		834D5CEE15623A0B003F3696 /* ban.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CE915623A0B003F3696 /* ban.pdf */; };
-		834D5CEF15623A0B003F3696 /* like.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEA15623A0B003F3696 /* like.pdf */; };
-		834D5CF015623A0B003F3696 /* pause.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEB15623A0B003F3696 /* pause.pdf */; };
-		834D5CF115623A0B003F3696 /* play.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEC15623A0B003F3696 /* play.pdf */; };
-		834D5CF215623A0B003F3696 /* skip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CED15623A0B003F3696 /* skip.pdf */; };
+		834D5CEE15623A0B003F3696 /* ban-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CE915623A0B003F3696 /* ban-none.pdf */; };
+		834D5CEF15623A0B003F3696 /* like-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEA15623A0B003F3696 /* like-none.pdf */; };
+		834D5CF015623A0B003F3696 /* pause-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEB15623A0B003F3696 /* pause-none.pdf */; };
+		834D5CF115623A0B003F3696 /* play-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEC15623A0B003F3696 /* play-none.pdf */; };
+		834D5CF215623A0B003F3696 /* skip-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CED15623A0B003F3696 /* skip-none.pdf */; };
 		8350308D14DB3380001353AC /* PRURLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8350308C14DB3380001353AC /* PRURLDownloader.m */; };
 		835030F514DB5D15001353AC /* PRUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 835030F414DB5D15001353AC /* PRUtils.m */; };
 		8354555014F5A3330067890A /* GeneralPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8354554F14F5A3330067890A /* GeneralPrefs.xib */; };
@@ -175,11 +175,11 @@
 		833662851550F886008D8351 /* PRPianoSetRatingJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSetRatingJob.h; sourceTree = "<group>"; };
 		833662861550F886008D8351 /* PRPianoSetRatingJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoSetRatingJob.m; sourceTree = "<group>"; };
 		833662881551A663008D8351 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
-		834D5CE915623A0B003F3696 /* ban.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ban.pdf; sourceTree = "<group>"; };
-		834D5CEA15623A0B003F3696 /* like.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = like.pdf; sourceTree = "<group>"; };
-		834D5CEB15623A0B003F3696 /* pause.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pause.pdf; sourceTree = "<group>"; };
-		834D5CEC15623A0B003F3696 /* play.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = play.pdf; sourceTree = "<group>"; };
-		834D5CED15623A0B003F3696 /* skip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = skip.pdf; sourceTree = "<group>"; };
+		834D5CE915623A0B003F3696 /* ban-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ban-none.pdf"; sourceTree = "<group>"; };
+		834D5CEA15623A0B003F3696 /* like-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "like-none.pdf"; sourceTree = "<group>"; };
+		834D5CEB15623A0B003F3696 /* pause-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "pause-none.pdf"; sourceTree = "<group>"; };
+		834D5CEC15623A0B003F3696 /* play-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "play-none.pdf"; sourceTree = "<group>"; };
+		834D5CED15623A0B003F3696 /* skip-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "skip-none.pdf"; sourceTree = "<group>"; };
 		8350308B14DB3380001353AC /* PRURLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRURLDownloader.h; path = ../src/utils/PRURLDownloader.h; sourceTree = "<group>"; };
 		8350308C14DB3380001353AC /* PRURLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRURLDownloader.m; path = ../src/utils/PRURLDownloader.m; sourceTree = "<group>"; };
 		835030F314DB5D15001353AC /* PRUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRUtils.h; path = ../src/utils/PRUtils.h; sourceTree = "<group>"; };
@@ -568,11 +568,11 @@
 		83EDF12614F227F600EA6AC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				834D5CE915623A0B003F3696 /* ban.pdf */,
-				834D5CEA15623A0B003F3696 /* like.pdf */,
-				834D5CEB15623A0B003F3696 /* pause.pdf */,
-				834D5CEC15623A0B003F3696 /* play.pdf */,
-				834D5CED15623A0B003F3696 /* skip.pdf */,
+				834D5CE915623A0B003F3696 /* ban-none.pdf */,
+				834D5CEA15623A0B003F3696 /* like-none.pdf */,
+				834D5CEB15623A0B003F3696 /* pause-none.pdf */,
+				834D5CEC15623A0B003F3696 /* play-none.pdf */,
+				834D5CED15623A0B003F3696 /* skip-none.pdf */,
 				83E5C9F215616ABE001F678B /* ban-off.pdf */,
 				83E5C9F315616ABE001F678B /* ban-on.pdf */,
 				83E5C9F415616ABE001F678B /* like-off.pdf */,
@@ -690,11 +690,11 @@
 				83E5C9F715616ABE001F678B /* ban-on.pdf in Resources */,
 				83E5C9F815616ABE001F678B /* like-off.pdf in Resources */,
 				83E5C9F915616ABE001F678B /* like-on.pdf in Resources */,
-				834D5CEE15623A0B003F3696 /* ban.pdf in Resources */,
-				834D5CEF15623A0B003F3696 /* like.pdf in Resources */,
-				834D5CF015623A0B003F3696 /* pause.pdf in Resources */,
-				834D5CF115623A0B003F3696 /* play.pdf in Resources */,
-				834D5CF215623A0B003F3696 /* skip.pdf in Resources */,
+				834D5CEE15623A0B003F3696 /* ban-none.pdf in Resources */,
+				834D5CEF15623A0B003F3696 /* like-none.pdf in Resources */,
+				834D5CF015623A0B003F3696 /* pause-none.pdf in Resources */,
+				834D5CF115623A0B003F3696 /* play-none.pdf in Resources */,
+				834D5CF215623A0B003F3696 /* skip-none.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
