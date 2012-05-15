@@ -11,6 +11,8 @@
 #import "PRUserDefaults.h"
 
 
+NSString *PRSongDurationFromInterval(NSTimeInterval interval);
+
 @interface NSView (PRUtils_Additions)
 
 - (BOOL)containsView:(NSView *)subview;
@@ -23,3 +25,13 @@
 - (IBAction)endEditingAndClear:(id)sender;
 
 @end
+
+
+@interface QTMovie (PRUtils_Additions)
+
+- (NSTimeInterval)durationAsInterval;
+- (NSTimeInterval)currentTimeAsInterval;
+
+@end
+
+

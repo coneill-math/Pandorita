@@ -20,6 +20,8 @@
 #import "PRSongHistoryTableDelegate.h"
 #import "PRSearchTableDelegate.h"
 
+#import "PRPlaybackController.h"
+
 #import "PRPreferencesController.h"
 #import "PRLoginController.h"
 #import "PRArtworkController.h"
@@ -39,10 +41,7 @@
 	IBOutlet NSTableView *searchTableView;
 	IBOutlet PRSearchTableDelegate *searchTableDelegate;
 	
-	IBOutlet NSButton *playButton;
-	IBOutlet NSButton *skipButton;
-	IBOutlet NSButton *loveButton;
-	IBOutlet NSButton *banButton;
+	IBOutlet PRPlaybackController *playbackController;
 	
 	IBOutlet NSSplitView *mainSplitView;
 	IBOutlet NSSplitView *imageSplitView;
@@ -66,14 +65,12 @@
 	PRHotkeyManager *hotkeyManager;
 	
 	PRPianoWrapper *pianoWrapper;
-	QTMovie *player;
 }
 
 - (PRHotkeyManager *)hotkeyManager;
 
-- (void)updatePlayButton;
+- (void)updateDockPlayingInfo;
 - (void)playStation:(PRStation *)station;
-- (BOOL)isPlaying;
 
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 

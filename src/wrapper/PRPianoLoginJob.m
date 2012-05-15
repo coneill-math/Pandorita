@@ -92,13 +92,14 @@
 		
 		// unable to login, these will be useless
 		[wrapper removeAllJobs];
+		
+		[self jobCompletedWithError:error];
 	}
 	else
 	{
+		[self jobCompletedWithError:error];
 		[wrapper finishJob:self];
 	}
-	
-	[self jobCompletedWithError:error];
 }
 
 - (void)jobCompletedWithError:(NSError *)error

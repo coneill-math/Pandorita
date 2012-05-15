@@ -34,9 +34,6 @@
 	*/
 	hotkeyManager = [[PRHotkeyManager alloc] init];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
-	
 	pianoWrapper = [[PRPianoWrapper alloc] init];
 	[pianoWrapper setDelegate:self];
 	
@@ -51,12 +48,12 @@
 	[[searchTableView enclosingScrollView] setHidden:YES];
 	[[stationTableView enclosingScrollView] setHidden:NO];
 	
-	player = nil;
-	
 	NSTableColumn *column = [songHistoryTableView tableColumnWithIdentifier:@"rating"];
 	[column setWidth:[[column dataCell] cellSize].width];
 	
-	[self updatePlayButton];
+	[self updateDockPlayingInfo];
+	
+	[playbackController finishedLaunching];
 	
 	loginController = [[PRLoginController alloc] initWithMainWindow:window];
 	[NSBundle loadNibNamed:@"Login" owner:loginController];
@@ -73,12 +70,8 @@ error:
 
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass
 {
-	if (player)
-	{
-		[player stop];
-		RELEASE_MEMBER(player);
-		[self updatePlayButton];
-	}
+	[playbackController updateControls];
+	[self updateDockPlayingInfo];
 	
 	[pianoWrapper loginWithUsername:user password:pass];
 	
@@ -91,31 +84,8 @@ error:
 	return hotkeyManager;
 }
 
-- (void)updatePlayButton
+- (void)updateDockPlayingInfo
 {
-	if (player && [self isPlaying])
-	{
-		[playDockItem setTitle:@"Pause"];
-		[playMenuItem setTitle:@"Pause"];
-		[playButton setTitle:@"Pause"];
-		[playButton setEnabled:YES];
-	}
-	else if (player)
-	{
-		[playDockItem setTitle:@"Play"];
-		[playMenuItem setTitle:@"Play"];
-		[playButton setTitle:@"Play"];
-		[playButton setEnabled:YES];
-	}
-	else
-	{
-		[playDockItem setTitle:@"Play"];
-		[playMenuItem setTitle:@"Play"];
-		[playButton setTitle:@"Play"];
-		[playButton setEnabled:NO];
-	}
-	
-	// update dock menu
 	PRSong *currentSong = [songHistoryTableDelegate currentSong];
 	if (currentSong != nil)
 	{
@@ -137,18 +107,7 @@ error:
 	{
 		if ([item action] != nil)
 		{
-			if (player && [self isPlaying])
-			{
-				return YES;
-			}
-			else if (player)
-			{
-				return YES;
-			}
-			else
-			{
-				return NO;
-			}
+			return [playbackController isSongLoaded];
 		}
 		
 		return NO;
@@ -170,7 +129,7 @@ error:
 
 - (IBAction)switchAccounts:(id)sender
 {
-	if ([self isPlaying])
+	if ([playbackController isPlaying])
 	{
 		[self togglePause:self];
 	}
@@ -198,27 +157,16 @@ error:
 
 - (IBAction)togglePause:(id)sender
 {
-	if (player && [self isPlaying])
-	{
-		[player stop];
-	}
-	else if (player)
-	{
-		[player play];
-	}
+	[playbackController togglePause];
 	
-	[self updatePlayButton];
+	[self updateDockPlayingInfo];
 	[self pushGrowlNotification];
 }
 
 - (IBAction)moveToNextSong:(id)sender
 {
-	if (player)
-	{
-		[player stop];
-		RELEASE_MEMBER(player);
-		[self updatePlayButton];
-	}
+	[playbackController updateControls];
+	[self updateDockPlayingInfo];
 	
 	[pianoWrapper requestNextSong];
 	
@@ -299,9 +247,9 @@ error:
 		{
 			NSData *data = [coverArtController artworkData];
 			
-			NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([self isPlaying] ? @"" : @" (Paused)")];
+			NSString *name = [NSString stringWithFormat:@"%@%@", [song title], ([playbackController isPlaying] ? @"" : @" (Paused)")];
 			NSString *desc = [NSString stringWithFormat:@"Artist: %@\nAlbum: %@", [song artist], [song album]];
-			NSString *notif = ([self isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
+			NSString *notif = ([playbackController isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
 			NSString *ident = @"PandoritaNowPlaying";
 			
 			[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
@@ -339,9 +287,7 @@ error:
 {
 	ERROR_ON_FAIL(!error);
 	
-	// play the new song
-	player = [[QTMovie alloc] initWithURL:[song audioURL] error:&error];
-	ERROR_ON_FAIL(!error);
+	[playbackController playURL:[song audioURL]];
 	
 	// update the table view
 	[songHistoryTableDelegate addSong:song];
@@ -350,8 +296,7 @@ error:
 	// update cover art
 	[coverArtController loadImageFromSong:song];
 	
-	// update buttons
-	[self updatePlayButton];
+	[self updateDockPlayingInfo];
 	
 	return;
 	
@@ -426,13 +371,8 @@ error:
 	
 	if ([pianoWrapper currentStation] == nil)
 	{
-		if (player)
-		{
-			[player stop];
-			RELEASE_MEMBER(player);
-		}
-		
-		[self updatePlayButton];
+		[playbackController stopPlayback];
+		[self updateDockPlayingInfo];
 		[songHistoryTableView reloadData];
 	}
 }
@@ -489,37 +429,7 @@ error:
 
 //- (void) growlNotificationWasClicked:(id)clickContext;
 
-- (void)movieLoadStateDidChange:(NSNotification *)notification
-{
-	// First make sure that this notification is for our movie.
-	if ([notification object] == player)
-	{
-		if ([player rate] == 0)
-		{
-			// if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= kMovieLoadStatePlaythroughOK)
-			// {
-			[player play];
-			[self updatePlayButton];
-			[self pushGrowlNotification];
-			// }
-		}
-	}
-}
-
-- (void)movieDidEnd:(NSNotification *)notification
-{
-	// First make sure that this notification is for our movie.
-	if ([notification object] == player && [player rate] == 0)
-	{
-		[self moveToNextSong:self];
-	}
-}
-
-- (BOOL)isPlaying
-{
-	return (player && [player rate] > 0);
-}
-
+#if 0
 // for later...
 - (float)playProgress
 {
@@ -546,7 +456,7 @@ error:
 		return 0;
 	}
 }
-#if 0
+
 - (float)loadProgress
 {
 	if (player)
@@ -573,18 +483,17 @@ error:
 		return 0;
 	}
 }
-#endif
+
 // NSSound delegate
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finishedPlaying
 {
 	[self moveToNextSong:self];
 }
-
+#endif
 - (void)dealloc
 {
 	RELEASE_MEMBER(hotkeyManager);
 	RELEASE_MEMBER(pianoWrapper);
-	RELEASE_MEMBER(player);
 	
 	RELEASE_MEMBER(stationTableDelegate);
 	RELEASE_MEMBER(songHistoryTableDelegate);

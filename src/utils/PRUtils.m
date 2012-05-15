@@ -9,6 +9,15 @@
 #import "PRUtils.h"
 
 
+NSString *PRSongDurationFromInterval(NSTimeInterval interval)
+{
+	NSInteger minutes = (NSInteger)(interval / 60);
+	NSInteger seconds = (NSInteger)(interval - (60*minutes));
+	
+	return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+}
+
+
 @implementation NSView (PRUtils_Additions)
 
 - (BOOL)containsView:(NSView *)subview
@@ -37,6 +46,29 @@
 {
 	[self setStringValue:@""];
 	[[[self cell] cancelButtonCell] performClick:self];
+}
+
+@end
+
+
+@implementation QTMovie (PRUtils_Additions)
+
+- (NSTimeInterval)durationAsInterval
+{
+	NSTimeInterval interval = 0;
+	
+	QTGetTimeInterval([self duration], &interval);
+	
+	return interval;
+}
+
+- (NSTimeInterval)currentTimeAsInterval
+{
+	NSTimeInterval interval = 0;
+	
+	QTGetTimeInterval([self currentTime], &interval);
+	
+	return interval;
 }
 
 @end

@@ -32,6 +32,11 @@
 		833662841550F68D008D8351 /* PRPianoGetStationsJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662831550F68D008D8351 /* PRPianoGetStationsJob.m */; };
 		833662871550F886008D8351 /* PRPianoSetRatingJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662861550F886008D8351 /* PRPianoSetRatingJob.m */; };
 		833662891551A663008D8351 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 833662881551A663008D8351 /* Credits.rtf */; };
+		834D5CEE15623A0B003F3696 /* ban.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CE915623A0B003F3696 /* ban.pdf */; };
+		834D5CEF15623A0B003F3696 /* like.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEA15623A0B003F3696 /* like.pdf */; };
+		834D5CF015623A0B003F3696 /* pause.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEB15623A0B003F3696 /* pause.pdf */; };
+		834D5CF115623A0B003F3696 /* play.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEC15623A0B003F3696 /* play.pdf */; };
+		834D5CF215623A0B003F3696 /* skip.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CED15623A0B003F3696 /* skip.pdf */; };
 		8350308D14DB3380001353AC /* PRURLDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8350308C14DB3380001353AC /* PRURLDownloader.m */; };
 		835030F514DB5D15001353AC /* PRUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 835030F414DB5D15001353AC /* PRUtils.m */; };
 		8354555014F5A3330067890A /* GeneralPrefs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8354554F14F5A3330067890A /* GeneralPrefs.xib */; };
@@ -42,6 +47,12 @@
 		835CB9A214D7B19B00A1B503 /* PRSong.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9A114D7B19B00A1B503 /* PRSong.m */; };
 		835CB9BA14D83C4400A1B503 /* PRSongHistoryTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */; };
 		835CBAD014D8CB2C00A1B503 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 835CBACF14D8CB2C00A1B503 /* QTKit.framework */; };
+		83673BEC156071070082EE36 /* pause-off.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BE6156071070082EE36 /* pause-off.pdf */; };
+		83673BED156071070082EE36 /* pause-on.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BE7156071070082EE36 /* pause-on.pdf */; };
+		83673BEE156071070082EE36 /* play-off.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BE8156071070082EE36 /* play-off.pdf */; };
+		83673BEF156071070082EE36 /* play-on.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BE9156071070082EE36 /* play-on.pdf */; };
+		83673BF0156071070082EE36 /* skip-off.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BEA156071070082EE36 /* skip-off.pdf */; };
+		83673BF1156071070082EE36 /* skip-on.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83673BEB156071070082EE36 /* skip-on.pdf */; };
 		837B4A5B15542AA300FFD88C /* PRArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A5A15542AA300FFD88C /* PRArtist.m */; };
 		837B4A5F15542CF900FFD88C /* PRPianoSearchJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A5E15542CF900FFD88C /* PRPianoSearchJob.m */; };
 		837B4A6215543A2800FFD88C /* PRSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */; };
@@ -64,6 +75,12 @@
 		83E0517D14D62A77007854FB /* PRPianoWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0517C14D62A77007854FB /* PRPianoWrapper.m */; };
 		83E0518814D63ACE007854FB /* PRStation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E0518714D63ACE007854FB /* PRStation.m */; };
 		83E5387F1554BA2A00EABE0F /* PRStationSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E5387E1554BA2A00EABE0F /* PRStationSearchField.m */; };
+		83E5C9F615616ABE001F678B /* ban-off.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83E5C9F215616ABE001F678B /* ban-off.pdf */; };
+		83E5C9F715616ABE001F678B /* ban-on.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83E5C9F315616ABE001F678B /* ban-on.pdf */; };
+		83E5C9F815616ABE001F678B /* like-off.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83E5C9F415616ABE001F678B /* like-off.pdf */; };
+		83E5C9F915616ABE001F678B /* like-on.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 83E5C9F515616ABE001F678B /* like-on.pdf */; };
+		83E5C9FD15616C58001F678B /* PRSongProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E5C9FC15616C58001F678B /* PRSongProgressView.m */; };
+		83E5CA0015618FFB001F678B /* PRPlaybackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E5C9FF15618FFB001F678B /* PRPlaybackController.m */; };
 		83EDEFDD14F095B100EA6AC8 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83EDEFDC14F095B100EA6AC8 /* Login.xib */; };
 		83EDEFE214F0962B00EA6AC8 /* PRLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */; };
 		83EDF11214F2206D00EA6AC8 /* PRArtworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */; };
@@ -158,6 +175,11 @@
 		833662851550F886008D8351 /* PRPianoSetRatingJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSetRatingJob.h; sourceTree = "<group>"; };
 		833662861550F886008D8351 /* PRPianoSetRatingJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoSetRatingJob.m; sourceTree = "<group>"; };
 		833662881551A663008D8351 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		834D5CE915623A0B003F3696 /* ban.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ban.pdf; sourceTree = "<group>"; };
+		834D5CEA15623A0B003F3696 /* like.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = like.pdf; sourceTree = "<group>"; };
+		834D5CEB15623A0B003F3696 /* pause.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = pause.pdf; sourceTree = "<group>"; };
+		834D5CEC15623A0B003F3696 /* play.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = play.pdf; sourceTree = "<group>"; };
+		834D5CED15623A0B003F3696 /* skip.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = skip.pdf; sourceTree = "<group>"; };
 		8350308B14DB3380001353AC /* PRURLDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRURLDownloader.h; path = ../src/utils/PRURLDownloader.h; sourceTree = "<group>"; };
 		8350308C14DB3380001353AC /* PRURLDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRURLDownloader.m; path = ../src/utils/PRURLDownloader.m; sourceTree = "<group>"; };
 		835030F314DB5D15001353AC /* PRUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRUtils.h; path = ../src/utils/PRUtils.h; sourceTree = "<group>"; };
@@ -175,6 +197,12 @@
 		835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRSongHistoryTableDelegate.h; sourceTree = "<group>"; };
 		835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRSongHistoryTableDelegate.m; sourceTree = "<group>"; };
 		835CBACF14D8CB2C00A1B503 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		83673BE6156071070082EE36 /* pause-off.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "pause-off.pdf"; sourceTree = "<group>"; };
+		83673BE7156071070082EE36 /* pause-on.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "pause-on.pdf"; sourceTree = "<group>"; };
+		83673BE8156071070082EE36 /* play-off.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "play-off.pdf"; sourceTree = "<group>"; };
+		83673BE9156071070082EE36 /* play-on.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "play-on.pdf"; sourceTree = "<group>"; };
+		83673BEA156071070082EE36 /* skip-off.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "skip-off.pdf"; sourceTree = "<group>"; };
+		83673BEB156071070082EE36 /* skip-on.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "skip-on.pdf"; sourceTree = "<group>"; };
 		837B4A5915542AA300FFD88C /* PRArtist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRArtist.h; sourceTree = "<group>"; };
 		837B4A5A15542AA300FFD88C /* PRArtist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRArtist.m; sourceTree = "<group>"; };
 		837B4A5D15542CF900FFD88C /* PRPianoSearchJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSearchJob.h; sourceTree = "<group>"; };
@@ -216,6 +244,14 @@
 		83E0518714D63ACE007854FB /* PRStation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStation.m; sourceTree = "<group>"; };
 		83E5387D1554BA2A00EABE0F /* PRStationSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRStationSearchField.h; sourceTree = "<group>"; };
 		83E5387E1554BA2A00EABE0F /* PRStationSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStationSearchField.m; sourceTree = "<group>"; };
+		83E5C9F215616ABE001F678B /* ban-off.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ban-off.pdf"; sourceTree = "<group>"; };
+		83E5C9F315616ABE001F678B /* ban-on.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ban-on.pdf"; sourceTree = "<group>"; };
+		83E5C9F415616ABE001F678B /* like-off.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "like-off.pdf"; sourceTree = "<group>"; };
+		83E5C9F515616ABE001F678B /* like-on.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "like-on.pdf"; sourceTree = "<group>"; };
+		83E5C9FB15616C58001F678B /* PRSongProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRSongProgressView.h; sourceTree = "<group>"; };
+		83E5C9FC15616C58001F678B /* PRSongProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRSongProgressView.m; sourceTree = "<group>"; };
+		83E5C9FE15618FFB001F678B /* PRPlaybackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPlaybackController.h; sourceTree = "<group>"; };
+		83E5C9FF15618FFB001F678B /* PRPlaybackController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPlaybackController.m; sourceTree = "<group>"; };
 		83EDEFDC14F095B100EA6AC8 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = interfaces/Login.xib; sourceTree = "<group>"; };
 		83EDEFE014F0962B00EA6AC8 /* PRLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLoginController.h; sourceTree = "<group>"; };
 		83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLoginController.m; sourceTree = "<group>"; };
@@ -412,6 +448,8 @@
 				256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */,
 				83EDEFE014F0962B00EA6AC8 /* PRLoginController.h */,
 				83EDEFE114F0962B00EA6AC8 /* PRLoginController.m */,
+				83E5C9FE15618FFB001F678B /* PRPlaybackController.h */,
+				83E5C9FF15618FFB001F678B /* PRPlaybackController.m */,
 				83EDF11014F2206D00EA6AC8 /* PRArtworkController.h */,
 				83EDF11114F2206D00EA6AC8 /* PRArtworkController.m */,
 				838F55FA14D7649900E9134E /* PRStationTableDelegate.h */,
@@ -420,6 +458,8 @@
 				837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */,
 				835CB9B814D83C4400A1B503 /* PRSongHistoryTableDelegate.h */,
 				835CB9B914D83C4400A1B503 /* PRSongHistoryTableDelegate.m */,
+				83E5C9FB15616C58001F678B /* PRSongProgressView.h */,
+				83E5C9FC15616C58001F678B /* PRSongProgressView.m */,
 				83DA788C155631DB00559543 /* PRMainWindow.h */,
 				83DA788D155631DB00559543 /* PRMainWindow.m */,
 				831458A514DDCF78002248D9 /* PRRatingCell.h */,
@@ -528,6 +568,21 @@
 		83EDF12614F227F600EA6AC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				834D5CE915623A0B003F3696 /* ban.pdf */,
+				834D5CEA15623A0B003F3696 /* like.pdf */,
+				834D5CEB15623A0B003F3696 /* pause.pdf */,
+				834D5CEC15623A0B003F3696 /* play.pdf */,
+				834D5CED15623A0B003F3696 /* skip.pdf */,
+				83E5C9F215616ABE001F678B /* ban-off.pdf */,
+				83E5C9F315616ABE001F678B /* ban-on.pdf */,
+				83E5C9F415616ABE001F678B /* like-off.pdf */,
+				83E5C9F515616ABE001F678B /* like-on.pdf */,
+				83673BE6156071070082EE36 /* pause-off.pdf */,
+				83673BE7156071070082EE36 /* pause-on.pdf */,
+				83673BE8156071070082EE36 /* play-off.pdf */,
+				83673BE9156071070082EE36 /* play-on.pdf */,
+				83673BEA156071070082EE36 /* skip-off.pdf */,
+				83673BEB156071070082EE36 /* skip-on.pdf */,
 				837B4A66155473AD00FFD88C /* Bullet.png */,
 				831D820D14F74848009B73C4 /* refresh.icns */,
 				831CA5BB14F30D9900FDAA4A /* covererror.pdf */,
@@ -625,6 +680,21 @@
 				833662891551A663008D8351 /* Credits.rtf in Resources */,
 				837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */,
 				837B4A67155473AD00FFD88C /* Bullet.png in Resources */,
+				83673BEC156071070082EE36 /* pause-off.pdf in Resources */,
+				83673BED156071070082EE36 /* pause-on.pdf in Resources */,
+				83673BEE156071070082EE36 /* play-off.pdf in Resources */,
+				83673BEF156071070082EE36 /* play-on.pdf in Resources */,
+				83673BF0156071070082EE36 /* skip-off.pdf in Resources */,
+				83673BF1156071070082EE36 /* skip-on.pdf in Resources */,
+				83E5C9F615616ABE001F678B /* ban-off.pdf in Resources */,
+				83E5C9F715616ABE001F678B /* ban-on.pdf in Resources */,
+				83E5C9F815616ABE001F678B /* like-off.pdf in Resources */,
+				83E5C9F915616ABE001F678B /* like-on.pdf in Resources */,
+				834D5CEE15623A0B003F3696 /* ban.pdf in Resources */,
+				834D5CEF15623A0B003F3696 /* like.pdf in Resources */,
+				834D5CF015623A0B003F3696 /* pause.pdf in Resources */,
+				834D5CF115623A0B003F3696 /* play.pdf in Resources */,
+				834D5CF215623A0B003F3696 /* skip.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +764,8 @@
 				83F00F7D1557213E008C8C9F /* SGKeyCodeTranslator.m in Sources */,
 				83F00F7E1557213E008C8C9F /* SGKeyCombo.m in Sources */,
 				83F00F81155726B3008C8C9F /* PRHotkeyManager.m in Sources */,
+				83E5C9FD15616C58001F678B /* PRSongProgressView.m in Sources */,
+				83E5CA0015618FFB001F678B /* PRPlaybackController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
