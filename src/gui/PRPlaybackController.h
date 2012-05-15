@@ -27,6 +27,7 @@
 	IBOutlet NSMenuItem *playMenuItem;
 	
 	QTMovie *player;
+	BOOL songInitialized;
 	
 	NSTimer *updateTimer;
 }

@@ -23,6 +23,7 @@
 - (void)awakeFromNib
 {
 	player = nil;
+	songInitialized = NO;
 }
 
 - (void)finishedLaunching
@@ -40,7 +41,7 @@
 
 - (BOOL)isSongLoaded
 {
-	if (player)
+	if (player && songInitialized)
 	{
 		return YES;
 	}
@@ -56,6 +57,7 @@
 	
 	[self stopPlayback];
 	
+	songInitialized = NO;
 	player = [[QTMovie alloc] initWithURL:url error:&error];
 	ERROR_ON_FAIL(!error);
 	
@@ -88,6 +90,7 @@ error:
 		RELEASE_MEMBER(player);
 	}
 	
+	songInitialized = NO;
 	[self updateControls];
 }
 
@@ -107,7 +110,7 @@ error:
 		[loveButton setEnabled:YES];
 		[banButton setEnabled:YES];
 	}
-	else if (player)
+	else if (player && songInitialized)
 	{
 		[playDockItem setTitle:@"Play"];
 		[playMenuItem setTitle:@"Play"];
@@ -162,19 +165,17 @@ error:
 - (void)movieLoadStateDidChange:(NSNotification *)notification
 {
 	// First make sure that this notification is for our movie.
-	if ([notification object] == player)
+	if ([notification object] == player && !songInitialized)
 	{
-		if ([player rate] == 0)
-		{
-			// if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= kMovieLoadStatePlaythroughOK)
-			// {
-			[player play];
-			
-			[self updateControls];
-			[[NSApp delegate] updateDockPlayingInfo];
-			[[NSApp delegate] pushGrowlNotification];
-			// }
-		}
+		// if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= kMovieLoadStatePlaythroughOK)
+		// {
+		[player play];
+		songInitialized = YES;
+		
+		[self updateControls];
+		[[NSApp delegate] updateDockPlayingInfo];
+		[[NSApp delegate] pushGrowlNotification];
+		// }
 	}
 }
 
