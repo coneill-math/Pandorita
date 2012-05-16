@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
    <channel>
       <title>Pandorita Changelog</title>
-      <link>https://musicman3320.github.com/Pandorita/releases/appcast.xml</link>
+      <link>http://musicman3320.github.com/Pandorita/releases/appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
          <item>
             <title>Version 0.1</title>
 				<sparkle:releaseNotesLink>
-					https://musicman3320.github.com/Pandorita/releases/0.1/notes.html
+					http://musicman3320.github.com/Pandorita/releases/0.1/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 16 May 2012 00:00:01 +0000</pubDate>
-            <enclosure url="https://musicman3320.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFC0djz69joOF+YG35ShwhxNi92qHAhQO1pECyVivzCXYZ2AG5YYCA5jUDA==" />
+            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFC0djz69joOF+YG35ShwhxNi92qHAhQO1pECyVivzCXYZ2AG5YYCA5jUDA==" />
          </item>
    </channel>
 </rss>
