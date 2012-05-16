@@ -8,10 +8,10 @@
          <item>
             <title>Version 0.1</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.1/notes.html
+					https://musicman3320.github.com/Pandorita/releases/0.1/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 16 May 2012 00:00:01 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFC0djz69joOF+YG35ShwhxNi92qHAhQO1pECyVivzCXYZ2AG5YYCA5jUDA==" />
+            <enclosure url="https://musicman3320.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFC0djz69joOF+YG35ShwhxNi92qHAhQO1pECyVivzCXYZ2AG5YYCA5jUDA==" />
          </item>
    </channel>
 </rss>
