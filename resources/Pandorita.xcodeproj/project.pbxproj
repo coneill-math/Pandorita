@@ -58,6 +58,7 @@
 		837B4A6215543A2800FFD88C /* PRSearchTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A6115543A2800FFD88C /* PRSearchTableDelegate.m */; };
 		837B4A6515545C3F00FFD88C /* PRPianoCreateStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B4A6415545C3E00FFD88C /* PRPianoCreateStationJob.m */; };
 		837B4A67155473AD00FFD88C /* Bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 837B4A66155473AD00FFD88C /* Bullet.png */; };
+		837BCD7B1562FB39004BBE40 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 837BCD7A1562FB39004BBE40 /* icon.icns */; };
 		837CF24A1552F37A0005B9DB /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 837CF2491552F37A0005B9DB /* Defaults.plist */; };
 		837CF24E1553086A0005B9DB /* PRPianoRenameStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837CF24D1553086A0005B9DB /* PRPianoRenameStationJob.m */; };
 		837CF25115534EA80005B9DB /* PRPianoRemoveStationJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837CF25015534EA80005B9DB /* PRPianoRemoveStationJob.m */; };
@@ -212,6 +213,7 @@
 		837B4A6315545C3D00FFD88C /* PRPianoCreateStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoCreateStationJob.h; sourceTree = "<group>"; };
 		837B4A6415545C3E00FFD88C /* PRPianoCreateStationJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoCreateStationJob.m; sourceTree = "<group>"; };
 		837B4A66155473AD00FFD88C /* Bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bullet.png; sourceTree = "<group>"; };
+		837BCD7A1562FB39004BBE40 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		837CF2491552F37A0005B9DB /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Defaults.plist; sourceTree = "<group>"; };
 		837CF24C1553086A0005B9DB /* PRPianoRenameStationJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoRenameStationJob.h; sourceTree = "<group>"; };
 		837CF24D1553086A0005B9DB /* PRPianoRenameStationJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoRenameStationJob.m; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 		83EDF12614F227F600EA6AC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				837BCD7A1562FB39004BBE40 /* icon.icns */,
 				834D5CE915623A0B003F3696 /* ban-none.pdf */,
 				834D5CEA15623A0B003F3696 /* like-none.pdf */,
 				834D5CEB15623A0B003F3696 /* pause-none.pdf */,
@@ -695,6 +698,7 @@
 				834D5CF015623A0B003F3696 /* pause-none.pdf in Resources */,
 				834D5CF115623A0B003F3696 /* play-none.pdf in Resources */,
 				834D5CF215623A0B003F3696 /* skip-none.pdf in Resources */,
+				837BCD7B1562FB39004BBE40 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
