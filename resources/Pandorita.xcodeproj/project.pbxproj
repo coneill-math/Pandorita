@@ -66,6 +66,9 @@
 		837D425414F89C9500709D9D /* PRPianoJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D425314F89C9500709D9D /* PRPianoJob.m */; };
 		837D425914F89FE000709D9D /* PRPianoLoginJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 837D425814F89FE000709D9D /* PRPianoLoginJob.m */; };
 		838F55FC14D7649900E9134E /* PRStationTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F55FB14D7649900E9134E /* PRStationTableDelegate.m */; };
+		8391CFF41563864E003A698A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
+		8391CFF61563898F003A698A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8391CFF51563898F003A698A /* dsa_pub.pem */; };
+		8391CFF715638A73003A698A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
 		83C13D1714F4B8AC00FCBBB6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C13D1614F4B8AC00FCBBB6 /* Security.framework */; };
 		83C13D4314F4C50100FCBBB6 /* PRPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */; };
 		83C13D4514F4C57600FCBBB6 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C13D4414F4C57600FCBBB6 /* Preferences.xib */; };
@@ -111,6 +114,7 @@
 				8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */,
 				83F00F7015564F1D008C8C9F /* Scribbler.framework in CopyFiles */,
 				83F00F7115564F21008C8C9F /* ShortcutRecorder.framework in CopyFiles */,
+				8391CFF715638A73003A698A /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +231,8 @@
 		837D425814F89FE000709D9D /* PRPianoLoginJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoLoginJob.m; sourceTree = "<group>"; };
 		838F55FA14D7649900E9134E /* PRStationTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRStationTableDelegate.h; sourceTree = "<group>"; };
 		838F55FB14D7649900E9134E /* PRStationTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStationTableDelegate.m; sourceTree = "<group>"; };
+		8391CFF31563864E003A698A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		8391CFF51563898F003A698A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		83C13D1614F4B8AC00FCBBB6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		83C13D4114F4C50100FCBBB6 /* PRPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPreferencesController.h; path = ../src/gui/PRPreferencesController.h; sourceTree = "<group>"; };
 		83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPreferencesController.m; path = ../src/gui/PRPreferencesController.m; sourceTree = "<group>"; };
@@ -273,7 +279,7 @@
 		83F00F7A1557213E008C8C9F /* SGKeyCombo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGKeyCombo.m; sourceTree = "<group>"; };
 		83F00F7F155726B3008C8C9F /* PRHotkeyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRHotkeyManager.h; sourceTree = "<group>"; };
 		83F00F80155726B3008C8C9F /* PRHotkeyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRHotkeyManager.m; sourceTree = "<group>"; };
-		83F00F821557485A008C8C9F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
+		83F00F821557485A008C8C9F /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Pandorita-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Pandorita-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Pandorita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pandorita.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -293,6 +299,7 @@
 				83F00F6E15564ED9008C8C9F /* Scribbler.framework in Frameworks */,
 				83F00F6F15564ED9008C8C9F /* ShortcutRecorder.framework in Frameworks */,
 				83F00F831557485A008C8C9F /* Carbon.framework in Frameworks */,
+				8391CFF41563864E003A698A /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +379,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				833662881551A663008D8351 /* Credits.rtf */,
 				837CF2491552F37A0005B9DB /* Defaults.plist */,
+				8391CFF51563898F003A698A /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -392,6 +400,7 @@
 		8334FA5915524D1D002C2D6E /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8391CFF31563864E003A698A /* Sparkle.framework */,
 				83F00F6C15564ED9008C8C9F /* Scribbler.framework */,
 				83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */,
 				8334FA5A15524D3C002C2D6E /* Growl.framework */,
@@ -699,6 +708,7 @@
 				834D5CF115623A0B003F3696 /* play-none.pdf in Resources */,
 				834D5CF215623A0B003F3696 /* skip-none.pdf in Resources */,
 				837BCD7B1562FB39004BBE40 /* icon.icns in Resources */,
+				8391CFF61563898F003A698A /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
