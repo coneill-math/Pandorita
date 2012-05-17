@@ -25,6 +25,19 @@
 	return self;
 }
 
+- (void)awakeFromNib
+{
+	[autoCheckForUpdatesCheckbox setState:([updater automaticallyChecksForUpdates] ? NSOnState : NSOffState)];
+}
 
+- (IBAction)autoCheckForUpdatesValueChanged:(id)sender
+{
+	[updater setAutomaticallyChecksForUpdates:([autoCheckForUpdatesCheckbox state] == NSOnState)];
+}
+
+- (void)dealloc
+{
+	[super dealloc];
+}
 
 @end

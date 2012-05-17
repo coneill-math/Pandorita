@@ -8,10 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <Sparkle/Sparkle.h>
+
 
 @interface PRUpdatesPrefsController : NSViewController
 {
-
+	IBOutlet SUUpdater *updater;
+	IBOutlet NSButton *autoCheckForUpdatesCheckbox;
+	IBOutlet NSButton *checkNowButton;
 }
+
+- (IBAction)autoCheckForUpdatesValueChanged:(id)sender;
 
 @end
