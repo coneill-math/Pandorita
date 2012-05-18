@@ -21,7 +21,7 @@
 
 - (void)didLoginWithError:(NSError *)error;
 - (void)didUpdateStationsWithError:(NSError *)error;
-- (void)didStartNextSong:(PRSong *)song error:(NSError *)error;
+- (void)didReceiveNextSong:(PRSong *)song error:(NSError *)error;
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error;
 - (void)didMarkSongAsTired:(PRSong *)song error:(NSError *)error;
 - (void)didCreateStation:(PRStation *)station error:(NSError *)error;

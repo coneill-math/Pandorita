@@ -283,12 +283,21 @@ error:
 	[stationTableView reloadData];
 }
 
-- (void)didStartNextSong:(PRSong *)song error:(NSError *)error
+- (void)didReceiveNextSong:(PRSong *)song error:(NSError *)error
 {
 	ERROR_ON_FAIL(!error);
 	
-	[playbackController playURL:[song audioURL]];
+	[playbackController playSong:song];
 	
+	return;
+	
+error:
+	NSLog(@"Error playing next song: %@!", error);
+}
+
+// notification from playback controller
+- (void)didBeginPlayingSong:(PRSong *)song
+{
 	// update the table view
 	[songHistoryTableDelegate addSong:song];
 	[songHistoryTableView reloadData];
@@ -297,11 +306,7 @@ error:
 	[coverArtController loadImageFromSong:song];
 	
 	[self updateDockPlayingInfo];
-	
-	return;
-	
-error:
-	NSLog(@"Error playing next song: %@!", error);
+	[self pushGrowlNotification];
 }
 
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error

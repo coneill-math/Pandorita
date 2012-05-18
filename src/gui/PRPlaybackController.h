@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PRSong.h"
 #import "PRSongProgressView.h"
 
 
@@ -27,6 +28,7 @@
 	IBOutlet NSMenuItem *playMenuItem;
 	
 	QTMovie *player;
+	PRSong *loadedSong;
 	BOOL songInitialized;
 	
 	NSTimer *updateTimer;
@@ -35,7 +37,7 @@
 - (BOOL)isPlaying;
 - (BOOL)isSongLoaded;
 
-- (void)playURL:(NSURL *)url;
+- (void)playSong:(PRSong *)song;
 - (void)togglePause;
 - (void)stopPlayback;
 

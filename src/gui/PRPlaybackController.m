@@ -51,14 +51,17 @@
 	}
 }
 
-- (void)playURL:(NSURL *)url
+- (void)playSong:(PRSong *)song
 {
 	NSError *error = nil;
 	
 	[self stopPlayback];
 	
+	RELEASE_MEMBER(loadedSong);
+	loadedSong = [song retain];
+	
 	songInitialized = NO;
-	player = [[QTMovie alloc] initWithURL:url error:&error];
+	player = [[QTMovie alloc] initWithURL:[song audioURL] error:&error];
 	ERROR_ON_FAIL(!error);
 	
 	[self updateControls];
@@ -101,7 +104,7 @@ error:
 		[playDockItem setTitle:@"Pause"];
 		[playMenuItem setTitle:@"Pause"];
 		
-		//	[playButton setTitle:@"Pause"];
+	//	[playButton setTitle:@"Pause"];
 		[playButton setImage:[NSImage imageNamed:@"pause-off"]];
 		[playButton setAlternateImage:[NSImage imageNamed:@"pause-on"]];
 		[playButton setEnabled:YES];
@@ -115,7 +118,7 @@ error:
 		[playDockItem setTitle:@"Play"];
 		[playMenuItem setTitle:@"Play"];
 		
-		//	[playButton setTitle:@"Play"];
+	//	[playButton setTitle:@"Play"];
 		[playButton setImage:[NSImage imageNamed:@"play-off"]];
 		[playButton setAlternateImage:[NSImage imageNamed:@"play-on"]];
 		[playButton setEnabled:YES];
@@ -129,7 +132,7 @@ error:
 		[playDockItem setTitle:@"Play"];
 		[playMenuItem setTitle:@"Play"];
 		
-		//	[playButton setTitle:@"Play"];
+	//	[playButton setTitle:@"Play"];
 		[playButton setImage:[NSImage imageNamed:@"play-off"]];
 		[playButton setAlternateImage:[NSImage imageNamed:@"play-on"]];
 		[playButton setEnabled:NO];
@@ -169,12 +172,20 @@ error:
 	{
 		// if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= kMovieLoadStatePlaythroughOK)
 		// {
-		[player play];
-		songInitialized = YES;
-		
-		[self updateControls];
-		[[NSApp delegate] updateDockPlayingInfo];
-		[[NSApp delegate] pushGrowlNotification];
+		NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
+		if (!error)
+		{
+			[player play];
+			songInitialized = YES;
+			
+			[self updateControls];
+			[[NSApp delegate] didBeginPlayingSong:loadedSong];
+		}
+		else
+		{
+			NSLog(@"Error playing song: %@", error);
+			[[NSApp delegate] moveToNextSong:self];
+		}
 		// }
 	}
 }
@@ -192,6 +203,7 @@ error:
 {
 	[updateTimer invalidate];
 	RELEASE_MEMBER(player);
+	RELEASE_MEMBER(loadedSong);
 	
 	[super dealloc];
 }

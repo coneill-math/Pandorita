@@ -80,6 +80,9 @@
 
 - (void)pushGrowlNotification;
 
+// notification from playback controller
+- (void)didBeginPlayingSong:(PRSong *)song;
+
 - (IBAction)showPreferences:(id)sender;
 
 - (IBAction)switchAccounts:(id)sender;

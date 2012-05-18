@@ -68,7 +68,7 @@
 	
 	if (firstSong)
 	{
-		[[wrapper delegate] didStartNextSong:firstSong error:error];
+		[[wrapper delegate] didReceiveNextSong:firstSong error:error];
 	}
 }
 

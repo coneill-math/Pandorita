@@ -160,7 +160,7 @@
 	if (playlist && currentSongIndex < [playlist count])
 	{
 		// call the delegate method immediately
-		[delegate didStartNextSong:[playlist objectAtIndex:currentSongIndex] error:nil];
+		[delegate didReceiveNextSong:[playlist objectAtIndex:currentSongIndex] error:nil];
 	}
 	else
 	{
