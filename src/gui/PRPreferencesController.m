@@ -27,7 +27,8 @@
 		controllerClassList = [[NSArray alloc] initWithObjects:[PRGeneralPrefsController class], 
 									[PRHotkeyPrefsController class], 
 									[PRUpdatesPrefsController class], 
-									[PRAdvancedPrefsController class], nil];
+								//	[PRAdvancedPrefsController class], 
+									nil];
 	}
 	
 	return self;

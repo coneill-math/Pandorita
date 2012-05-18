@@ -138,8 +138,6 @@
 	
 	// log in user
 	[self login];
-	
-	[self updateStations];
 }
 
 - (void)login
@@ -151,6 +149,9 @@
 	
 	NSLog(@"Logging in...");
 	[job startJob];
+	
+	// if we had to login, stations may have changed
+	[self updateStations];
 }
 
 - (void)requestNextSong
@@ -244,7 +245,7 @@
 
 - (void)loadStationsFromPianoHandle
 {
-	RELEASE_MEMBER(currentStation);
+//	RELEASE_MEMBER(currentStation);
 	[stations removeAllObjects];
 	
 	PianoStation_t *cur = pHandle.stations;
@@ -256,6 +257,23 @@
 		[s release];
 		
 		cur = cur->next;
+	}
+	
+	if (currentStation)
+	{
+		PRStation *old = currentStation;
+		currentStation = nil;
+		
+		for(PRStation *s in stations)
+		{
+			if ([s isEqual:old])
+			{
+				currentStation = [s retain];
+				break;
+			}
+		}
+		
+		RELEASE_MEMBER(old);
 	}
 }
 

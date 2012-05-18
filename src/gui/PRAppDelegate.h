@@ -78,6 +78,7 @@
 - (void)setRating:(PRRating)rating;
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
 
+- (BOOL)isPlaying;
 - (void)pushGrowlNotification;
 
 // notification from playback controller

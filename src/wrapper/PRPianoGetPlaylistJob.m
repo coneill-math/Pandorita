@@ -38,8 +38,10 @@
 	if (error)
 	{
 		NSLog(@"Error in piano call for playlist");
-		NSLog(@"Attempting to continue on anyway...");
-		// specific conditions maybe?
+		
+		// the rest will work fine, even if this fails
+		[[wrapper delegate] didReceiveNextSong:nil error:error];
+		return;
 	}
 	
 	PianoRequestDataGetPlaylist_t *reqData = self.req->data;

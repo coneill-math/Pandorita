@@ -18,6 +18,7 @@
 
 @end
 
+
 @implementation PRPlaybackController
 
 - (void)awakeFromNib
@@ -170,23 +171,23 @@ error:
 	// First make sure that this notification is for our movie.
 	if ([notification object] == player && !songInitialized)
 	{
-		// if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= kMovieLoadStatePlaythroughOK)
-		// {
-		NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
-		if (!error)
+		if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= QTMovieLoadStatePlaythroughOK)
 		{
-			[player play];
-			songInitialized = YES;
-			
-			[self updateControls];
-			[[NSApp delegate] didBeginPlayingSong:loadedSong];
+			NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
+			if (!error)
+			{
+				[player play];
+				songInitialized = YES;
+				
+				[self updateControls];
+				[[NSApp delegate] didBeginPlayingSong:loadedSong];
+			}
+			else
+			{
+				NSLog(@"Error playing song: %@", error);
+				[[NSApp delegate] moveToNextSong:self];
+			}
 		}
-		else
-		{
-			NSLog(@"Error playing song: %@", error);
-			[[NSApp delegate] moveToNextSong:self];
-		}
-		// }
 	}
 }
 
@@ -195,7 +196,8 @@ error:
 	// First make sure that this notification is for our movie.
 	if ([notification object] == player && [player rate] == 0)
 	{
-		[[NSApp delegate] moveToNextSong:self];
+		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
+	//	[[NSApp delegate] moveToNextSong:self];
 	}
 }
 

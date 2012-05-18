@@ -17,7 +17,7 @@
 	
 	if (self != nil)
 	{
-		progress = 0.5;
+		progress = 0;
 	}
 	
 	return self;

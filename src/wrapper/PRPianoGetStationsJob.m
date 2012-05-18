@@ -30,7 +30,8 @@
 	if (error)
 	{
 		NSLog(@"Unable to get station list!");
-		// try anyway?
+		// continue anyway
+		// delegate will handle error
 	}
 	
 	[wrapper loadStationsFromPianoHandle];

@@ -70,7 +70,10 @@
 	
 	artworkData = [[NSData alloc] initWithData:responseData];
 	
-	[[NSApp delegate] pushGrowlNotification];
+	if ([[NSApp delegate] isPlaying])
+	{
+		[[NSApp delegate] pushGrowlNotification];
+	}
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview

@@ -165,8 +165,8 @@ error:
 
 - (IBAction)moveToNextSong:(id)sender
 {
-	[playbackController updateControls];
-	[self updateDockPlayingInfo];
+//	[playbackController updateControls];
+//	[self updateDockPlayingInfo];
 	
 	[pianoWrapper requestNextSong];
 	
@@ -237,6 +237,11 @@ error:
 	[pianoWrapper setRating:rating forSong:song];
 }
 
+- (BOOL)isPlaying
+{
+	return [playbackController isPlaying];
+}
+
 - (void)pushGrowlNotification
 {
 	if ([NSUserDefaults shouldUseGrowl])
@@ -278,21 +283,31 @@ error:
 	if (error)
 	{
 		NSLog(@"Error getting station list: %@!", error);
+		
+		// if we cant load the station list, we probably need to login
+		[loginController runLoginScreen:NO];
 	}
-	
-	[stationTableView reloadData];
+	else
+	{
+		[stationTableView reloadData];
+	}
 }
 
 - (void)didReceiveNextSong:(PRSong *)song error:(NSError *)error
 {
-	ERROR_ON_FAIL(!error);
-	
-	[playbackController playSong:song];
-	
-	return;
-	
-error:
-	NSLog(@"Error playing next song: %@!", error);
+	if (!error)
+	{
+		[playbackController playSong:song];
+	}
+	else
+	{
+		NSLog(@"Error playing next song: %@!", error);
+		
+		[pianoWrapper setCurrentStation:nil];
+		
+		[stationTableView reloadData];
+		[songHistoryTableView reloadData];
+	}
 }
 
 // notification from playback controller
