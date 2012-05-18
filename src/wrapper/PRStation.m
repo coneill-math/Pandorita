@@ -85,7 +85,7 @@
 	return [NSString stringWithFormat:@"%@ (%@, %@)", name, listId, seedId];
 }
 
-- (BOOL)equals:(id)station
+- (BOOL)isEqual:(id)station
 {
 	return [self class] == [station class] && [listId isEqualToString:[station listId]];
 }
