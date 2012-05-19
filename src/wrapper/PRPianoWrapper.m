@@ -138,6 +138,10 @@
 	
 	// log in user
 	[self login];
+	
+	// if we had to login, stations may have changed
+	// not sure yet how to handle that situation...
+	[self updateStations];
 }
 
 - (void)login
@@ -149,9 +153,6 @@
 	
 	NSLog(@"Logging in...");
 	[job startJob];
-	
-	// if we had to login, stations may have changed
-	[self updateStations];
 }
 
 - (void)requestNextSong
