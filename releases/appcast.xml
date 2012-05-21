@@ -6,6 +6,14 @@
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
          <item>
+            <title>Version 0.2.3</title>
+				<sparkle:releaseNotesLink>
+					http://musicman3320.github.com/Pandorita/releases/0.2.3/notes.html
+				</sparkle:releaseNotesLink>
+            <pubDate>Wed, 21 May 2012 00:00:00 +0000</pubDate>
+            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.3/Pandorita-0.2.3.tar.gz" sparkle:version="0.2.3" length="1999073" type="application/octet-stream" sparkle:dsaSignature="MCwCFDMgGLc7BSeQtS8v4lN34Gu/yvwVAhQ+KAB2gdkOTYhWekKkBSv/jEUZbA==" />
+         </item>
+         <item>
             <title>Version 0.2.2</title>
 				<sparkle:releaseNotesLink>
 					http://musicman3320.github.com/Pandorita/releases/0.2.2/notes.html
