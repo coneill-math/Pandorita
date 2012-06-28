@@ -1284,7 +1284,7 @@
 															<string key="NSFrame">{{213, 7}, {36, 14}}</string>
 															<reference key="NSSuperview" ref="143300840"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView"/>
+															<reference key="NSNextKeyView" ref="611004439"/>
 															<string key="NSReuseIdentifierKey">_NS:3944</string>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="637595358">
@@ -1520,8 +1520,8 @@
 																	</object>
 																	<object class="NSSegmentedCell" key="NSDataCell" id="397550220">
 																		<int key="NSCellFlags">67239424</int>
-																		<int key="NSCellFlags2">0</int>
-																		<reference key="NSSupport" ref="1000202818"/>
+																		<int key="NSCellFlags2">131072</int>
+																		<reference key="NSSupport" ref="26"/>
 																		<string key="NSCellIdentifier">_NS:2069</string>
 																		<reference key="NSControlView" ref="934122060"/>
 																		<object class="NSMutableArray" key="NSSegmentImages">

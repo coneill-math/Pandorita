@@ -176,6 +176,11 @@ error:
 			NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
 			if (!error)
 			{
+				// not sure if (or why) this helps,
+				// but its worth a shot
+				// see issue #14
+				[player play];
+				[player stop];
 				[player play];
 				songInitialized = YES;
 				

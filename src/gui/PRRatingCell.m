@@ -18,8 +18,8 @@
 	[self setControlSize:NSMiniControlSize];
 	[self setSegmentCount:2];
 	
-	[self setLabel:[NSString stringWithFormat:@"%C", (unichar)0x2639] forSegment:0];
-	[self setLabel:[NSString stringWithFormat:@"%C", (unichar)0x263a] forSegment:1];
+	[self setLabel:@"Like" forSegment:0]; // (unichar)0x263a
+	[self setLabel:@"Ban" forSegment:1]; // (unichar)0x2639
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
@@ -63,11 +63,11 @@
 	NSInteger segment = [self selectedSegment];
 	if (segment == 0)
 	{
-		return PRRATING_BAN;
+		return PRRATING_LOVE;
 	}
 	else if (segment == 1)
 	{
-		return PRRATING_LOVE;
+		return PRRATING_BAN;
 	}
 	else
 	{
@@ -77,12 +77,12 @@
 
 - (void)setRating:(PRRating)rating
 {
-	if (rating == PRRATING_BAN)
+	if (rating == PRRATING_LOVE)
 	{
 		[super setSelected:YES forSegment:0];
 		[super setSelected:NO forSegment:1];
 	}
-	else if (rating == PRRATING_LOVE)
+	else if (rating == PRRATING_BAN)
 	{
 		[super setSelected:NO forSegment:0];
 		[super setSelected:YES forSegment:1];
@@ -98,13 +98,13 @@
 {
 	if (segment == 0)
 	{
-		NSLog(@"Banning");
-		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_BAN];
+		NSLog(@"Loving");
+		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_LOVE];
 	}
 	else if (segment == 1)
 	{
-		NSLog(@"Loving");
-		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_LOVE];
+		NSLog(@"Banning");
+		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_BAN];
 	}
 }
 
