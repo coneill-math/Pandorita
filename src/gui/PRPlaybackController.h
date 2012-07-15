@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AudioStreamer.h"
+
 #import "PRSong.h"
 #import "PRSongProgressView.h"
 
@@ -27,9 +29,9 @@
 	IBOutlet NSMenuItem *playDockItem;
 	IBOutlet NSMenuItem *playMenuItem;
 	
-	QTMovie *player;
+	AudioStreamer *streamer;
 	PRSong *loadedSong;
-	BOOL songInitialized;
+	BOOL hasSongLoaded;
 	
 	NSTimer *updateTimer;
 }

@@ -69,6 +69,10 @@
 		8391CFF41563864E003A698A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
 		8391CFF61563898F003A698A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8391CFF51563898F003A698A /* dsa_pub.pem */; };
 		8391CFF715638A73003A698A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
+		83A8B19915B20AEA0012D59C /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8B19815B20AEA0012D59C /* AudioStreamer.m */; };
+		83A8B19D15B273BF0012D59C /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A8B19C15B273BF0012D59C /* CoreAudio.framework */; };
+		83A8B1A015B277D50012D59C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A8B19E15B277D50012D59C /* AudioToolbox.framework */; };
+		83A8B1A115B277D50012D59C /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A8B19F15B277D50012D59C /* AudioUnit.framework */; };
 		83C13D1714F4B8AC00FCBBB6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83C13D1614F4B8AC00FCBBB6 /* Security.framework */; };
 		83C13D4314F4C50100FCBBB6 /* PRPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */; };
 		83C13D4514F4C57600FCBBB6 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83C13D4414F4C57600FCBBB6 /* Preferences.xib */; };
@@ -233,6 +237,11 @@
 		838F55FB14D7649900E9134E /* PRStationTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRStationTableDelegate.m; sourceTree = "<group>"; };
 		8391CFF31563864E003A698A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		8391CFF51563898F003A698A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
+		83A8B19715B20AEA0012D59C /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
+		83A8B19815B20AEA0012D59C /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		83A8B19C15B273BF0012D59C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = ../../../../../../../../../System/Library/Frameworks/CoreAudio.framework; sourceTree = "<group>"; };
+		83A8B19E15B277D50012D59C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = ../../../../../../../../../System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<group>"; };
+		83A8B19F15B277D50012D59C /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = ../../../../../../../../../System/Library/Frameworks/AudioUnit.framework; sourceTree = "<group>"; };
 		83C13D1614F4B8AC00FCBBB6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		83C13D4114F4C50100FCBBB6 /* PRPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPreferencesController.h; path = ../src/gui/PRPreferencesController.h; sourceTree = "<group>"; };
 		83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPreferencesController.m; path = ../src/gui/PRPreferencesController.m; sourceTree = "<group>"; };
@@ -300,6 +309,9 @@
 				83F00F6F15564ED9008C8C9F /* ShortcutRecorder.framework in Frameworks */,
 				83F00F831557485A008C8C9F /* Carbon.framework in Frameworks */,
 				8391CFF41563864E003A698A /* Sparkle.framework in Frameworks */,
+				83A8B19D15B273BF0012D59C /* CoreAudio.framework in Frameworks */,
+				83A8B1A015B277D50012D59C /* AudioToolbox.framework in Frameworks */,
+				83A8B1A115B277D50012D59C /* AudioUnit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +340,9 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83A8B19E15B277D50012D59C /* AudioToolbox.framework */,
+				83A8B19F15B277D50012D59C /* AudioUnit.framework */,
+				83A8B19C15B273BF0012D59C /* CoreAudio.framework */,
 				83F00F821557485A008C8C9F /* Carbon.framework */,
 				835CBACF14D8CB2C00A1B503 /* QTKit.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
@@ -351,6 +366,7 @@
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
 				83C5DF9A14CE82A9004243B1 /* Piano */,
+				83A8B19615B20A560012D59C /* AudioStreamer */,
 				83F00F72155720E4008C8C9F /* SGHotKeyLib */,
 				8366CBD31551D67100EF173C /* Headers */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -557,6 +573,16 @@
 			);
 			name = Wrapper;
 			path = ../src/wrapper;
+			sourceTree = "<group>";
+		};
+		83A8B19615B20A560012D59C /* AudioStreamer */ = {
+			isa = PBXGroup;
+			children = (
+				83A8B19715B20AEA0012D59C /* AudioStreamer.h */,
+				83A8B19815B20AEA0012D59C /* AudioStreamer.m */,
+			);
+			name = AudioStreamer;
+			path = ../src/streamer;
 			sourceTree = "<group>";
 		};
 		83C5DF9A14CE82A9004243B1 /* Piano */ = {
@@ -780,6 +806,7 @@
 				83F00F81155726B3008C8C9F /* PRHotkeyManager.m in Sources */,
 				83E5C9FD15616C58001F678B /* PRSongProgressView.m in Sources */,
 				83E5CA0015618FFB001F678B /* PRPlaybackController.m in Sources */,
+				83A8B19915B20AEA0012D59C /* AudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +839,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
@@ -835,6 +863,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/frameworks\"",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

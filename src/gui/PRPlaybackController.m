@@ -23,26 +23,26 @@
 
 - (void)awakeFromNib
 {
-	player = nil;
-	songInitialized = NO;
+	streamer = nil;
+	hasSongLoaded = NO;
 }
 
 - (void)finishedLaunching
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
 	
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 }
 
 - (BOOL)isPlaying
 {
-	return (player && [player rate] > 0);
+	return (streamer && [streamer isPlaying]);
 }
 
 - (BOOL)isSongLoaded
 {
-	if (player && songInitialized)
+	if (streamer && ![streamer isWaiting])
 	{
 		return YES;
 	}
@@ -54,33 +54,29 @@
 
 - (void)playSong:(PRSong *)song
 {
-	NSError *error = nil;
-	
 	[self stopPlayback];
+	hasSongLoaded = NO;
 	
 	RELEASE_MEMBER(loadedSong);
 	loadedSong = [song retain];
 	
-	songInitialized = NO;
-	player = [[QTMovie alloc] initWithURL:[song audioURL] error:&error];
-	ERROR_ON_FAIL(!error);
+	streamer = [[AudioStreamer alloc] initWithURL:[song audioURL]];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged:) name:ASStatusChangedNotification object:streamer];
+	
+	[streamer start];
 	[self updateControls];
-	
-error:
-	// nothing for now
-	return;
 }
 
 - (void)togglePause
 {
-	if (player && [self isPlaying])
+	if ([self isPlaying])
 	{
-		[player stop];
+		[streamer pause];
 	}
-	else if (player)
+	else if (streamer)
 	{
-		[player play];
+		[streamer start];
 	}
 	
 	[self updateControls];
@@ -88,19 +84,22 @@ error:
 
 - (void)stopPlayback
 {
-	if (player)
+	if (streamer)
 	{
-		[player stop];
-		RELEASE_MEMBER(player);
+		[streamer stop];
+		
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:ASStatusChangedNotification object:streamer];
+		
+		RELEASE_MEMBER(streamer);
+		hasSongLoaded = NO;
 	}
 	
-	songInitialized = NO;
 	[self updateControls];
 }
 
 - (void)updateControls
 {
-	if (player && [self isPlaying])
+	if ([self isPlaying])
 	{
 		[playDockItem setTitle:@"Pause"];
 		[playMenuItem setTitle:@"Pause"];
@@ -114,7 +113,7 @@ error:
 		[loveButton setEnabled:YES];
 		[banButton setEnabled:YES];
 	}
-	else if (player && songInitialized)
+	else if ([self isSongLoaded])
 	{
 		[playDockItem setTitle:@"Play"];
 		[playMenuItem setTitle:@"Play"];
@@ -146,10 +145,10 @@ error:
 
 - (void)updateProgress
 {
-	if (player)
+	if (streamer)
 	{
-		NSTimeInterval total = [player durationAsInterval];
-		NSTimeInterval current = [player currentTimeAsInterval];
+		NSTimeInterval total = (NSTimeInterval)[streamer duration];
+		NSTimeInterval current = (NSTimeInterval)[streamer progress];
 		
 		[leftField setStringValue:PRSongDurationFromInterval(current)];
 	//	[rightField setStringValue:PRSongDurationFromInterval(total - current)];
@@ -166,21 +165,34 @@ error:
 	}
 }
 
+- (void)playbackStateChanged:(NSNotification *)notification
+{
+	[self updateControls];
+	
+	if ([streamer state] == AS_PLAYING && !hasSongLoaded)
+	{
+		[[NSApp delegate] didBeginPlayingSong:loadedSong];
+		hasSongLoaded = YES;
+	}
+	else if ([streamer state] == AS_STOPPING_ERROR || 
+		 ([streamer state] == AS_STOPPED && [streamer errorCode] != AS_NO_ERROR))
+	{
+		NSLog(@"Error streaming song: %d", [streamer errorCode]);
+		[[NSApp delegate] moveToNextSong:self];
+	}
+}
+
+#if 0
 - (void)movieLoadStateDidChange:(NSNotification *)notification
 {
 	// First make sure that this notification is for our movie.
-	if ([notification object] == player && !songInitialized)
+	if ([notification object] ==  && !songInitialized)
 	{
 		if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= QTMovieLoadStatePlaythroughOK)
 		{
 			NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
 			if (!error)
 			{
-				// not sure if (or why) this helps,
-				// but its worth a shot
-				// see issue #14
-				[player play];
-				[player stop];
 				[player play];
 				songInitialized = YES;
 				
@@ -205,11 +217,11 @@ error:
 	//	[[NSApp delegate] moveToNextSong:self];
 	}
 }
-
+#endif
 - (void)dealloc
 {
 	[updateTimer invalidate];
-	RELEASE_MEMBER(player);
+	RELEASE_MEMBER(streamer);
 	RELEASE_MEMBER(loadedSong);
 	
 	[super dealloc];
