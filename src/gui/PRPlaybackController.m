@@ -13,8 +13,8 @@
 
 @interface PRPlaybackController (PRPlaybackController_Private)
 
-- (void)movieLoadStateDidChange:(NSNotification *)notification;
-- (void)movieDidEnd:(NSNotification *)notification;
+- (void)playbackStateChanged:(NSNotification *)notification;
+- (void)playbackError:(NSNotification *)notification;
 
 @end
 
@@ -29,9 +29,6 @@
 
 - (void)finishedLaunching
 {
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieLoadStateDidChange:) name:QTMovieLoadStateDidChangeNotification object:nil];
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(movieDidEnd:) name:QTMovieDidEndNotification object:nil];
-	
 	updateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(updateProgress) userInfo:nil repeats:YES];
 }
 
@@ -60,9 +57,10 @@
 	RELEASE_MEMBER(loadedSong);
 	loadedSong = [song retain];
 	
-	streamer = [[AudioStreamer alloc] initWithURL:[song audioURL]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged:) name:ASStatusChangedNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackError:) name:ASErrorNotification object:nil];
 	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged:) name:ASStatusChangedNotification object:streamer];
+	streamer = [[AudioStreamer alloc] initWithURL:[song audioURL]];
 	
 	[streamer start];
 	[self updateControls];
@@ -86,9 +84,11 @@
 {
 	if (streamer)
 	{
-		[streamer stop];
+		// we are stopping it manually, no need to be notified...
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:ASStatusChangedNotification object:nil];
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:ASErrorNotification object:nil];
 		
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:ASStatusChangedNotification object:streamer];
+		[streamer stop];
 		
 		RELEASE_MEMBER(streamer);
 		hasSongLoaded = NO;
@@ -165,6 +165,20 @@
 	}
 }
 
+- (void)playbackError:(NSNotification *)notification
+{
+	NSLog(@"Error streaming song: %d", [streamer errorCode]);
+	if (hasSongLoaded)
+	{
+		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
+	}
+	else
+	{
+		[[NSApp delegate] performSelectorOnMainThread:@selector(stopPlayback:) withObject:@"Network error" waitUntilDone:NO];
+//		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
+	}
+}
+
 - (void)playbackStateChanged:(NSNotification *)notification
 {
 	[self updateControls];
@@ -174,54 +188,37 @@
 		[[NSApp delegate] didBeginPlayingSong:loadedSong];
 		hasSongLoaded = YES;
 	}
-	else if ([streamer state] == AS_STOPPING_ERROR || 
-		 ([streamer state] == AS_STOPPED && [streamer errorCode] != AS_NO_ERROR))
+	else if (hasSongLoaded && [streamer state] == AS_STOPPED && [streamer errorCode] == AS_NO_ERROR)
 	{
-		NSLog(@"Error streaming song: %d", [streamer errorCode]);
+		NSLog(@"Moving to next song naturally...");
 		[[NSApp delegate] moveToNextSong:self];
 	}
-}
-
 #if 0
-- (void)movieLoadStateDidChange:(NSNotification *)notification
-{
-	// First make sure that this notification is for our movie.
-	if ([notification object] ==  && !songInitialized)
+	// this is now reported by ASErrorNotification
+	else if ([streamer state] == AS_STOPPING_ERROR || [streamer state] == AS_STOPPED)
 	{
-		if ([[player attributeForKey:QTMovieLoadStateAttribute] longValue] >= QTMovieLoadStatePlaythroughOK)
+		NSLog(@"Error streaming song: %d", [streamer errorCode]);
+		if (hasSongLoaded)
 		{
-			NSError *error = [player attributeForKey:QTMovieLoadStateErrorAttribute];
-			if (!error)
-			{
-				[player play];
-				songInitialized = YES;
-				
-				[self updateControls];
-				[[NSApp delegate] didBeginPlayingSong:loadedSong];
-			}
-			else
-			{
-				NSLog(@"Error playing song: %@", error);
-				[[NSApp delegate] moveToNextSong:self];
-			}
+			[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
+		}
+		else
+		{
+			[[NSApp delegate] performSelectorOnMainThread:@selector(stopPlayback:) withObject:@"Network error" waitUntilDone:NO];
+//			[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
 		}
 	}
+#endif
 }
 
-- (void)movieDidEnd:(NSNotification *)notification
-{
-	// First make sure that this notification is for our movie.
-	if ([notification object] == player && [player rate] == 0)
-	{
-		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
-	//	[[NSApp delegate] moveToNextSong:self];
-	}
-}
-#endif
 - (void)dealloc
 {
 	[updateTimer invalidate];
+	
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:ASStatusChangedNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:ASErrorNotification object:nil];
 	RELEASE_MEMBER(streamer);
+	
 	RELEASE_MEMBER(loadedSong);
 	
 	[super dealloc];

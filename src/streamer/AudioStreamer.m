@@ -22,6 +22,9 @@
 //
 
 #import "AudioStreamer.h"
+
+#import "PRAppDelegate.h"
+
 #if TARGET_OS_IPHONE			
 #import <CFNetwork/CFNetwork.h>
 #endif
@@ -30,6 +33,7 @@
 #define BitRateEstimationMinPackets 50
 
 NSString * const ASStatusChangedNotification = @"ASStatusChangedNotification";
+NSString * const ASErrorNotification = @"ASErrorNotification";
 
 NSString * const AS_NO_ERROR_STRING = @"No error.";
 NSString * const AS_FILE_STREAM_GET_PROPERTY_FAILED_STRING = @"File stream get property failed.";
@@ -72,6 +76,8 @@ NSString * const AS_AUDIO_BUFFER_TOO_SMALL_STRING = @"Audio packets are larger t
 #if TARGET_OS_IPHONE
 - (void)handleInterruptionChangeToState:(AudioQueuePropertyID)inInterruptionState;
 #endif
+
+- (void)mainThreadErrorNotification;
 
 - (void)internalSeekToTime:(double)newSeekTime;
 - (void)enqueueBuffer;
@@ -368,6 +374,11 @@ void ASReadStreamCallBack
 //
 - (void)presentAlertWithTitle:(NSString*)title message:(NSString*)message
 {
+	// modified by musicman3320 for Pandorita
+	// we handle alerts ourselves
+	[self mainThreadErrorNotification];
+	
+#if 0
 #if TARGET_OS_IPHONE
 	UIAlertView *alert = [
 		[[UIAlertView alloc]
@@ -395,6 +406,7 @@ void ASReadStreamCallBack
 		onThread:[NSThread mainThread]
 		withObject:nil
 		waitUntilDone:NO];
+#endif
 #endif
 }
 
@@ -440,10 +452,8 @@ void ASReadStreamCallBack
 			AudioQueueStop(audioQueue, true);
 		}
 
-		// modified by musicman3320 for Pandorita
-		// we handle alerts ourselves
-	//	[self presentAlertWithTitle:NSLocalizedStringFromTable(@"File Error", @"Errors", nil)
-	//						message:NSLocalizedStringFromTable(@"Unable to configure network read stream.", @"Errors", nil)];
+		[self presentAlertWithTitle:NSLocalizedStringFromTable(@"File Error", @"Errors", nil)
+							message:NSLocalizedStringFromTable(@"Unable to configure network read stream.", @"Errors", nil)];
 	}
 }
 
@@ -461,6 +471,19 @@ void ASReadStreamCallBack
 			object:self];
 	[[NSNotificationCenter defaultCenter]
 		postNotification:notification];
+}
+
+
+// modified by musicman3320 for Pandorita
+
+- (void)mainThreadErrorNotification
+{
+	NSNotification *notification =
+	[NSNotification
+	 notificationWithName:ASErrorNotification
+	 object:self];
+	[[NSNotificationCenter defaultCenter]
+	 postNotification:notification];
 }
 
 - (AudioStreamerState)state

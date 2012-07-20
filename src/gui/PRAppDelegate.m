@@ -155,6 +155,20 @@ error:
 	}
 }
 
+- (void)stopPlayback:(NSString *)errorMessage
+{
+	[playbackController stopPlayback];
+	[pianoWrapper setCurrentStation:nil];
+	[songHistoryTableDelegate clearHistory];
+	
+	[coverArtController clearArtwork];
+	[stationTableView reloadData];
+	[songHistoryTableView reloadData];
+	
+	// growl notification of error?
+//	[self pushGrowlNotification];
+}
+
 - (IBAction)togglePause:(id)sender
 {
 	[playbackController togglePause];
@@ -303,10 +317,7 @@ error:
 	{
 		NSLog(@"Error playing next song: %@!", error);
 		
-		[pianoWrapper setCurrentStation:nil];
-		
-		[stationTableView reloadData];
-		[songHistoryTableView reloadData];
+		[self stopPlayback:@"Pandora error"];
 	}
 }
 

@@ -21,7 +21,9 @@
 	NSData *artworkData;
 }
 
-- (void)loadImageFromSong:(PRSong *)song;
 - (NSData *)artworkData;
+
+- (void)loadImageFromSong:(PRSong *)song;
+- (void)clearArtwork;
 
 @end

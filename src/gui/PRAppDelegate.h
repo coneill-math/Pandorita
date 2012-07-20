@@ -71,6 +71,7 @@
 
 - (void)updateDockPlayingInfo;
 - (void)playStation:(PRStation *)station;
+- (void)stopPlayback:(NSString *)errorMessage;
 
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 

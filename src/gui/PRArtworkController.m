@@ -29,6 +29,19 @@
 	return artworkData;
 }
 
+- (void)clearArtwork
+{
+	if (connection)
+	{
+		[connection cancel];
+		RELEASE_MEMBER(connection);
+	}
+	
+	RELEASE_MEMBER(artworkData);
+	
+	[imageView setImage:[NSImage imageNamed:@"nothingplaying"]];
+}
+
 - (void)loadImageFromSong:(PRSong *)song
 {
 	if (connection)

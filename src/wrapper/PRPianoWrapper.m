@@ -162,7 +162,9 @@
 	if (playlist && currentSongIndex < [playlist count])
 	{
 		// call the delegate method immediately
-		[delegate didReceiveNextSong:[playlist objectAtIndex:currentSongIndex] error:nil];
+		// well, not immediately...
+		[delegate performSelector:@selector(didReceiveNextSong:error:) withObject:[playlist objectAtIndex:currentSongIndex] withObject:nil];
+//		[delegate didReceiveNextSong:[playlist objectAtIndex:currentSongIndex] error:nil];
 	}
 	else
 	{
