@@ -11,7 +11,7 @@
 					http://musicman3320.github.com/Pandorita/releases/0.2.5/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Thursday, 19 July 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.5/Pandorita-0.2.5.tar.gz" sparkle:version="0.2.5" length="2009624" type="application/octet-stream" sparkle:dsaSignature="MCwCFHaGXCPdYybA4tVK/EF3lMi8ti82AhRXx2Qw0nHseWz5g67pjCxJgNpmsw==" />
+            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.5/Pandorita-0.2.5.tar.gz" sparkle:version="0.2.5" length="2009644" type="application/octet-stream" sparkle:dsaSignature="MCwCFFG3T9YxcszibrF61Y+OnXiZWi2CAhRT8e8MfnkDWi0ZNbbS4PVyaJincQ==" />
          </item>
          <item>
             <title>Version 0.2.4</title>
