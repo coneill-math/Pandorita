@@ -126,6 +126,9 @@
 	RELEASE_MEMBER(responseData);
 	RELEASE_MEMBER(artworkData);
 	
+	[connection cancel];
+	RELEASE_MEMBER(connection);
+	
 	[super dealloc];
 }
 

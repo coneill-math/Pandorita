@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "AudioStreamer.h"
+#import "PRAudioStreamer.h"
 
 #import "PRSong.h"
 #import "PRSongProgressView.h"
@@ -29,7 +29,7 @@
 	IBOutlet NSMenuItem *playDockItem;
 	IBOutlet NSMenuItem *playMenuItem;
 	
-	AudioStreamer *streamer;
+	PRAudioStreamer *streamer;
 	PRSong *loadedSong;
 	BOOL hasSongLoaded;
 	

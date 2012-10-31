@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* PRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */; };
+		830FB9571641DA87004C6556 /* PRAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830FB9561641DA87004C6556 /* PRAudioStreamer.m */; };
 		831458A714DDCF78002248D9 /* PRRatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 831458A614DDCF78002248D9 /* PRRatingCell.m */; };
 		831CA5BE14F30D9900FDAA4A /* covererror.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BB14F30D9900FDAA4A /* covererror.pdf */; };
 		831CA5BF14F30D9900FDAA4A /* loadingcover.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BC14F30D9900FDAA4A /* loadingcover.pdf */; };
@@ -173,6 +174,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../src/other/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		830FB9551641DA87004C6556 /* PRAudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRAudioStreamer.h; path = ../src/utils/PRAudioStreamer.h; sourceTree = "<group>"; };
+		830FB9561641DA87004C6556 /* PRAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRAudioStreamer.m; path = ../src/utils/PRAudioStreamer.m; sourceTree = "<group>"; };
 		831458A514DDCF78002248D9 /* PRRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRRatingCell.h; sourceTree = "<group>"; };
 		831458A614DDCF78002248D9 /* PRRatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRRatingCell.m; sourceTree = "<group>"; };
 		831CA5BB14F30D9900FDAA4A /* covererror.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = covererror.pdf; sourceTree = "<group>"; };
@@ -584,6 +587,8 @@
 				8350308C14DB3380001353AC /* PRURLDownloader.m */,
 				835030F314DB5D15001353AC /* PRUtils.h */,
 				835030F414DB5D15001353AC /* PRUtils.m */,
+				830FB9551641DA87004C6556 /* PRAudioStreamer.h */,
+				830FB9561641DA87004C6556 /* PRAudioStreamer.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -962,6 +967,7 @@
 				83982433163E037800EEE51B /* PRAlbumDetailViewController.m in Sources */,
 				83982436163E03CB00EEE51B /* PRInfoAlbum.m in Sources */,
 				8398243F163EADF800EEE51B /* PRAlbumDetailTrackViewController.m in Sources */,
+				830FB9571641DA87004C6556 /* PRAudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

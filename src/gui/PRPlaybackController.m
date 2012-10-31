@@ -60,7 +60,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackStateChanged:) name:ASStatusChangedNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playbackError:) name:ASErrorNotification object:nil];
 	
-	streamer = [[AudioStreamer alloc] initWithURL:[song audioURL]];
+	streamer = [[PRAudioStreamer alloc] initWithURL:[song audioURL]];
 	
 	[streamer start];
 	[self updateControls];
