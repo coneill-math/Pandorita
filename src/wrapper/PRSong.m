@@ -124,7 +124,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"%@ - %@ - %@", artist, album, title];
+	return [NSString stringWithFormat:@"%@ - %@ - %@ - %@", artist, album, title, detailURL];
 }
 
 - (BOOL)isEqual:(id)object

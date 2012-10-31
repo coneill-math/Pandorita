@@ -155,6 +155,90 @@ error:
 	}
 }
 
+- (void)createStationWithMusicId:(NSString *)musicId
+{
+	[pianoWrapper createStationWithMusicId:musicId];
+}
+
+- (void)addSeedToCurrentStation:(NSString *)musicId
+{
+	
+}
+
+- (void)updateInfoMenu
+{
+	if ([infoViewController isInfoViewCollapsed])
+	{
+		[infoMenuItem setTitle:@"Show Info Pane"];
+	}
+	else
+	{
+		[infoMenuItem setTitle:@"Hide Info Pane"];
+	}
+}
+
+- (IBAction)showInfoForArtist:(id)sender
+{
+	NSURL *detailUrl = [[songHistoryTableDelegate songForRow:[songHistoryTableView clickedRow]] detailURL];
+	detailUrl = [PRInfoViewController artistInfoUrlForSongUrl:detailUrl];
+	[self showInfoForArtistUrl:detailUrl];
+}
+
+- (IBAction)showInfoForAlbum:(id)sender
+{
+	NSURL *detailUrl = [[songHistoryTableDelegate songForRow:[songHistoryTableView clickedRow]] detailURL];
+	detailUrl = [PRInfoViewController albumInfoUrlForSongUrl:detailUrl];
+	[self showInfoForAlbumUrl:detailUrl];
+}
+
+- (IBAction)showInfoForSong:(id)sender
+{
+	
+}
+
+- (void)showInfoForArtistUrl:(NSURL *)url
+{
+	[infoViewController showInfoForArtist:url];
+	[self expandInfoView:self];
+}
+
+- (void)showInfoForAlbumUrl:(NSURL *)url
+{
+	[infoViewController showInfoForAlbum:url];
+	[self expandInfoView:self];
+}
+
+- (void)showInfoForSongUrl:(NSURL *)url
+{
+	
+}
+
+- (IBAction)toggleInfoView:(id)sender
+{
+	if ([infoViewController isInfoViewCollapsed])
+	{
+		[self expandInfoView:self];
+	}
+	else
+	{
+		[self collapseInfoView:self];
+	}
+}
+
+- (IBAction)expandInfoView:(id)sender
+{
+	[infoViewController expandInfoView:self];
+	[self updateInfoMenu];
+	
+	// delete info history if it was the X
+}
+
+- (IBAction)collapseInfoView:(id)sender
+{
+	[infoViewController collapseInfoView:self];
+	[self updateInfoMenu];
+}
+
 - (void)stopPlayback:(NSString *)errorMessage
 {
 	[playbackController stopPlayback];
@@ -406,6 +490,11 @@ error:
 		[self updateDockPlayingInfo];
 		[songHistoryTableView reloadData];
 	}
+}
+
+- (void)didAddSeedWithId:(NSString *)musicId toStation:(PRStation *)station error:(NSError *)error
+{
+	// anything to do?
 }
 
 - (void)didGetSearchResultWithArtists:(NSArray *)artists songs:(NSArray *)songs withError:(NSError *)error

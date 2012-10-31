@@ -27,6 +27,7 @@
 - (void)didCreateStation:(PRStation *)station error:(NSError *)error;
 - (void)didRenameStation:(PRStation *)station error:(NSError *)error;
 - (void)didRemoveStationWithError:(NSError *)error;
+- (void)didAddSeedWithId:(NSString *)musicId toStation:(PRStation *)station error:(NSError *)error;
 
 - (void)didGetSearchResultWithArtists:(NSArray *)artists songs:(NSArray *)songs withError:(NSError *)error;
 

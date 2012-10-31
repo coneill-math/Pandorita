@@ -74,8 +74,7 @@
 		if (![station isQuickMix])
 		{
 			NSString *text = [NSString stringWithFormat:@"Are you sure you want to remove the playlist %@?", [station name]];
-			NSString *inform = @"You cannot undo this action";
-			NSAlert *alert = [NSAlert alertWithMessageText:text defaultButton:@"Remove" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:inform];
+			NSAlert *alert = [NSAlert alertWithMessageText:text defaultButton:@"Remove" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"You cannot undo this action"];
 			
 			NSInteger result = [alert runModal];
 			if (result == NSAlertDefaultReturn)

@@ -14,9 +14,37 @@ NSString *PRSongDurationFromInterval(NSTimeInterval interval)
 	NSInteger minutes = (NSInteger)(interval / 60);
 	NSInteger seconds = (NSInteger)(interval - (60*minutes));
 	
-	return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+	return [NSString stringWithFormat:@"%ld:%02ld", (long)minutes, (long)seconds];
 }
 
+@implementation NSString (PRUtils_Additions)
+
+- (NSUInteger)countOfCharactersInSet:(NSCharacterSet *)set
+{
+	NSUInteger ret = 0;
+	NSUInteger i = 0;
+	
+	for(i = 0;i < [self length];i++)
+	{
+		if ([set characterIsMember:[self characterAtIndex:i]])
+		{
+			ret++;
+		}
+	}
+	
+	return ret;
+}
+
+@end
+
+@implementation NSAttributedString (PRUtils_Additions)
+
++ (id)attributedString:(NSString *)str withAttributes:(NSDictionary *)attributes
+{
+	return [[[NSAttributedString alloc] initWithString:str attributes:attributes] autorelease];
+}
+
+@end
 
 @implementation NSView (PRUtils_Additions)
 

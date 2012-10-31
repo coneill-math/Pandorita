@@ -25,6 +25,7 @@
 #import "PRPreferencesController.h"
 #import "PRLoginController.h"
 #import "PRArtworkController.h"
+#import "PRInfoViewController.h"
 
 #import "PRUtils.h"
 
@@ -41,16 +42,23 @@
 	IBOutlet NSTableView *searchTableView;
 	IBOutlet PRSearchTableDelegate *searchTableDelegate;
 	
+	IBOutlet PRInfoViewController *infoViewController;
+	
 	IBOutlet PRPlaybackController *playbackController;
 	
 	IBOutlet NSSplitView *mainSplitView;
 	IBOutlet NSSplitView *imageSplitView;
+	IBOutlet NSSplitView *infoSplitView;
 	
 	IBOutlet PRStationTableDelegate *stationTableDelegate;
 	IBOutlet PRSongHistoryTableDelegate *songHistoryTableDelegate;
 	
 	IBOutlet NSMenu *dockMenu;
 	IBOutlet NSMenuItem *playDockItem;
+	
+	IBOutlet NSMenu *fileMenu;
+	IBOutlet NSMenuItem *infoMenuItem;
+	IBOutlet NSMenuItem *artworkMenuItem;
 	
 	IBOutlet NSMenu *controlsMenu;
 	IBOutlet NSMenuItem *playMenuItem;
@@ -75,6 +83,9 @@
 
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass;
 
+- (void)createStationWithMusicId:(NSString *)musicId;
+- (void)addSeedToCurrentStation:(NSString *)musicId;
+
 - (void)setRatingFromSegmentClick:(PRRating)rating;
 - (void)setRating:(PRRating)rating;
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
@@ -85,11 +96,25 @@
 // notification from playback controller
 - (void)didBeginPlayingSong:(PRSong *)song;
 
+- (void)updateInfoMenu;
+
 - (IBAction)showPreferences:(id)sender;
 
 - (IBAction)switchAccounts:(id)sender;
 
 - (IBAction)stationSearch:(id)sender;
+
+- (IBAction)showInfoForArtist:(id)sender;
+- (IBAction)showInfoForAlbum:(id)sender;
+- (IBAction)showInfoForSong:(id)sender;
+
+- (void)showInfoForArtistUrl:(NSURL *)url;
+- (void)showInfoForAlbumUrl:(NSURL *)url;
+- (void)showInfoForSongUrl:(NSURL *)url;
+
+- (IBAction)toggleInfoView:(id)sender;
+- (IBAction)expandInfoView:(id)sender;
+- (IBAction)collapseInfoView:(id)sender;
 
 - (IBAction)togglePause:(id)sender;
 - (IBAction)moveToNextSong:(id)sender;

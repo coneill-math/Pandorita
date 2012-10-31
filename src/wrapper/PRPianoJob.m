@@ -78,7 +78,7 @@
 	if (self.req->postData && self.req->postData[0])
 	{
 		NSData *postData = [[NSString stringWithFormat:@"%s", self.req->postData] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-		NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+		NSString *postLength = [NSString stringWithFormat:@"%ld", (long)[postData length]];
 		
 		[urlRequest setHTTPMethod:@"POST"];
 		[urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"];

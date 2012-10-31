@@ -8,6 +8,8 @@
 
 #import "PRSongHistoryTableDelegate.h"
 
+#import "PRArrowButtonCell.h"
+
 
 @implementation PRSongHistoryTableDelegate
 /*
@@ -75,7 +77,7 @@
 	
 	if ([[aTableColumn identifier] isEqualToString:@"counter"])
 	{
-		return [NSString stringWithFormat:@"%d", rowIndex + 1];
+		return [NSString stringWithFormat:@"%ld", (long)(rowIndex + 1)];
 	}
 	else if ([[aTableColumn identifier] isEqualToString:@"artist"])
 	{
@@ -107,12 +109,27 @@
 	{
 		[aCell setRating:[[self songForRow:rowIndex] rating]];
 	}
+	else if ([[aTableColumn identifier] isEqualToString:@"artist"])
+	{
+		[aCell setTitle:[[self songForRow:rowIndex] artist]];
+	}
+	else if ([[aTableColumn identifier] isEqualToString:@"album"])
+	{
+		[aCell setTitle:[[self songForRow:rowIndex] album]];
+	}
 }
 
 - (BOOL)selectionShouldChangeInTableView:(NSTableView *)aTableView
 {
 	NSInteger clickedColumn = [aTableView clickedColumn];
+	NSInteger clickedRow = [aTableView clickedRow];
 	if (clickedColumn >= 0 && [[[[aTableView tableColumns] objectAtIndex:clickedColumn] identifier] isEqualToString:@"rating"])
+	{
+		return NO;
+	}
+	else if (clickedColumn >= 0 && [[[[aTableView tableColumns] objectAtIndex:clickedColumn] identifier] isEqualToString:@"artist"] &&
+		 [[[[aTableView tableColumns] objectAtIndex:clickedColumn] dataCell] wasMouseClickInButtonForCellFrame:[aTableView frameOfCellAtColumn:clickedColumn row:clickedRow]
+														inView:aTableView])
 	{
 		return NO;
 	}

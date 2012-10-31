@@ -16,7 +16,7 @@ NSString *PRReadKeychainPassword(NSString *username)
 	void  *passwordData   = NULL;
 	UInt32 passwordLength = 0;
 	
-	NSData *serviceData = [[NSString stringWithString:SERVICE_STRING] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *serviceData = [SERVICE_STRING dataUsingEncoding:NSUTF8StringEncoding];
 	NSData *accountData = [username dataUsingEncoding:NSUTF8StringEncoding];
 	NSString *passwordString = nil;
 	
@@ -33,7 +33,11 @@ NSString *PRReadKeychainPassword(NSString *username)
 		passwordString = [[[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding] autorelease];
 	}
 	
-	SecKeychainItemFreeContent(NULL, passwordData);
+	if (passwordData)
+	{
+		SecKeychainItemFreeContent(NULL, passwordData);
+		passwordData = NULL;
+	}
 	
 	return passwordString;
 }
@@ -44,7 +48,7 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 	
 	NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
 	
-	NSData *serviceData = [[NSString stringWithString:SERVICE_STRING] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *serviceData = [SERVICE_STRING dataUsingEncoding:NSUTF8StringEncoding];
 	NSData *accountData = [username dataUsingEncoding:NSUTF8StringEncoding];
 	
 	// If keychainRef is NULL, the default keychain will be used

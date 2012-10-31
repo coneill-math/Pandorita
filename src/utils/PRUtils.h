@@ -13,6 +13,18 @@
 
 NSString *PRSongDurationFromInterval(NSTimeInterval interval);
 
+@interface NSString (PRUtils_Additions)
+
+- (NSUInteger)countOfCharactersInSet:(NSCharacterSet *)set;
+
+@end
+
+@interface NSAttributedString (PRUtils_Additions)
+
++ (id)attributedString:(NSString *)str withAttributes:(NSDictionary *)attributes;
+
+@end
+
 @interface NSView (PRUtils_Additions)
 
 - (BOOL)containsView:(NSView *)subview;
