@@ -30,7 +30,7 @@
 #import "PRUtils.h"
 
 
-@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, PRPianoDelegate, GrowlApplicationBridgeDelegate, LFWebServiceDelegate>
+@interface PRAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate, NSSoundDelegate, NSUserNotificationCenterDelegate, PRPianoDelegate, GrowlApplicationBridgeDelegate, LFWebServiceDelegate>
 {
 	IBOutlet NSWindow *window;
 	
@@ -91,7 +91,7 @@
 - (void)setRating:(PRRating)rating forSong:(PRSong *)song;
 
 - (BOOL)isPlaying;
-- (void)pushGrowlNotification;
+- (void)pushUserNotification;
 
 // notification from playback controller
 - (void)didBeginPlayingSong:(PRSong *)song;

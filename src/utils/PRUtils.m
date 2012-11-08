@@ -37,6 +37,24 @@ NSString *PRSongDurationFromInterval(NSTimeInterval interval)
 
 @end
 
+@implementation NSURL (PRUtils_Additions)
+
+- (NSURL *)URLByDeletingQuery
+{
+	return [[[NSURL alloc] initWithScheme:[self scheme]
+					 host:[self host]
+					 path:[self path]] autorelease];
+}
+
+- (NSURL *)URLByDeletingStringLastPathComponent
+{
+	return [[[NSURL alloc] initWithScheme:[self scheme]
+					 host:[self host]
+					 path:[[self path] stringByDeletingLastPathComponent]] autorelease];
+}
+
+@end
+
 @implementation NSAttributedString (PRUtils_Additions)
 
 + (id)attributedString:(NSString *)str withAttributes:(NSDictionary *)attributes

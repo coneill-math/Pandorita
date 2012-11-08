@@ -32,58 +32,66 @@
 
 + (NSURL *)songInfoUrlForSongUrl:(NSURL *)songUrl
 {
+	return [songUrl URLByDeletingQuery];
+	/*
 	NSString *urlStr = [songUrl description];
 	NSUInteger index = [urlStr rangeOfString:@"?"].location;
-	if (index == NSNotFound)
+	if (index != NSNotFound)
 	{
-		index = [urlStr length];
+		urlStr = [urlStr substringToIndex:index];
 	}
 	
-	urlStr = [urlStr substringToIndex:index];
 	return [NSURL URLWithString:urlStr];
+	 */
 }
 
 + (NSURL *)artistInfoUrlForSongUrl:(NSURL *)songUrl
 {
+	return [[[songUrl URLByDeletingQuery] URLByDeletingStringLastPathComponent] URLByDeletingStringLastPathComponent];
+	/*
 	NSString *urlStr = [songUrl description];
 	NSUInteger index = [urlStr rangeOfString:@"?"].location;
-	if (index == NSNotFound)
+	if (index != NSNotFound)
 	{
-		index = [urlStr length];
+		urlStr = [urlStr substringToIndex:index];
 	}
 	
-	urlStr = [urlStr substringToIndex:index];
 	urlStr = [urlStr stringByDeletingLastPathComponent];
 	urlStr = [urlStr stringByDeletingLastPathComponent];
 	return [NSURL URLWithString:urlStr];
+	 */
 }
 
 + (NSURL *)artistInfoUrlForAlbumUrl:(NSURL *)albumUrl
 {
+	return [[albumUrl URLByDeletingQuery] URLByDeletingStringLastPathComponent];
+	/*
 	NSString *urlStr = [albumUrl description];
 	NSUInteger index = [urlStr rangeOfString:@"?"].location;
-	if (index == NSNotFound)
+	if (index != NSNotFound)
 	{
-		index = [urlStr length];
+		urlStr = [urlStr substringToIndex:index];
 	}
 	
-	urlStr = [urlStr substringToIndex:index];
 	urlStr = [urlStr stringByDeletingLastPathComponent];
 	return [NSURL URLWithString:urlStr];
+	 */
 }
 
 + (NSURL *)albumInfoUrlForSongUrl:(NSURL *)songUrl
 {
+	return [[songUrl URLByDeletingQuery] URLByDeletingStringLastPathComponent];
+	/*
 	NSString *urlStr = [songUrl description];
 	NSUInteger index = [urlStr rangeOfString:@"?"].location;
-	if (index == NSNotFound)
+	if (index != NSNotFound)
 	{
-		index = [urlStr length];
+		urlStr = [urlStr substringToIndex:index];
 	}
 	
-	urlStr = [urlStr substringToIndex:index];
 	urlStr = [urlStr stringByDeletingLastPathComponent];
 	return [NSURL URLWithString:urlStr];
+	 */
 }
 
 - (void)awakeFromNib

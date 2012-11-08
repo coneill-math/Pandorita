@@ -27,7 +27,7 @@
 		NSAttributedString *titleStr = [[[NSAttributedString alloc] initWithString:[track trackName]] autorelease];
 		
 		[[titleView textStorage] setAttributedString:titleStr];
-		[numberField setStringValue:[NSString stringWithFormat:@"%02d", [track trackNumber]]];
+		[numberField setStringValue:[NSString stringWithFormat:@"%02ld", (long)[track trackNumber]]];
 		
 		[titleView setLineBreakMode:NSLineBreakByTruncatingTail];
 	}

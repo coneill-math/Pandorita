@@ -3,6 +3,9 @@
 # vim swap files
 .*.sw*
 
+.DS_Store
+*/.DS_Store
+*/*/.DS_Store
 build/Debug
 build/Release
 build/Pandorita.build

@@ -37,6 +37,9 @@
 		
 		artistUrl = [artist retain];
 		albumUrl = nil;
+		currentAlbum = NSNotFound;
+		
+	//	NSLog(@"ArtistUrl: %@", artistUrl);
 	}
 	
 	return self;
@@ -53,12 +56,15 @@
 		[descriptionView setDisplaysLinkToolTips:NO];
 		[descriptionView setHorizontallyResizable:NO];
 		[descriptionView setDelegate:self];
+		RETAIN_MEMBER(outerDescriptionView);
 		
 		albumDetailController = [[PRAlbumDetailViewController alloc] init];
 		
 		albumUrl = [album retain];
 		artistUrl = [[PRInfoViewController artistInfoUrlForAlbumUrl:albumUrl] retain];
 		currentAlbum = NSNotFound;
+		
+	//	NSLog(@"AlbumUrl: %@", albumUrl);
 	}
 	
 	return self;

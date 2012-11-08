@@ -19,6 +19,13 @@ NSString *PRSongDurationFromInterval(NSTimeInterval interval);
 
 @end
 
+@interface NSURL (PRUtils_Additions)
+
+- (NSURL *)URLByDeletingQuery;
+- (NSURL *)URLByDeletingStringLastPathComponent;
+
+@end
+
 @interface NSAttributedString (PRUtils_Additions)
 
 + (id)attributedString:(NSString *)str withAttributes:(NSDictionary *)attributes;

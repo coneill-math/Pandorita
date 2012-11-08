@@ -85,7 +85,7 @@
 	
 	if ([[NSApp delegate] isPlaying])
 	{
-		[[NSApp delegate] pushGrowlNotification];
+		[[NSApp delegate] pushUserNotification];
 	}
 }
 

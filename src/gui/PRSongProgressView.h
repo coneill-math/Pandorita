@@ -10,6 +10,13 @@
 
 @interface PRSongProgressView : NSView
 {
+	NSImage *backLeftImage;
+	NSImage *backMiddleImage;
+	NSImage *backRightImage;
+	NSImage *frontLeftImage;
+	NSImage *frontMiddleImage;
+	NSImage *frontRightImage;
+	
 	CGFloat progress;
 }
 

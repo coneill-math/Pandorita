@@ -5,9 +5,11 @@
 	<key>PRAutoLogin</key>
 	<false/>
 	<key>PRUseGrowl</key>
-	<true/>
+	<false/>
 	<key>PRLastUsername</key>
 	<string></string>
+	<key>PRShowNotification</key>
+	<true/>
 	<key>PREnableHotkeys</key>
 	<false/>
 </dict>

@@ -54,7 +54,9 @@
 	
 	CGFloat height = [[[trackControllers objectAtIndex:0] view] frame].size.height;
 	CGFloat totalHeight = height * [trackControllers count];
-	[trackListView setFrameSize:NSMakeSize([trackListView frame].size.width, totalHeight)];
+	
+	totalHeight = MAX(totalHeight, [[trackListView enclosingScrollView] contentSize].height);
+	[trackListView setFrameSize:NSMakeSize([[trackListView enclosingScrollView] contentSize].width, totalHeight)];
 	
 	CGFloat y = totalHeight - height;
 	for(i = 0;i < [trackControllers count];i++)

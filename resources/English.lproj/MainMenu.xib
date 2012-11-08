@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1080</int>
 		<string key="IBDocument.SystemVersion">12C60</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">2843</string>
+			<string key="NS.object.0">2844</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1792,7 +1792,7 @@
 														<object class="NSTextField" id="42949274">
 															<reference key="NSNextResponder" ref="221750246"/>
 															<int key="NSvFlags">266</int>
-															<string key="NSFrame">{{41, 353}, {485, 17}}</string>
+															<string key="NSFrame">{{41, 353}, {478, 17}}</string>
 															<reference key="NSSuperview" ref="221750246"/>
 															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="536887256"/>
@@ -1813,7 +1813,7 @@
 														<object class="NSButton" id="536887256">
 															<reference key="NSNextResponder" ref="221750246"/>
 															<int key="NSvFlags">265</int>
-															<string key="NSFrame">{{527, 354}, {20, 15}}</string>
+															<string key="NSFrame">{{524, 354}, {20, 15}}</string>
 															<reference key="NSSuperview" ref="221750246"/>
 															<reference key="NSWindow"/>
 															<reference key="NSNextKeyView" ref="209986422"/>
@@ -1926,9 +1926,10 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1065462702"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{750, 522}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<string key="NSFrameAutosaveName">Pandorita</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSCustomObject" id="976324537">

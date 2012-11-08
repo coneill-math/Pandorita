@@ -12,6 +12,9 @@
 {
 	NSOutputStream *writeStream;
 	NSURLConnection *connection;
+	
+	BOOL shouldStart;
+	BOOL didStart;
 }
 
 

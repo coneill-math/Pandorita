@@ -15,7 +15,7 @@
 
 - (BOOL)wasMouseClickInButtonForCellFrame:(NSRect)cellFrame inView:(NSView *)controlView
 {
-	NSPoint mouseLoc = [controlView convertPointFromBase:[[controlView window] mouseLocationOutsideOfEventStream]];
+	NSPoint mouseLoc = [controlView convertPoint:[[controlView window] mouseLocationOutsideOfEventStream] fromView:nil];
 	NSRect imageBounds = [self imageRectForBounds:cellFrame];
 	
 	return NSMouseInRect(mouseLoc, imageBounds, [controlView isFlipped]);

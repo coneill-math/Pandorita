@@ -22,7 +22,14 @@
 	NSLog(@"Opened!");
 	
 	[NSUserDefaults registerPandoritaUserDefaults];
-	[GrowlApplicationBridge setGrowlDelegate:self];
+	if (NSClassFromString(@"NSUserNotificationCenter") != nil)
+	{
+		[[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+	}
+	else
+	{
+		[GrowlApplicationBridge setGrowlDelegate:self];
+	}
 	/*
 	LFWebService *lastfm = [LFWebService sharedWebService];
 	[lastfm setDelegate:self];
@@ -250,7 +257,7 @@ error:
 	[songHistoryTableView reloadData];
 	
 	// growl notification of error?
-//	[self pushGrowlNotification];
+//	[self pushUserNotification];
 }
 
 - (IBAction)togglePause:(id)sender
@@ -258,7 +265,7 @@ error:
 	[playbackController togglePause];
 	
 	[self updateDockPlayingInfo];
-	[self pushGrowlNotification];
+	[self pushUserNotification];
 }
 
 - (IBAction)moveToNextSong:(id)sender
@@ -340,7 +347,7 @@ error:
 	return [playbackController isPlaying];
 }
 
-- (void)pushGrowlNotification
+- (void)pushUserNotification
 {
 	if ([NSUserDefaults shouldUseGrowl])
 	{
@@ -355,7 +362,19 @@ error:
 			NSString *notif = ([playbackController isPlaying] ? PR_GROWL_PLAYING_NOTIFICATION : PR_GROWL_PAUSED_NOTIFICATION);
 			NSString *ident = @"PandoritaNowPlaying";
 			
-			[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+			if (NSClassFromString(@"NSUserNotificationCenter") != nil)
+			{
+				NSUserNotification *notification = [[[NSUserNotification alloc] init] autorelease];
+				notification.title = name;
+				notification.informativeText = desc;
+				notification.soundName = NSUserNotificationDefaultSoundName;
+				
+				[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+			}
+			else
+			{
+				[GrowlApplicationBridge notifyWithTitle:name description:desc notificationName:notif iconData:data priority:0 isSticky:NO clickContext:nil identifier:ident];
+			}
 		}
 	}
 }
@@ -416,7 +435,7 @@ error:
 	[coverArtController loadImageFromSong:song];
 	
 	[self updateDockPlayingInfo];
-	[self pushGrowlNotification];
+	[self pushUserNotification];
 }
 
 - (void)didSetRating:(PRRating)rating forSong:(PRSong *)song error:(NSError *)error
@@ -528,6 +547,11 @@ error:
 	
 	[[[splitView subviews] objectAtIndex:0] setFrame:firstRect];
 	[[[splitView subviews] objectAtIndex:1] setFrame:secondRect];
+}
+
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification
+{
+	return YES;
 }
 
 // growl delegate methods
