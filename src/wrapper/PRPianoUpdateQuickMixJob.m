@@ -27,7 +27,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to set quickmix!");
+		PRLog(@"Unable to set quickmix!");
 		// try anyway?
 	}
 }

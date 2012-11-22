@@ -31,7 +31,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to mark song as tired: %@!", song);
+		PRLog(@"Unable to mark song as tired: %@!", song);
 		// try anyway?
 	}
 	

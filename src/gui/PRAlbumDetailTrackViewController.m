@@ -37,7 +37,7 @@
 
 - (IBAction)playClicked:(id)sender
 {
-	NSLog(@"Samples coming soon!");
+	PRLog(@"Samples coming soon!");
 }
 
 - (BOOL)textView:(NSTextView *)aTextView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex

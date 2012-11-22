@@ -39,7 +39,7 @@
 		albumUrl = nil;
 		currentAlbum = NSNotFound;
 		
-	//	NSLog(@"ArtistUrl: %@", artistUrl);
+	//	PRLog(@"ArtistUrl: %@", artistUrl);
 	}
 	
 	return self;
@@ -64,7 +64,7 @@
 		artistUrl = [[PRInfoViewController artistInfoUrlForAlbumUrl:albumUrl] retain];
 		currentAlbum = NSNotFound;
 		
-	//	NSLog(@"AlbumUrl: %@", albumUrl);
+	//	PRLog(@"AlbumUrl: %@", albumUrl);
 	}
 	
 	return self;
@@ -212,7 +212,7 @@
 				element = [elements objectAtIndex:j];
 				PRInfoTrack *track = [infoAlbum trackAtIndex:j];
 				[track setSampleLinkStr:[element objectForKey:@"content"]];
-				NSLog(@"%@", track);
+				PRLog(@"%@", track);
 			}
 		}
 	}

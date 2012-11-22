@@ -79,7 +79,7 @@
 	{
 		//NSRect lineRect =
 		[[albumInfoView layoutManager] lineFragmentUsedRectForGlyphAtIndex:glyphIndex effectiveRange:&lineRange];
-	//	NSLog(@"Line range: %@", NSStringFromRange(lineRange));
+	//	PRLog(@"Line range: %@", NSStringFromRange(lineRange));
 		
 		// no need to truncate this line
 		if (NSMaxRange(lineRange) >= [[albumInfoView textStorage] length])

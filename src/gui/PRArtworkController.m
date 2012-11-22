@@ -71,7 +71,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)e
 {
-	NSLog(@"Unable to load artwork: %@", [e localizedDescription]);
+	PRError(@"Unable to load artwork: %@", [e localizedDescription]);
 	[imageView setImage:[NSImage imageNamed:@"covererror"]];
 }
 

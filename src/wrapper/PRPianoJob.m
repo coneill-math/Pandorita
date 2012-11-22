@@ -61,7 +61,7 @@
 
 - (void)startJob
 {
-	NSLog(@"Starting job");
+	PRLog(@"Starting job");
 	
 //	ERROR_ON_FAIL(cUsername != NULL);
 //	ERROR_ON_FAIL(cPassword != NULL);
@@ -89,12 +89,12 @@
 	[downloader setExtraData:self];
 	[downloader startRequest:urlRequest];
 	
-	NSLog(@"Start job completed");
+	PRLog(@"Start job completed");
 	
 	return;
 	
 error:
-	NSLog(@"Error: %s", PianoErrorToStr(self.pRet));
+	PRLog(@"Error: %s", PianoErrorToStr(self.pRet));
 	[self finishJob];
 }
 
@@ -120,10 +120,10 @@ error:
 	if (self.pRet == PIANO_RET_P_INVALID_AUTH_TOKEN && self.type != PIANO_REQUEST_LOGIN)
 	{
 		// reauthenticate
-		NSLog(@"Reauthentication required...");
+		PRLog(@"Reauthentication required...");
 		[wrapper login];
 		
-	//	NSLog(@"Trying again...");
+	//	PRLog(@"Trying again...");
 	//	[self startJob:job];
 	}
 	else if (self.pRet == PIANO_RET_CONTINUE_REQUEST)
@@ -132,7 +132,7 @@ error:
 	}
 	else if (self.pRet == PIANO_RET_OK)
 	{
-		NSLog(@"Returned ok.");
+		PRLog(@"Returned ok.");
 		[self finishJob];
 	}
 	else
@@ -140,12 +140,12 @@ error:
 		ERROR_ON_FAIL(NO);
 	}
 	
-	NSLog(@"Handle response completed");
+	PRLog(@"Handle response completed");
 	
 	return;
 	
 error:
-	NSLog(@"Error: %s", PianoErrorToStr(self.pRet));
+	PRLog(@"Error: %s", PianoErrorToStr(self.pRet));
 	[self finishJob];
 }
 

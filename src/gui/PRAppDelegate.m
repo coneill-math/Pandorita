@@ -19,7 +19,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	NSLog(@"Opened!");
+	PRLog(@"Opened!");
 	
 	[NSUserDefaults registerPandoritaUserDefaults];
 	if (NSClassFromString(@"NSUserNotificationCenter") != nil)
@@ -67,12 +67,9 @@
 	
 	[loginController runLoginScreen:NO];
 	
-	NSLog(@"Opening finished!");
+	PRLog(@"Opening finished!");
 	
 	return;
-
-error:
-	NSLog(@"Startup failed!");
 }
 
 - (void)loginWithUsername:(NSString *)user password:(NSString *)pass
@@ -349,7 +346,7 @@ error:
 
 - (void)pushUserNotification
 {
-	if ([NSUserDefaults shouldUseGrowl])
+	if ([NSUserDefaults shouldShowNotifications])
 	{
 		PRSong *song = [songHistoryTableDelegate currentSong];
 		
@@ -367,7 +364,7 @@ error:
 				NSUserNotification *notification = [[[NSUserNotification alloc] init] autorelease];
 				notification.title = name;
 				notification.informativeText = desc;
-				notification.soundName = NSUserNotificationDefaultSoundName;
+				notification.soundName = nil;
 				
 				[[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
 			}
@@ -383,7 +380,7 @@ error:
 {
 	if (error)
 	{
-		NSLog(@"Error loggin in: %@!", error);
+		PRError(@"Error loggin in: %@!", error);
 		[loginController runLoginScreen:NO];
 	}
 	else 
@@ -399,7 +396,7 @@ error:
 {
 	if (error)
 	{
-		NSLog(@"Error getting station list: %@!", error);
+		PRError(@"Error getting station list: %@!", error);
 		
 		// if we cant load the station list, we probably need to login
 		[loginController runLoginScreen:NO];
@@ -418,7 +415,7 @@ error:
 	}
 	else
 	{
-		NSLog(@"Error playing next song: %@!", error);
+		PRError(@"Error playing next song: %@!", error);
 		
 		[self stopPlayback:@"Pandora error"];
 	}
@@ -442,7 +439,7 @@ error:
 {
 	if (error)
 	{
-		NSLog(@"Error setting song rating: %@!", error);
+		PRError(@"Error setting song rating: %@!", error);
 	}
 	
 	// this song may be a different object, 
@@ -459,14 +456,14 @@ error:
 		[self moveToNextSong:self];
 	}
 	
-	NSLog(@"Successfully set rating!");
+	PRLog(@"Successfully set rating!");
 }
 
 - (void)didMarkSongAsTired:(PRSong *)song error:(NSError *)error
 {
 	if (error)
 	{
-		NSLog(@"Error marking song as tired: %@!", error);
+		PRError(@"Error marking song as tired: %@!", error);
 	}
 	
 	// this song may be a different object, 
@@ -483,7 +480,7 @@ error:
 		[self moveToNextSong:self];
 	}
 	
-	NSLog(@"Successfully marked as tired!");
+	PRLog(@"Successfully marked as tired!");
 }
 
 - (void)didCreateStation:(PRStation *)station error:(NSError *)error

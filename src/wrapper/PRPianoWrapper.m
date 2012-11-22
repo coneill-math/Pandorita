@@ -110,7 +110,7 @@
 {
 	if (!currentStation)
 	{
-		NSLog(@"No station selected!");
+		PRLog(@"No station selected!");
 		return;
 	}
 	
@@ -151,7 +151,7 @@
 	[jobQueue insertObject:job atIndex:0];
 	[job release];
 	
-	NSLog(@"Logging in...");
+	PRLog(@"Logging in...");
 	[job startJob];
 }
 
@@ -212,7 +212,7 @@
 {
 	PRPianoSearchJob *job = [[[PRPianoSearchJob alloc] initWithWrapper:self search:search] autorelease];
 	[self queueJob:job];
-	NSLog(@"Searching: %@", search);
+	PRLog(@"Searching: %@", search);
 }
 
 //////////////////////////////////
@@ -238,7 +238,7 @@
 {
 	[jobQueue removeObject:job];
 	
-	NSLog(@"Finish job completed");
+	PRLog(@"Finish job completed");
 	
 	if ([jobQueue count] > 0)
 	{

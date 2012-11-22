@@ -39,7 +39,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to add seed with id: %s!", cMusicId);
+		PRLog(@"Unable to add seed with id: %s!", cMusicId);
 		// try anyway?
 	}
 	

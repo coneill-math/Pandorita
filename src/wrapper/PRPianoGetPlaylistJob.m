@@ -37,7 +37,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Error in piano call for playlist");
+		PRLog(@"Error in piano call for playlist");
 		
 		// the rest will work fine, even if this fails
 		[[wrapper delegate] didReceiveNextSong:nil error:error];
@@ -57,7 +57,7 @@
 		cur->next = NULL;
 		
 		PRSong *s = [[PRSong alloc] initWithSong:cur];
-		NSLog(@"New song in playlist: %@", s);
+		PRLog(@"New song in playlist: %@", s);
 		
 		if (!firstSong)
 		{

@@ -31,7 +31,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to remove station!");
+		PRLog(@"Unable to remove station!");
 	}
 	else
 	{

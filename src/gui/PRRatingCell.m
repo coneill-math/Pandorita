@@ -98,12 +98,12 @@
 {
 	if (segment == 0)
 	{
-		NSLog(@"Loving");
+		PRLog(@"Loving");
 		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_LOVE];
 	}
 	else if (segment == 1)
 	{
-		NSLog(@"Banning");
+		PRLog(@"Banning");
 		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_BAN];
 	}
 }

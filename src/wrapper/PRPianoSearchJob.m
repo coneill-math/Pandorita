@@ -38,7 +38,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to perform search: %s!", cSearch);
+		PRLog(@"Unable to perform search: %s!", cSearch);
 		// try anyway?
 	}
 	

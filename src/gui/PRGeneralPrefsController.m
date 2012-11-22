@@ -38,7 +38,7 @@
 
 - (IBAction)useGrowlChanged:(id)sender
 {
-	[NSUserDefaults setShouldUseGrowl:([useGrowlCheckbox state] != NSOffState)];
+	[NSUserDefaults setShouldShowNotifications:([useGrowlCheckbox state] != NSOffState)];
 }
 
 @end

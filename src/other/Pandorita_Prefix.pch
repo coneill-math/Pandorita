@@ -6,7 +6,9 @@
 	#import <Cocoa/Cocoa.h>
 	#import <QTKit/QTKit.h>
 //	#import <QuickTime/QuickTime.h>
-	
+
+	#import "PRLogger.h"
+
 	#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
 	@protocol NSApplicationDelegate <NSObject> @end
 	@protocol NSTableViewDelegate <NSObject> @end
@@ -25,7 +27,7 @@
 #define ERROR_ON_FAIL(a) \
 if (!(a)) \
 { \
-NSLog(@"Error in %s on line %d\n", __FILE__, __LINE__); \
+PRError(@"Error in %s on line %d\n", __FILE__, __LINE__); \
 goto error; \
 } \
 
@@ -34,19 +36,19 @@ goto error; \
 #define ERROR_ON_FAIL_WITH_MESSAGE(a,b) \
 if (!(a)) \
 { \
-NSLog(@"Error in %s on line %d: %s\n", __FILE__, __LINE__, b); \
+PRError(@"Error in %s on line %d: %s\n", __FILE__, __LINE__, b); \
 goto error; \
 } \
 
 #define ERROR_ON_FAIL_WITH_MESSAGE_NS(a,b) \
 if (!(a)) \
 { \
-NSLog(@"Error in %s on line %d: %@\n", __FILE__, __LINE__, b); \
+PRError(@"Error in %s on line %d: %@\n", __FILE__, __LINE__, b); \
 goto error; \
 } \
 
 
-#define FATAL_ERROR(m) NSLog(@"*** ERROR: %@ ***", (m));
+#define FATAL_ERROR(m) PRError(@"*** ERROR: %@ ***", (m));
 
 #define RELEASE_MEMBER(mem) RELEASE_MEMBER_FUNC(mem, release) 
 

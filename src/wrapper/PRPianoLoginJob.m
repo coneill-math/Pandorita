@@ -71,7 +71,7 @@
 		[wrapper setTimeOffsetForLoginHack:(time(NULL) - (time_t)[[NSString stringWithCString:bytes encoding:NSASCIIStringEncoding] intValue])];
 		FREE_MEMBER(bytes);
 		
-		NSLog(@"Logging in...");
+		PRLog(@"Logging in...");
 		[super startJob];
 	}
 	else
@@ -88,7 +88,7 @@
 	
 	if (error)
 	{
-		NSLog(@"Unable to login!");
+		PRLog(@"Unable to login!");
 		
 		// unable to login, these will be useless
 		[wrapper removeAllJobs];

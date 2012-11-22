@@ -17,6 +17,9 @@
 + (BOOL)shouldAutoLogin;
 + (void)setShouldAutoLogin:(BOOL)should;
 
++ (BOOL)shouldShowNotifications;
++ (void)setShouldShowNotifications:(BOOL)should;
+
 + (BOOL)shouldUseGrowl;
 + (void)setShouldUseGrowl:(BOOL)should;
 

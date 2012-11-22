@@ -29,7 +29,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to get station list!");
+		PRLog(@"Unable to get station list!");
 		// continue anyway
 		// delegate will handle error
 	}

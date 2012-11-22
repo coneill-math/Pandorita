@@ -40,7 +40,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to rename station!");
+		PRLog(@"Unable to rename station!");
 	}
 	
 	[station reloadFromInternalStation];

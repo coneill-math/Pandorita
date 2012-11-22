@@ -137,7 +137,7 @@
 		{
 			if (![NSUserDefaults writePasswordToKeychain:password])
 			{
-				NSLog(@"Unable to save password to keychain!");
+				PRError(@"Unable to save password to keychain!");
 			}
 		}
 		

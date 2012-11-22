@@ -143,7 +143,7 @@ static void CFStreamCreateBoundPairCompat(CFAllocatorRef alloc, CFReadStreamRef 
 
 	if (fileLength == NSURLResponseUnknownLength)
 	{
-	//	NSLog(@"BAD!!!");
+	//	PRLog(@"BAD!!!");
 		// default to a really big number
 		// SOOOOOO BAD!
 		// fileLength = 20000000;
@@ -174,7 +174,7 @@ static void CFStreamCreateBoundPairCompat(CFAllocatorRef alloc, CFReadStreamRef 
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)e
 {
-	NSLog(@"Unable to download file: %@", [e localizedDescription]);
+	PRError(@"Unable to download file: %@", [e localizedDescription]);
 	[writeStream close];
 	RELEASE_MEMBER(writeStream);
 	[[NSApp delegate] stopPlayback:[e localizedDescription]];
@@ -182,7 +182,7 @@ static void CFStreamCreateBoundPairCompat(CFAllocatorRef alloc, CFReadStreamRef 
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-	NSLog(@"Downloaded audio file successfully!");
+	PRLog(@"Downloaded audio file successfully!");
 	[writeStream close];
 	RELEASE_MEMBER(writeStream);
 }

@@ -89,6 +89,16 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 	[[NSUserDefaults standardUserDefaults] setBool:should forKey:@"PRAutoLogin"];
 }
 
++ (BOOL)shouldShowNotifications
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:@"PRShowNotification"];
+}
+
++ (void)setShouldShowNotifications:(BOOL)should
+{
+	[[NSUserDefaults standardUserDefaults] setBool:should forKey:@"PRShowNotification"];
+}
+
 + (BOOL)shouldUseGrowl
 {
 	return [[NSUserDefaults standardUserDefaults] boolForKey:@"PRUseGrowl"];

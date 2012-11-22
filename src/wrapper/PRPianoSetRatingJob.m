@@ -38,7 +38,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to set rating!");
+		PRLog(@"Unable to set rating!");
 		// try anyway?
 	}
 	

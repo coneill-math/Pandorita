@@ -131,7 +131,7 @@
 		}
 		else
 		{
-			NSLog(@"Odd HTML tag encountered: %@", [elem tagName]);
+			PRLog(@"Odd HTML tag encountered: %@", [elem tagName]);
 		}
 	}
 }

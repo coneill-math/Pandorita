@@ -39,7 +39,7 @@
 {
 	if (error)
 	{
-		NSLog(@"Unable to create station with id: %s!", cMusicId);
+		PRLog(@"Unable to create station with id: %s!", cMusicId);
 		// try anyway?
 	}
 	

@@ -58,7 +58,7 @@
 		}
 	}
 	
-	NSLog(@"Error: Song not found for replacement in history: %@", song);
+	PRLog(@"Error: Song not found for replacement in history: %@", song);
 }
 
 - (void)clearHistory

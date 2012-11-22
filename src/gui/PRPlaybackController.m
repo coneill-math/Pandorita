@@ -167,7 +167,7 @@
 
 - (void)playbackError:(NSNotification *)notification
 {
-	NSLog(@"Error streaming song: %d", [streamer errorCode]);
+	PRError(@"Error streaming song: %d", [streamer errorCode]);
 	if (hasSongLoaded)
 	{
 		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
@@ -190,14 +190,14 @@
 	}
 	else if (hasSongLoaded && [streamer state] == AS_STOPPED && [streamer errorCode] == AS_NO_ERROR)
 	{
-		NSLog(@"Moving to next song naturally...");
+		PRLog(@"Moving to next song naturally...");
 		[[NSApp delegate] moveToNextSong:self];
 	}
 #if 0
 	// this is now reported by ASErrorNotification
 	else if ([streamer state] == AS_STOPPING_ERROR || [streamer state] == AS_STOPPED)
 	{
-		NSLog(@"Error streaming song: %d", [streamer errorCode]);
+		PRError(@"Error streaming song: %d", [streamer errorCode]);
 		if (hasSongLoaded)
 		{
 			[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];

@@ -34,6 +34,7 @@
 		833662841550F68D008D8351 /* PRPianoGetStationsJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662831550F68D008D8351 /* PRPianoGetStationsJob.m */; };
 		833662871550F886008D8351 /* PRPianoSetRatingJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662861550F886008D8351 /* PRPianoSetRatingJob.m */; };
 		833662891551A663008D8351 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 833662881551A663008D8351 /* Credits.rtf */; };
+		834936AD164BF28B00FBBB1C /* PRLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 834936AC164BF28B00FBBB1C /* PRLogger.m */; };
 		834D5CEE15623A0B003F3696 /* ban-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CE915623A0B003F3696 /* ban-none.pdf */; };
 		834D5CEF15623A0B003F3696 /* like-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEA15623A0B003F3696 /* like-none.pdf */; };
 		834D5CF015623A0B003F3696 /* pause-none.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 834D5CEB15623A0B003F3696 /* pause-none.pdf */; };
@@ -169,7 +170,7 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* PRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRAppDelegate.h; sourceTree = "<group>"; };
-		256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRAppDelegate.m; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PRAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		256AC3F00F4B6AF500CF3369 /* Pandorita_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pandorita_Prefix.pch; path = ../src/other/Pandorita_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../src/other/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -216,6 +217,8 @@
 		833662851550F886008D8351 /* PRPianoSetRatingJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRPianoSetRatingJob.h; sourceTree = "<group>"; };
 		833662861550F886008D8351 /* PRPianoSetRatingJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRPianoSetRatingJob.m; sourceTree = "<group>"; };
 		833662881551A663008D8351 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		834936AB164BF28B00FBBB1C /* PRLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRLogger.h; path = ../src/utils/PRLogger.h; sourceTree = "<group>"; };
+		834936AC164BF28B00FBBB1C /* PRLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRLogger.m; path = ../src/utils/PRLogger.m; sourceTree = "<group>"; };
 		834D5CE915623A0B003F3696 /* ban-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "ban-none.pdf"; sourceTree = "<group>"; };
 		834D5CEA15623A0B003F3696 /* like-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "like-none.pdf"; sourceTree = "<group>"; };
 		834D5CEB15623A0B003F3696 /* pause-none.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "pause-none.pdf"; sourceTree = "<group>"; };
@@ -290,7 +293,7 @@
 		83982437163E0FF100EEE51B /* AlbumDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlbumDetailView.xib; path = interfaces/AlbumDetailView.xib; sourceTree = "<group>"; };
 		8398243B163E2B7600EEE51B /* AlbumDetailTrackView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlbumDetailTrackView.xib; path = interfaces/AlbumDetailTrackView.xib; sourceTree = "<group>"; };
 		8398243D163EADF800EEE51B /* PRAlbumDetailTrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRAlbumDetailTrackViewController.h; sourceTree = "<group>"; };
-		8398243E163EADF800EEE51B /* PRAlbumDetailTrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRAlbumDetailTrackViewController.m; sourceTree = "<group>"; };
+		8398243E163EADF800EEE51B /* PRAlbumDetailTrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PRAlbumDetailTrackViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		839C47A91634D171004594A3 /* nothingtoshow.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = nothingtoshow.pdf; sourceTree = "<group>"; };
 		839C47AB1634D1E9004594A3 /* infoerror.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = infoerror.pdf; sourceTree = "<group>"; };
 		839C47AD1634D233004594A3 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -298,7 +301,7 @@
 		839C47B01634F2EB004594A3 /* PRArrowButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRArrowButtonCell.m; sourceTree = "<group>"; };
 		83A11B3B163776DC002AAD55 /* info-titlebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info-titlebar.png"; sourceTree = "<group>"; };
 		83A8B19715B20AEA0012D59C /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
-		83A8B19815B20AEA0012D59C /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		83A8B19815B20AEA0012D59C /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AudioStreamer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A8B19C15B273BF0012D59C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = ../../../../../../../../../System/Library/Frameworks/CoreAudio.framework; sourceTree = "<group>"; };
 		83A8B19E15B277D50012D59C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = ../../../../../../../../../System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<group>"; };
 		83A8B19F15B277D50012D59C /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = ../../../../../../../../../System/Library/Frameworks/AudioUnit.framework; sourceTree = "<group>"; };
@@ -313,7 +316,7 @@
 		83B8DA751638A76F00D20B12 /* PRBaseInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRBaseInfoViewController.m; sourceTree = "<group>"; };
 		83BF83F0163A5363002DFFDA /* AlbumLinkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AlbumLinkView.xib; path = interfaces/AlbumLinkView.xib; sourceTree = "<group>"; };
 		83BF83F2163AC0CA002DFFDA /* PRAlbumLinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRAlbumLinkViewController.h; sourceTree = "<group>"; };
-		83BF83F3163AC0CA002DFFDA /* PRAlbumLinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRAlbumLinkViewController.m; sourceTree = "<group>"; };
+		83BF83F3163AC0CA002DFFDA /* PRAlbumLinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PRAlbumLinkViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83C13D1614F4B8AC00FCBBB6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		83C13D4114F4C50100FCBBB6 /* PRPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRPreferencesController.h; path = ../src/gui/PRPreferencesController.h; sourceTree = "<group>"; };
 		83C13D4214F4C50100FCBBB6 /* PRPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRPreferencesController.m; path = ../src/gui/PRPreferencesController.m; sourceTree = "<group>"; };
@@ -589,6 +592,8 @@
 				835030F414DB5D15001353AC /* PRUtils.m */,
 				830FB9551641DA87004C6556 /* PRAudioStreamer.h */,
 				830FB9561641DA87004C6556 /* PRAudioStreamer.m */,
+				834936AB164BF28B00FBBB1C /* PRLogger.h */,
+				834936AC164BF28B00FBBB1C /* PRLogger.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -968,6 +973,7 @@
 				83982436163E03CB00EEE51B /* PRInfoAlbum.m in Sources */,
 				8398243F163EADF800EEE51B /* PRAlbumDetailTrackViewController.m in Sources */,
 				830FB9571641DA87004C6556 /* PRAudioStreamer.m in Sources */,
+				834936AD164BF28B00FBBB1C /* PRLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
