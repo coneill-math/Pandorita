@@ -8,6 +8,9 @@
 
 #import "PRAlbumDetailViewController.h"
 
+#import "PRInfoViewController.h"
+#import "PRBaseInfoViewController.h"
+
 @interface PRAlbumDetailViewController ()
 
 @end
@@ -36,8 +39,13 @@
 	// update info for new album
 	NSUInteger i = 0;
 	
-	[[albumTitleView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:[album albumName]] autorelease]];
-	[[albumYearView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:[album albumYear]] autorelease]];
+	NSMutableAttributedString *artistStr = [[[NSMutableAttributedString alloc] initWithString:@"Artist: "] autorelease];
+	NSString *artistLink = [PRBaseInfoViewController pandoritaLinkForLink:[[album linkStr] stringByDeletingLastPathComponent]];
+	[artistStr appendAttributedString:[PRBaseInfoViewController attributedString:[[[NSAttributedString alloc] initWithString:[album albumArtist]] autorelease] forLink:artistLink]];
+	
+	[[albumTitleView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", [album albumName]]] autorelease]];
+	[[albumArtistView textStorage] setAttributedString:artistStr];
+	[[albumYearView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Year: %@", [album albumYear]]] autorelease]];
 	
 	for(i = 0;i < [trackControllers count];i++)
 	{
@@ -71,6 +79,14 @@
 	
 	[trackListView scrollPoint:NSMakePoint(0, totalHeight)];
 	[[trackListView enclosingScrollView] tile];
+	
+	[albumTitleView setFont:[NSFont systemFontOfSize:13]];
+	//[albumYearView setFont:[NSFont systemFontOfSize:12]];
+}
+
+- (BOOL)textView:(NSTextView *)aTextView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex
+{
+	return [PRBaseInfoViewController textView:aTextView clickedOnLink:link atIndex:charIndex];
 }
 
 - (void)dealloc

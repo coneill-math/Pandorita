@@ -12,9 +12,10 @@
 #import "PRIsolatedTextView.h"
 #import "PRAlbumDetailTrackViewController.h"
 
-@interface PRAlbumDetailViewController : NSViewController
+@interface PRAlbumDetailViewController : NSViewController <NSTextViewDelegate>
 {
 	IBOutlet PRIsolatedTextView *albumTitleView;
+	IBOutlet PRIsolatedTextView *albumArtistView;
 	IBOutlet PRIsolatedTextView *albumYearView;
 	IBOutlet NSView *trackListView;
 	

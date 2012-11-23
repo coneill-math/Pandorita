@@ -46,7 +46,7 @@
 - (id)initWithArtist:(NSURL *)artistUrl;
 - (id)initWithAlbum:(NSURL *)albumUrl;
 
-- (BOOL)showAlbumAtUrl:(NSURL *)albumUrl;
+- (BOOL)showUrl:(NSURL *)url;
 
 - (IBAction)createStation:(id)sender;
 - (IBAction)addSeed:(id)sender;

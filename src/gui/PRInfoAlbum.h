@@ -31,11 +31,12 @@
 
 @interface PRInfoAlbum : NSObject
 {
-	NSString *linkStr; // Pandorita-style link
+	NSString *linkStr; // hybrid link: "/artist/album"
 	NSString *musicId;
 	
 	NSImage *albumArtwork;
 	NSString *albumName;
+	NSString *albumArtist;
 	NSString *albumYear;
 	
 	NSMutableArray *tracks;
@@ -45,6 +46,7 @@
 - (NSString *)musicId;
 - (NSImage *)albumArtwork;
 - (NSString *)albumName;
+- (NSString *)albumArtist;
 - (NSString *)albumYear;
 
 - (NSUInteger)trackCount;
@@ -54,6 +56,7 @@
 - (void)setMusicId:(NSString *)str;
 - (void)setAlbumArtwork:(NSImage *)img;
 - (void)setAlbumName:(NSString *)str;
+- (void)setAlbumArtist:(NSString *)str;
 - (void)setAlbumYear:(NSString *)str;
 
 - (void)addTrack:(PRInfoTrack *)track;

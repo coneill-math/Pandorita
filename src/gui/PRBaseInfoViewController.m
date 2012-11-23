@@ -73,7 +73,7 @@
 {
 	NSMutableAttributedString *ret = [[[NSMutableAttributedString alloc] initWithString:@""] autorelease];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-	[dict setValue:[NSFont fontWithName:@"Helvetica" size:12.0] forKey:NSFontAttributeName];
+	[dict setValue:[NSFont fontWithName:@"Lucida Grande" size:11.0] forKey:NSFontAttributeName];
 	[dict setValue:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
 	
 	[PRBaseInfoViewController appendToAttributedString:ret withAttributes:dict forElement:element];
@@ -170,6 +170,7 @@
 
 + (BOOL)textView:(NSTextView *)aTextView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex
 {
+	PRLog(@"Link clicked: %@", link);
 	// in case of chaos
 	if ([link class] != [NSString class])
 	{

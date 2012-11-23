@@ -126,6 +126,11 @@
 	return albumName;
 }
 
+- (NSString *)albumArtist
+{
+	return albumArtist;
+}
+
 - (NSString *)albumYear
 {
 	return albumYear;
@@ -169,6 +174,13 @@
 	albumName = str;
 }
 
+- (void)setAlbumArtist:(NSString *)str
+{
+	RETAIN_MEMBER(str);
+	RELEASE_MEMBER(albumArtist);
+	albumArtist = str;
+}
+
 - (void)setAlbumYear:(NSString *)str
 {
 	RETAIN_MEMBER(str);
@@ -187,23 +199,23 @@
 	// make sure its not null
 	if (!object)
 	{
-		return NSGreaterThanComparison;
+		return NSOrderedDescending;
 	}
 	
 	// empty years at the end
 	if ([[self albumYear] isEqualToString:@""] && ![[object albumYear] isEqualToString:@""])
 	{
-		return NSGreaterThanComparison;
+		return NSOrderedDescending;
 	}
 	
 	if (![[self albumYear] isEqualToString:@""] && [[object albumYear] isEqualToString:@""])
 	{
-		return NSLessThanComparison;
+		return NSOrderedAscending;
 	}
 	
 	// nonempty years
 	NSComparisonResult yearCompare = [albumYear compare:[object albumYear]];
-	if (yearCompare != NSEqualToComparison)
+	if (yearCompare != NSOrderedSame)
 	{
 		return yearCompare;
 	}

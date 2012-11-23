@@ -8,6 +8,8 @@
 
 #import "PRIsolatedTextView.h"
 
+#import "PRBaseInfoViewController.h"
+
 @implementation PRIsolatedTextView
 
 - (void)awakeFromNib
@@ -24,6 +26,7 @@
 	[self release];
 	
 	// tweak other settings
+	[self setDelegate:self];
 	[self setDisplaysLinkToolTips:NO];
 	[self setVerticallyResizable:NO];
 //	[self setLineBreakMode:NSLineBreakByTruncatingMiddle];
@@ -34,6 +37,11 @@
 	NSMutableParagraphStyle *style = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
 	[style setLineBreakMode:lineBreakMode];
 	[[self textStorage] addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [[self textStorage] length])];
+}
+
+- (BOOL)textView:(NSTextView *)aTextView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex
+{
+	return [PRBaseInfoViewController textView:aTextView clickedOnLink:link atIndex:charIndex];
 }
 
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* PRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* PRAppDelegate.m */; };
+		83031CDC165F5257008A44E9 /* update.icns in Resources */ = {isa = PBXBuildFile; fileRef = 83031CDB165F5257008A44E9 /* update.icns */; };
 		830FB9571641DA87004C6556 /* PRAudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 830FB9561641DA87004C6556 /* PRAudioStreamer.m */; };
 		831458A714DDCF78002248D9 /* PRRatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 831458A614DDCF78002248D9 /* PRRatingCell.m */; };
 		831CA5BE14F30D9900FDAA4A /* covererror.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 831CA5BB14F30D9900FDAA4A /* covererror.pdf */; };
@@ -175,6 +176,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../src/other/main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		83031CDB165F5257008A44E9 /* update.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = update.icns; sourceTree = "<group>"; };
 		830FB9551641DA87004C6556 /* PRAudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PRAudioStreamer.h; path = ../src/utils/PRAudioStreamer.h; sourceTree = "<group>"; };
 		830FB9561641DA87004C6556 /* PRAudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PRAudioStreamer.m; path = ../src/utils/PRAudioStreamer.m; sourceTree = "<group>"; };
 		831458A514DDCF78002248D9 /* PRRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRRatingCell.h; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 		83EDF12614F227F600EA6AC8 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				83031CDB165F5257008A44E9 /* update.icns */,
 				83A11B3B163776DC002AAD55 /* info-titlebar.png */,
 				837BCD7A1562FB39004BBE40 /* icon.icns */,
 				834D5CE915623A0B003F3696 /* ban-none.pdf */,
@@ -885,6 +888,7 @@
 				83BF83F1163A5363002DFFDA /* AlbumLinkView.xib in Resources */,
 				83982438163E0FF100EEE51B /* AlbumDetailView.xib in Resources */,
 				8398243C163E2B7600EEE51B /* AlbumDetailTrackView.xib in Resources */,
+				83031CDC165F5257008A44E9 /* update.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

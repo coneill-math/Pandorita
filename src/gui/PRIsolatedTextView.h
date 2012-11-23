@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PRIsolatedTextView : NSTextView
+@interface PRIsolatedTextView : NSTextView <NSTextViewDelegate>
 {
 	
 }

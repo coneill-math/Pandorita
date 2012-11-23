@@ -31,6 +31,7 @@
 		[descriptionView setDisplaysLinkToolTips:NO];
 		[descriptionView setHorizontallyResizable:NO];
 		[descriptionView setDelegate:self];
+		[descriptionView setFrameSize:[NSScrollView contentSizeForFrameSize:[outerDescriptionView frame].size hasHorizontalScroller:NO hasVerticalScroller:YES borderType:[outerDescriptionView borderType]]];
 		RETAIN_MEMBER(outerDescriptionView);
 		
 		albumDetailController = [[PRAlbumDetailViewController alloc] init];
@@ -158,6 +159,7 @@
 		[infoAlbum setLinkStr:link];
 		[infoAlbum setMusicId:musicId];
 		[infoAlbum setAlbumName:albumName];
+		[infoAlbum setAlbumArtist:[artistElement objectForKey:@"title"]];
 		[infoAlbum setAlbumArtwork:artworkImage];
 		[infoAlbum setAlbumYear:@""];
 		[infoAlbumArray addObject:infoAlbum];
@@ -310,7 +312,7 @@ error:
 		
 		if (albumUrl)
 		{
-			[self showAlbumAtUrl:albumUrl];
+			[self showUrl:albumUrl];
 		}
 	}
 }
@@ -366,24 +368,35 @@ error:
 	}
 }
 
-- (BOOL)showAlbumAtUrl:(NSURL *)album
+- (BOOL)showUrl:(NSURL *)url
 {
 	NSUInteger i = 0;
 	
-	if (![artistUrl isEqual:[PRInfoViewController artistInfoUrlForAlbumUrl:album]])
+	if ([artistUrl isEqual:url])
+	{
+		RELEASE_MEMBER(albumUrl);
+		currentAlbum = NSNotFound;
+		[self updateMiddleView];
+		
+		return YES;
+	}
+	
+	if (![artistUrl isEqual:[PRInfoViewController artistInfoUrlForAlbumUrl:url]])
 	{
 		return NO;
 	}
 	
-	RETAIN_MEMBER(album);
-	RELEASE_MEMBER(albumUrl);
-	albumUrl = album;
+	currentAlbum = NSNotFound;
 	
 	for(i = 0;i < [infoAlbums count];i++)
 	{
 		NSString *linkStr = [NSString stringWithFormat:@"http://www.pandora.com%@", [[infoAlbums objectAtIndex:i] linkStr]];
-		if ([albumUrl isEqual:[NSURL URLWithString:linkStr]])
+		if ([url isEqual:[NSURL URLWithString:linkStr]])
 		{
+			RETAIN_MEMBER(url);
+			RELEASE_MEMBER(albumUrl);
+			albumUrl = url;
+			
 			currentAlbum = i;
 			[albumDetailController setAlbum:[infoAlbums objectAtIndex:currentAlbum]];
 			[self updateMiddleView];
@@ -391,6 +404,9 @@ error:
 			return YES;
 		}
 	}
+	
+	// make sure this is nil
+	RELEASE_MEMBER(albumUrl);
 	
 	return YES;
 }

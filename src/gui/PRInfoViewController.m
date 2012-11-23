@@ -156,12 +156,15 @@
 
 - (void)showInfoForArtist:(NSURL *)artistUrl
 {
-	[self setupController:[[[PRArtistInfoViewController alloc] initWithArtist:artistUrl] autorelease]];
+	if ([currentController class] != [PRArtistInfoViewController class] || ![currentController showUrl:artistUrl])
+	{
+		[self setupController:[[[PRArtistInfoViewController alloc] initWithArtist:artistUrl] autorelease]];
+	}
 }
 
 - (void)showInfoForAlbum:(NSURL *)albumUrl
 {
-	if ([currentController class] != [PRArtistInfoViewController class] || ![currentController showAlbumAtUrl:albumUrl])
+	if ([currentController class] != [PRArtistInfoViewController class] || ![currentController showUrl:albumUrl])
 	{
 		[self setupController:[[[PRArtistInfoViewController alloc] initWithAlbum:albumUrl] autorelease]];
 	}
