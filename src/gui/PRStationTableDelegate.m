@@ -168,7 +168,7 @@
 	}
 	else
 	{
-		return ([stations objectAtIndex:rowIndex] == [pianoWrapper currentStation]) ? [NSImage imageNamed:@"Bullet"] : nil;
+		return ([stations objectAtIndex:rowIndex] == [pianoWrapper currentStation]) ? [NSImage imageNamed:@"bullet"] : nil;
 	}
 }
 
