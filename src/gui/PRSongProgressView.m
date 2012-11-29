@@ -46,13 +46,31 @@
 	[self setNeedsDisplay:YES];
 }
 
-#if 0
-
-#define PROGRESS_BORDER 2
+#if 1
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	NSSize size = [self bounds].size;
+	NSRect bounds = [self bounds];
+	
+	NSImage *backgroundImage = [NSImage imageNamed:@"progress-background"];
+	NSImage *leftImage = [NSImage imageNamed:@"progress-left"];
+	NSImage *middleImage = [NSImage imageNamed:@"progress-middle"];
+	NSImage *rightImage = [NSImage imageNamed:@"progress-right"];
+	
+	CGFloat width = bounds.size.width;
+	CGFloat leftWidth = [leftImage size].width;
+	CGFloat rightWidth = [rightImage size].width;
+	
+	[backgroundImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	
+	if (progress > 0)
+	{
+		[leftImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[middleImage drawInRect:NSMakeRect(leftWidth, 0, (int)(progress * (width - leftWidth - rightWidth)), bounds.size.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[rightImage drawAtPoint:NSMakePoint(leftWidth + (int)(progress * (width - leftWidth - rightWidth)), 0) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	}
+	
+	/*
 	CGFloat edgeWidth = floor(size.height / 2);
 	CGFloat progressWidth = floor((size.width - (2 * (edgeWidth + PROGRESS_BORDER))) * progress);
 	
@@ -73,6 +91,7 @@
 		[frontMiddleImage drawInRect:frontMiddleRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 		[frontRightImage drawInRect:frontRightRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 	}
+	*/
 }
 
 #else

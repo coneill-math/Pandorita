@@ -142,11 +142,6 @@
 	NSArray *stations = [pianoWrapper stations];
 	NSInteger row = [tableView clickedRow];
 	
-	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
-	{
-		row = [[tableView selectedRowIndexes] firstIndex];
-	}
-	
 	if (stations && row >= 0 && row < [stations count])
 	{
 		[[NSApp delegate] playStation:[stations objectAtIndex:row]];
@@ -181,13 +176,13 @@
 {
 	return NO;
 }
-/*
+
 // don't want any highlighting
 - (BOOL)tableView:(NSTableView *)aTableView shouldSelectRow:(NSInteger)rowIndex
 {
 	return NO;
 }
-*/
+
 - (void)dealloc
 {
 	RELEASE_MEMBER(pianoWrapper);

@@ -1195,7 +1195,7 @@
 																		<object class="NSButton" id="400909240">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">265</int>
-																			<string key="NSFrame">{{178, 26}, {39, 38}}</string>
+																			<string key="NSFrame">{{177, 26}, {38, 38}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="579038508"/>
@@ -1228,7 +1228,7 @@
 																		<object class="NSButton" id="167679511">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">265</int>
-																			<string key="NSFrame">{{135, 26}, {39, 38}}</string>
+																			<string key="NSFrame">{{135, 26}, {38, 38}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="400909240"/>
@@ -1261,7 +1261,7 @@
 																		<object class="NSButton" id="953481126">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">265</int>
-																			<string key="NSFrame">{{92, 26}, {39, 38}}</string>
+																			<string key="NSFrame">{{93, 26}, {38, 38}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="167679511"/>
@@ -1294,7 +1294,7 @@
 																		<object class="NSButton" id="922174125">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">265</int>
-																			<string key="NSFrame">{{49, 27}, {39, 38}}</string>
+																			<string key="NSFrame">{{51, 26}, {38, 38}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="953481126"/>
@@ -1327,7 +1327,7 @@
 																		<object class="NSCustomView" id="334919050">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">268</int>
-																			<string key="NSFrame">{{59, 7}, {149, 15}}</string>
+																			<string key="NSFrame">{{58, 7}, {150, 15}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="484061630"/>
@@ -1363,7 +1363,7 @@
 																		<object class="NSTextField" id="579038508">
 																			<reference key="NSNextResponder" ref="143300840"/>
 																			<int key="NSvFlags">268</int>
-																			<string key="NSFrame">{{18, 7}, {36, 14}}</string>
+																			<string key="NSFrame">{{17, 7}, {36, 14}}</string>
 																			<reference key="NSSuperview" ref="143300840"/>
 																			<reference key="NSWindow"/>
 																			<reference key="NSNextKeyView" ref="334919050"/>
@@ -3982,9 +3982,9 @@
 							<reference ref="953481126"/>
 							<reference ref="167679511"/>
 							<reference ref="400909240"/>
-							<reference ref="579038508"/>
-							<reference ref="484061630"/>
 							<reference ref="334919050"/>
+							<reference ref="484061630"/>
+							<reference ref="579038508"/>
 						</object>
 						<reference key="parent" ref="315542518"/>
 					</object>
@@ -5368,17 +5368,17 @@
 				<string>{10, 3}</string>
 				<string>{9, 9}</string>
 				<string>{83, 83}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
-				<string>{140, 140}</string>
-				<string>{140, 140}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
+				<string>{16, 16}</string>
+				<string>{16, 16}</string>
 				<string>{1, 22}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
-				<string>{85, 86}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
+				<string>{38, 38}</string>
 			</object>
 		</object>
 	</data>
