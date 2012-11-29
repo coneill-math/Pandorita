@@ -89,11 +89,6 @@
 {
 	NSInteger row = [tableView clickedRow];
 	
-	if ([sender class] == [NSMenuItem class] && [sender menu] != rightClickMenu)
-	{
-		row = [[tableView selectedRowIndexes] firstIndex];
-	}
-	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{
 		PRStation *station = [[pianoWrapper stations] objectAtIndex:row];
@@ -111,11 +106,6 @@
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
 	NSInteger row = [tableView clickedRow];
-	
-	if ([item menu] != rightClickMenu)
-	{
-		row = [[tableView selectedRowIndexes] firstIndex];
-	}
 	
 	if (row >= 0 && row < [[pianoWrapper stations] count])
 	{

@@ -163,12 +163,12 @@
 {
 	if (rowIndex < [artists count])
 	{
-		return [NSString stringWithFormat:@"%@ (Artist)", [[artists objectAtIndex:rowIndex] name]];
+		return [NSAttributedString attributedString:[NSString stringWithFormat:@"%@ (Artist)", [[artists objectAtIndex:rowIndex] name]] withAttributes:[NSDictionary dictionary]];
 	}
 	else
 	{
 		PRSong *song = [songs objectAtIndex:(rowIndex - [artists count])];
-		return [NSString stringWithFormat:@"%@ - %@", [song title], [song artist]];
+		return [NSAttributedString attributedString:[NSString stringWithFormat:@"%@ - %@", [song title], [song artist]] withAttributes:[NSDictionary dictionary]];
 	}
 }
 
