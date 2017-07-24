@@ -123,6 +123,13 @@
 		
 		return YES;
 	}
+	else
+	{
+		if ([item action] == @selector(toggleUsesQuickMix:))
+		{
+			[item setState:NSOffState];
+		}
+	}
 	
 	return NO;
 }
