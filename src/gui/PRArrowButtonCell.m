@@ -21,7 +21,7 @@
 	return NSMouseInRect(mouseLoc, imageBounds, [controlView isFlipped]);
 }
 
-- (NSUInteger)hitTestForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)controlView
+- (NSCellHitResult)hitTestForEvent:(NSEvent *)event inRect:(NSRect)cellFrame ofView:(NSView *)controlView
 {
 	NSUInteger result = [super hitTestForEvent:event inRect:cellFrame ofView:controlView];
 	

@@ -22,14 +22,14 @@
 		83239B9B154F9377003AFF5A /* PRPianoGetPlaylistJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 83239B9A154F9377003AFF5A /* PRPianoGetPlaylistJob.m */; };
 		8333CA8F163C468500E050B9 /* PRIsolatedTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8333CA8E163C468500E050B9 /* PRIsolatedTextView.m */; };
 		8334FA5B15524D3C002C2D6E /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8334FA5A15524D3C002C2D6E /* Growl.framework */; };
-		8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8334FA5A15524D3C002C2D6E /* Growl.framework */; };
+		8334FA5D15524D8F002C2D6E /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8334FA5A15524D3C002C2D6E /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8336626215503192008D8351 /* request.c in Sources */ = {isa = PBXBuildFile; fileRef = 8336626015503192008D8351 /* request.c */; };
 		8336626315503192008D8351 /* response.c in Sources */ = {isa = PBXBuildFile; fileRef = 8336626115503192008D8351 /* response.c */; };
 		8336626E15503681008D8351 /* libjson.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8336626D15503680008D8351 /* libjson.a */; };
 		8336627C15503E37008D8351 /* libgcrypt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8336627A15503E37008D8351 /* libgcrypt.dylib */; };
 		8336627D15503E37008D8351 /* libgpg-error.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8336627B15503E37008D8351 /* libgpg-error.dylib */; };
-		8336628015508B4C008D8351 /* libgcrypt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8336627A15503E37008D8351 /* libgcrypt.dylib */; };
-		8336628115508B4C008D8351 /* libgpg-error.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8336627B15503E37008D8351 /* libgpg-error.dylib */; };
+		8336628015508B4C008D8351 /* libgcrypt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8336627A15503E37008D8351 /* libgcrypt.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8336628115508B4C008D8351 /* libgpg-error.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8336627B15503E37008D8351 /* libgpg-error.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		833662841550F68D008D8351 /* PRPianoGetStationsJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662831550F68D008D8351 /* PRPianoGetStationsJob.m */; };
 		833662871550F886008D8351 /* PRPianoSetRatingJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 833662861550F886008D8351 /* PRPianoSetRatingJob.m */; };
 		833662891551A663008D8351 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 833662881551A663008D8351 /* Credits.rtf */; };
@@ -64,7 +64,7 @@
 		838F55FC14D7649900E9134E /* PRStationTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 838F55FB14D7649900E9134E /* PRStationTableDelegate.m */; };
 		8391CFF41563864E003A698A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
 		8391CFF61563898F003A698A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 8391CFF51563898F003A698A /* dsa_pub.pem */; };
-		8391CFF715638A73003A698A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; };
+		8391CFF715638A73003A698A /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8391CFF31563864E003A698A /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		83982430163DFB2300EEE51B /* PRPianoAddSeedJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 8398242F163DFB2300EEE51B /* PRPianoAddSeedJob.m */; };
 		83982433163E037800EEE51B /* PRAlbumDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83982432163E037800EEE51B /* PRAlbumDetailViewController.m */; };
 		83982436163E03CB00EEE51B /* PRInfoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 83982435163E03CB00EEE51B /* PRInfoAlbum.m */; };
@@ -144,8 +144,8 @@
 		83F00F6A1556413A008C8C9F /* PRPianoTiredTrackJob.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F00F691556413A008C8C9F /* PRPianoTiredTrackJob.m */; };
 		83F00F6E15564ED9008C8C9F /* Scribbler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F00F6C15564ED9008C8C9F /* Scribbler.framework */; };
 		83F00F6F15564ED9008C8C9F /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */; };
-		83F00F7015564F1D008C8C9F /* Scribbler.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6C15564ED9008C8C9F /* Scribbler.framework */; };
-		83F00F7115564F21008C8C9F /* ShortcutRecorder.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */; };
+		83F00F7015564F1D008C8C9F /* Scribbler.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6C15564ED9008C8C9F /* Scribbler.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		83F00F7115564F21008C8C9F /* ShortcutRecorder.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 83F00F6D15564ED9008C8C9F /* ShortcutRecorder.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		83F00F7B1557213E008C8C9F /* SGHotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F00F741557213E008C8C9F /* SGHotKey.m */; };
 		83F00F7C1557213E008C8C9F /* SGHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F00F761557213E008C8C9F /* SGHotKeyCenter.m */; };
 		83F00F7D1557213E008C8C9F /* SGKeyCodeTranslator.m in Sources */ = {isa = PBXBuildFile; fileRef = 83F00F781557213E008C8C9F /* SGKeyCodeTranslator.m */; };
@@ -875,7 +875,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0720;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Pandorita" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1102,6 +1102,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.musicman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pandorita;
 				SDKROOT = macosx;
 			};
@@ -1128,6 +1129,7 @@
 					"\"$(SRCROOT)/libs\"",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.musicman.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Pandorita;
 				SDKROOT = macosx;
 			};
@@ -1136,10 +1138,7 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
@@ -1155,10 +1154,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					x86_64,
-					i386,
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
