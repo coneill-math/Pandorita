@@ -2,72 +2,80 @@
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
    <channel>
       <title>Pandorita Changelog</title>
-      <link>http://musicman3320.github.com/Pandorita/releases/appcast.xml</link>
+      <link>http://coneill-math.github.com/Pandorita/releases/appcast.xml</link>
       <description>Most recent changes with links to updates.</description>
       <language>en</language>
          <item>
-            <title>Version 0.2.6</title>
+            <title>Version 0.3</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2.6/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.3/notes.html
 				</sparkle:releaseNotesLink>
+            <pubDate>Monday, 24 July 2017 00:00:00 +0000</pubDate>
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.3/Pandorita-0.3.tar.gz" sparkle:version="0.3" length="1530202" type="application/octet-stream" sparkle:dsaSignature="MCwCFGcAHsxhupEjisuqQArV/4yM+DsBAhQbymwoXNwUMc5p2lGPELpgy3QMpg==" />
+         </item>
+         <item>
+            <title>Version 0.2.6</title>
+            <sparkle:releaseNotesLink>
+               http://coneill-math.github.com/Pandorita/releases/0.2.6/notes.html
+            </sparkle:releaseNotesLink>
             <pubDate>Wednesday, 31 October 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.6/Pandorita-0.2.6.tar.gz" sparkle:version="0.2.6" length="2014395" type="application/octet-stream" sparkle:dsaSignature="MCwCFC38b/3yl65b4yCXcOFB/kJDZSL1AhQgZGEoKNre1ha5hN69uSHWB/XPcw==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.6/Pandorita-0.2.6.tar.gz" sparkle:version="0.2.6" length="2014395" type="application/octet-stream" sparkle:dsaSignature="MCwCFC38b/3yl65b4yCXcOFB/kJDZSL1AhQgZGEoKNre1ha5hN69uSHWB/XPcw==" />
          </item>
          <item>
             <title>Version 0.2.5</title>
             <sparkle:releaseNotesLink>
-               http://musicman3320.github.com/Pandorita/releases/0.2.5/notes.html
+               http://coneill-math.github.com/Pandorita/releases/0.2.5/notes.html
             </sparkle:releaseNotesLink>
             <pubDate>Thursday, 19 July 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.5/Pandorita-0.2.5.tar.gz" sparkle:version="0.2.5" length="2009644" type="application/octet-stream" sparkle:dsaSignature="MCwCFFG3T9YxcszibrF61Y+OnXiZWi2CAhRT8e8MfnkDWi0ZNbbS4PVyaJincQ==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.5/Pandorita-0.2.5.tar.gz" sparkle:version="0.2.5" length="2009644" type="application/octet-stream" sparkle:dsaSignature="MCwCFFG3T9YxcszibrF61Y+OnXiZWi2CAhRT8e8MfnkDWi0ZNbbS4PVyaJincQ==" />
          </item>
          <item>
             <title>Version 0.2.4</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2.4/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.2.4/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Thursday, 28 June 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.4/Pandorita-0.2.4.tar.gz" sparkle:version="0.2.4" length="1999557" type="application/octet-stream" sparkle:dsaSignature="MCwCFHm16kw4GgluiaMOr+Fegef6npSJAhRratPFVLSElZN286/lHnNjUKBhsA==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.4/Pandorita-0.2.4.tar.gz" sparkle:version="0.2.4" length="1999557" type="application/octet-stream" sparkle:dsaSignature="MCwCFHm16kw4GgluiaMOr+Fegef6npSJAhRratPFVLSElZN286/lHnNjUKBhsA==" />
          </item>
          <item>
             <title>Version 0.2.3</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2.3/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.2.3/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 21 May 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.3/Pandorita-0.2.3.tar.gz" sparkle:version="0.2.3" length="1999073" type="application/octet-stream" sparkle:dsaSignature="MCwCFDMgGLc7BSeQtS8v4lN34Gu/yvwVAhQ+KAB2gdkOTYhWekKkBSv/jEUZbA==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.3/Pandorita-0.2.3.tar.gz" sparkle:version="0.2.3" length="1999073" type="application/octet-stream" sparkle:dsaSignature="MCwCFDMgGLc7BSeQtS8v4lN34Gu/yvwVAhQ+KAB2gdkOTYhWekKkBSv/jEUZbA==" />
          </item>
          <item>
             <title>Version 0.2.2</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2.2/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.2.2/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 18 May 2012 09:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.2/Pandorita-0.2.2.tar.gz" sparkle:version="0.2.2" length="2007579" type="application/octet-stream" sparkle:dsaSignature="MCwCFDPQJZAovMiUdMJsoSDCG/w6W7CKAhQCY/4199S16Eclqk5dHR08igAqbg==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.2/Pandorita-0.2.2.tar.gz" sparkle:version="0.2.2" length="2007579" type="application/octet-stream" sparkle:dsaSignature="MCwCFDPQJZAovMiUdMJsoSDCG/w6W7CKAhQCY/4199S16Eclqk5dHR08igAqbg==" />
          </item>
          <item>
             <title>Version 0.2.1</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2.1/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.2.1/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 18 May 2012 00:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2.1/Pandorita-0.2.1.tar.gz" sparkle:version="0.2.1" length="2007609" type="application/octet-stream" sparkle:dsaSignature="MCwCFFiEda4ePiyJLcje/STaL7+SZ0wDAhR21nE8Wbi9VL0qjAaI/zUX1t5wFg==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2.1/Pandorita-0.2.1.tar.gz" sparkle:version="0.2.1" length="2007609" type="application/octet-stream" sparkle:dsaSignature="MCwCFFiEda4ePiyJLcje/STaL7+SZ0wDAhR21nE8Wbi9VL0qjAaI/zUX1t5wFg==" />
          </item>
          <item>
             <title>Version 0.2</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.2/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.2/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 16 May 2012 13:00:00 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.2/Pandorita-0.2.tar.gz" sparkle:version="0.2" length="2035722" type="application/octet-stream" sparkle:dsaSignature="MCwCFH9ye4LsVerNDoH66kR83aFTWwRdAhQuPv1lis7UTrw1+X1S+gCVwSWXdQ==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.2/Pandorita-0.2.tar.gz" sparkle:version="0.2" length="2035722" type="application/octet-stream" sparkle:dsaSignature="MCwCFH9ye4LsVerNDoH66kR83aFTWwRdAhQuPv1lis7UTrw1+X1S+gCVwSWXdQ==" />
          </item>
          <item>
             <title>Version 0.1</title>
 				<sparkle:releaseNotesLink>
-					http://musicman3320.github.com/Pandorita/releases/0.1/notes.html
+					http://coneill-math.github.com/Pandorita/releases/0.1/notes.html
 				</sparkle:releaseNotesLink>
             <pubDate>Wed, 16 May 2012 00:00:01 +0000</pubDate>
-            <enclosure url="http://musicman3320.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFGqOrJrdO4ewWUy3fWmiEzMSa6gtAhRJ8gt6YUOR2hlT2GgajPpqUQZkgQ==" />
+            <enclosure url="http://coneill-math.github.com/Pandorita/releases/0.1/Pandorita-0.1.tar.gz" sparkle:version="0.1" length="1908848" type="application/octet-stream" sparkle:dsaSignature="MCwCFGqOrJrdO4ewWUy3fWmiEzMSa6gtAhRJ8gt6YUOR2hlT2GgajPpqUQZkgQ==" />
          </item>
    </channel>
 </rss>
