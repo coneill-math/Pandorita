@@ -22,7 +22,7 @@
 	{
 		if ([str characterAtIndex:i] == ' ')
 		{
-			[[NSApp delegate] togglePause:self];
+			[(PRAppDelegate *)[NSApp delegate] togglePause:self];
 		}
 	}
 	

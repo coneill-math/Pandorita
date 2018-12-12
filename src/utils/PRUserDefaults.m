@@ -22,8 +22,8 @@ NSString *PRReadKeychainPassword(NSString *username)
 	
 	// If keychainRef is NULL, the users's default keychain search list will be used
 	OSStatus err = SecKeychainFindGenericPassword(NULL,
-						      [serviceData length],  [serviceData bytes],
-						      [accountData length],  [accountData bytes],
+						      (UInt32)[serviceData length],  [serviceData bytes],
+						      (UInt32)[accountData length],  [accountData bytes],
 						      &passwordLength,
 						      &passwordData,
 						      NULL);
@@ -53,9 +53,9 @@ BOOL PRWriteKeychainPassword(NSString *username, NSString *password)
 	
 	// If keychainRef is NULL, the default keychain will be used
 	OSStatus err = SecKeychainAddGenericPassword(NULL,
-						     [serviceData length],  [serviceData bytes],
-						     [accountData length],  [accountData bytes],
-						     [passwordData length], [passwordData bytes],
+						     (UInt32)[serviceData length],  [serviceData bytes],
+						     (UInt32)[accountData length],  [accountData bytes],
+						     (UInt32)[passwordData length], [passwordData bytes],
 						     NULL);
 	
 	[pool release];

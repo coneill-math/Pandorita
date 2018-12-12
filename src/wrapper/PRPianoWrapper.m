@@ -231,7 +231,7 @@
 
 - (void)setTimeOffsetForLoginHack:(time_t)offset
 {
-	pHandle.timeOffset = offset;
+	pHandle.timeOffset = (int)offset;
 }
 
 - (void)finishJob:(PRPianoJob *)job

@@ -268,7 +268,7 @@
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification
 {
-	[[NSApp delegate] updateInfoMenu];
+	[(PRAppDelegate *)[NSApp delegate] updateInfoMenu];
 }
 
 - (void)dealloc

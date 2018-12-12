@@ -141,7 +141,7 @@
 	
 	if (stations && row >= 0 && row < [stations count])
 	{
-		[[NSApp delegate] playStation:[stations objectAtIndex:row]];
+		[(PRAppDelegate *)[NSApp delegate] playStation:[stations objectAtIndex:row]];
 	}
 }
 

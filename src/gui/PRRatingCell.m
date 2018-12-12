@@ -99,12 +99,12 @@
 	if (segment == 0)
 	{
 		PRLog(@"Loving");
-		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_LOVE];
+		[(PRAppDelegate *)[NSApp delegate] setRatingFromSegmentClick:PRRATING_LOVE];
 	}
 	else if (segment == 1)
 	{
 		PRLog(@"Banning");
-		[[NSApp delegate] setRatingFromSegmentClick:PRRATING_BAN];
+		[(PRAppDelegate *)[NSApp delegate] setRatingFromSegmentClick:PRRATING_BAN];
 	}
 }
 

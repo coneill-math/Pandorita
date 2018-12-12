@@ -179,15 +179,15 @@
 	
 	if ([link hasPrefix:@"artist:"])
 	{
-		[[NSApp delegate] showInfoForArtistUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:7]]]];
+		[(PRAppDelegate *)[NSApp delegate] showInfoForArtistUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:7]]]];
 	}
 	else if ([link hasPrefix:@"album:"])
 	{
-		[[NSApp delegate] showInfoForAlbumUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:6]]]];
+		[(PRAppDelegate *)[NSApp delegate] showInfoForAlbumUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:6]]]];
 	}
 	else if ([link hasPrefix:@"song:"])
 	{
-		[[NSApp delegate] showInfoForSongUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:5]]]];
+		[(PRAppDelegate *)[NSApp delegate] showInfoForSongUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.pandora.com%@", [link substringFromIndex:5]]]];
 	}
 	
 	// dont want to accidentally open the browser

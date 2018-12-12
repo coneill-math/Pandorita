@@ -27,7 +27,7 @@
 	
 	if (self != nil)
 	{
-		hotkeyManager = [[[NSApp delegate] hotkeyManager] retain];
+		hotkeyManager = [[(PRAppDelegate *)[NSApp delegate] hotkeyManager] retain];
 	}
 	
 	return self;

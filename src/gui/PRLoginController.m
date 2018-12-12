@@ -92,7 +92,7 @@
 			if (password)
 			{
 				[passwordField setStringValue:password];
-				[[NSApp delegate] loginWithUsername:username password:password];
+				[(PRAppDelegate *)[NSApp delegate] loginWithUsername:username password:password];
 				return;
 			}
 		}
@@ -141,7 +141,7 @@
 			}
 		}
 		
-		[[NSApp delegate] loginWithUsername:username password:password];
+		[(PRAppDelegate *)[NSApp delegate] loginWithUsername:username password:password];
 	}
 }
 

@@ -96,7 +96,7 @@ NSString *PRSongDurationFromInterval(NSTimeInterval interval)
 
 @end
 
-
+#if 0
 @implementation QTMovie (PRUtils_Additions)
 
 - (NSTimeInterval)durationAsInterval
@@ -118,4 +118,5 @@ NSString *PRSongDurationFromInterval(NSTimeInterval interval)
 }
 
 @end
+#endif
 

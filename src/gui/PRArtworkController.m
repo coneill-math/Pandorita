@@ -83,9 +83,9 @@
 	
 	artworkData = [[NSData alloc] initWithData:responseData];
 	
-	if ([[NSApp delegate] isPlaying])
+	if ([(PRAppDelegate *)[NSApp delegate] isPlaying])
 	{
-		[[NSApp delegate] pushUserNotification];
+		[(PRAppDelegate *)[NSApp delegate] pushUserNotification];
 	}
 }
 

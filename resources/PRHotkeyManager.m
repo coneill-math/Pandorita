@@ -176,19 +176,19 @@
 {
 	if (sender == pauseHotkey)
 	{
-		[[NSApp delegate] togglePause:pauseHotkey];
+		[(PRAppDelegate *)[NSApp delegate] togglePause:pauseHotkey];
 	}
 	else if (sender == skipHotkey)
 	{
-		[[NSApp delegate] moveToNextSong:skipHotkey];
+		[(PRAppDelegate *)[NSApp delegate] moveToNextSong:skipHotkey];
 	}
 	else if (sender == loveHotkey)
 	{
-		[[NSApp delegate] loveClicked:loveHotkey];
+		[(PRAppDelegate *)[NSApp delegate] loveClicked:loveHotkey];
 	}
 	else if (sender == banHotkey)
 	{
-		[[NSApp delegate] banClicked:banHotkey];
+		[(PRAppDelegate *)[NSApp delegate] banClicked:banHotkey];
 	}
 	else if (sender == volumeUpHotkey)
 	{

@@ -413,12 +413,12 @@ error:
 
 - (IBAction)createStation:(id)sender
 {
-	[[NSApp delegate] createStationWithMusicId:artistMusicId];
+	[(PRAppDelegate *)[NSApp delegate] createStationWithMusicId:artistMusicId];
 }
 
 - (IBAction)addSeed:(id)sender
 {
-	[[NSApp delegate] addSeedToCurrentStation:artistMusicId];
+	[(PRAppDelegate *)[NSApp delegate] addSeedToCurrentStation:artistMusicId];
 }
 
 - (void)dealloc

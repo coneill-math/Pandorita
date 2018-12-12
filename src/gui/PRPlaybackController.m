@@ -170,11 +170,11 @@
 	PRError(@"Error streaming song: %d", [streamer errorCode]);
 	if (hasSongLoaded)
 	{
-		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
+		[(PRAppDelegate *)[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
 	}
 	else
 	{
-		[[NSApp delegate] performSelectorOnMainThread:@selector(stopPlayback:) withObject:@"Network error" waitUntilDone:NO];
+		[(PRAppDelegate *)[NSApp delegate] performSelectorOnMainThread:@selector(stopPlayback:) withObject:@"Network error" waitUntilDone:NO];
 //		[[NSApp delegate] performSelectorOnMainThread:@selector(moveToNextSong:) withObject:self waitUntilDone:NO];
 	}
 }
@@ -185,13 +185,13 @@
 	
 	if ([streamer state] == AS_PLAYING && !hasSongLoaded)
 	{
-		[[NSApp delegate] didBeginPlayingSong:loadedSong];
+		[(PRAppDelegate *)[NSApp delegate] didBeginPlayingSong:loadedSong];
 		hasSongLoaded = YES;
 	}
 	else if (hasSongLoaded && [streamer state] == AS_STOPPED && [streamer errorCode] == AS_NO_ERROR)
 	{
 		PRLog(@"Moving to next song naturally...");
-		[[NSApp delegate] moveToNextSong:self];
+		[(PRAppDelegate *)[NSApp delegate] moveToNextSong:self];
 	}
 #if 0
 	// this is now reported by ASErrorNotification

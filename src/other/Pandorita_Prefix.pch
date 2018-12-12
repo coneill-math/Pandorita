@@ -4,7 +4,7 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
-	#import <QTKit/QTKit.h>
+//	#import <QTKit/QTKit.h>
 //	#import <QuickTime/QuickTime.h>
 
 	#import "PRLogger.h"
