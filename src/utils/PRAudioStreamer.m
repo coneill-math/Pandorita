@@ -177,7 +177,7 @@ static void CFStreamCreateBoundPairCompat(CFAllocatorRef alloc, CFReadStreamRef 
 	PRError(@"Unable to download file: %@", [e localizedDescription]);
 	[writeStream close];
 	RELEASE_MEMBER(writeStream);
-	[[NSApp delegate] stopPlayback:[e localizedDescription]];
+	[(PRAppDelegate *)[NSApp delegate] stopPlayback:[e localizedDescription]];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection

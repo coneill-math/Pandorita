@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="14F2411" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -286,12 +287,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="199" height="380"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
-                                                    <box verticalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" id="743">
+                                                    <box verticalHuggingPriority="750" boxType="separator" id="743">
                                                         <rect key="frame" x="0.0" y="348" width="199" height="5"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                        <font key="titleFont" metaFont="system"/>
                                                     </box>
                                                     <scrollView hidden="YES" focusRingType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="730">
                                                         <rect key="frame" x="0.0" y="-1" width="201" height="352"/>
@@ -301,7 +299,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="731">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="199" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="199" height="350"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -346,7 +344,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView focusRingType="none" appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="544">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="199" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="199" height="350"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -445,11 +443,11 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="550" height="147"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <clipView key="contentView" id="XzQ-ey-3M2">
-                                                            <rect key="frame" x="0.0" y="17" width="550" height="130"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="550" height="147"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" typeSelect="NO" autosaveName="songHistoryTable" headerView="564" id="563">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="517" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="550" height="130"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -533,7 +531,6 @@
                                                                     </connections>
                                                                 </tableView>
                                                             </subviews>
-                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </clipView>
                                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="562">
                                                             <rect key="frame" x="-100" y="-100" width="391" height="15"/>
@@ -548,7 +545,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                         </tableHeaderView>
                                                     </scrollView>
-                                                    <box autoresizesSubviews="NO" title="Controls" borderType="line" titlePosition="noTitle" id="810">
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Controls" titlePosition="noTitle" id="810">
                                                         <rect key="frame" x="141" y="151" width="268" height="71"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <view key="contentView" id="0kj-yA-Ljl">
@@ -623,8 +620,6 @@
                                                                 </textField>
                                                             </subviews>
                                                         </view>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </box>
                                                 </subviews>
                                             </customView>
@@ -874,7 +869,7 @@
         <image name="ban-on" width="38" height="38"/>
         <image name="info-arrow-off" width="16" height="16"/>
         <image name="info-arrow-on" width="16" height="16"/>
-        <image name="info-titlebar" width="1" height="22"/>
+        <image name="info-titlebar" width="0.5" height="22"/>
         <image name="like-off" width="38" height="38"/>
         <image name="like-on" width="38" height="38"/>
         <image name="play-off" width="38" height="38"/>
